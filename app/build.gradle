@@ -6,17 +6,15 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-def config = rootProject.ext.android
-def dependency = rootProject.ext.dependencies
 
 android {
-    compileSdkVersion config.compileSdkVersion
+    compileSdkVersion build_version.compileSdkVersion
     defaultConfig {
         applicationId "com.winton.gank.gank"
-        minSdkVersion config.minSdkVersion
-        targetSdkVersion config.targetSdkVersion
-        versionCode config.versionCode
-        versionName config.versionName
+        minSdkVersion build_version.minSdkVersion
+        targetSdkVersion build_version.targetSdkVersion
+        versionCode build_version.versionCode
+        versionName build_version.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,22 +30,36 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    kapt "com.android.databinding:compiler:$dataBindingCompilerVersion"
+    implementation deps.kotlin.stdlib
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation(deps.espresso.core, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    kapt deps.databinding.kapt
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
 
-    implementation dependency.appcompatV7
-    implementation dependency.constraint
-    implementation dependency.BottomNavigationView
-    implementation dependency.EasyStatueView
-    implementation dependency.AppExecutor
-    implementation dependency.okHttp
-    implementation dependency.Cookie
-    implementation dependency.Retrofit
-    implementation dependency.converter_gson
-    implementation dependency.adapter_rxjava
-    implementation dependency.RxJava
-    implementation dependency.rxandroid
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+
+    implementation deps.support.appcompatV7
+    implementation deps.support.recyclerviewV7
+    implementation deps.support.design
+
+    implementation deps.constraint
+    implementation deps.BottomNavigationView
+    implementation deps.EasyStatueView
+    implementation deps.AppExecutor
+    implementation deps.okHttp
+    implementation deps.Cookie
+    implementation deps.Retrofit
+    implementation deps.converter_gson
+    implementation deps.adapter_rxjava
+    implementation deps.RxJava
+    implementation deps.rxandroid
+    /*工具类*/
+    implementation deps.utilcode
 }

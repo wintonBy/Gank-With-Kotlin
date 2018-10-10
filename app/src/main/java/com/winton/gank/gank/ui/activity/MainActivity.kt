@@ -1,17 +1,18 @@
-package com.winton.gank.gank.activity
+package com.winton.gank.gank.ui.activity
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import com.winton.bottomnavigationview.NavigationView
 import com.winton.gank.gank.R
-import com.winton.gank.gank.databinding.ActivityMainBinding
-import com.winton.gank.gank.fragment.GirlsFragment
-import com.winton.gank.gank.fragment.IndexFragment
-import com.winton.gank.gank.fragment.MyFragment
-import com.winton.gank.gank.fragment.NewsFragment
+import com.winton.gank.gank.databinding.ActMainBinding
+import com.winton.gank.gank.ui.BaseActivity
+import com.winton.gank.gank.ui.fragment.GirlsFragment
+import com.winton.gank.gank.ui.fragment.IndexFragment
+import com.winton.gank.gank.ui.fragment.MyFragment
+import com.winton.gank.gank.ui.fragment.NewsFragment
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActMainBinding>() {
 
     private lateinit var mNV: NavigationView
     private lateinit var nvItems: ArrayList<NavigationView.Model>
@@ -21,7 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val fm:FragmentManager by lazy { supportFragmentManager }
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_main
+        return R.layout.act_main
     }
 
     override fun initData(savedInstanceState: Bundle?) {

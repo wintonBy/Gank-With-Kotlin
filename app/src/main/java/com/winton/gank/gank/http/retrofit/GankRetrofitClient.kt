@@ -14,6 +14,7 @@ import retrofit2.Retrofit
  * @time: 2018/10/9 下午8:25
  * @desc: gank 服务端的RetrofitClient
  */
+
 class GankRetrofitClient(val okHttpClient: OkHttpClient) {
 
     private lateinit var server:GankApi
@@ -34,7 +35,6 @@ class GankRetrofitClient(val okHttpClient: OkHttpClient) {
     fun today(subscriber: BaseGankSubscriber<TodayResponse>){
         server.today().compose(ScHelper.compose())
                 .subscribe(subscriber)
-
     }
 
 

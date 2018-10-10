@@ -1,4 +1,4 @@
-package com.winton.gank.gank.activity
+package com.winton.gank.gank.ui
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
