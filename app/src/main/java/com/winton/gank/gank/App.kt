@@ -1,7 +1,13 @@
 package com.winton.gank.gank
 
+import android.app.Activity
 import android.app.Application
+import com.winton.gank.gank.di.AppInjector
 import com.winton.library.PriorityExecutor
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
 /**
@@ -9,7 +15,11 @@ import kotlin.properties.Delegates
  * @time: 2018/10/8 下午7:41
  * @desc: Gank App
  */
-class App:Application() {
+class App:Application(),HasActivityInjector {
+
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     companion object {
         var INSTANCE:App by Delegates.notNull()
@@ -25,7 +35,8 @@ class App:Application() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+        AppInjector.init(this)
     }
 
-
+    override fun activityInjector() = dispatchingAndroidInjector
 }
