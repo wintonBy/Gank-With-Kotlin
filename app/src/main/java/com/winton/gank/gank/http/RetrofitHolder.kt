@@ -31,7 +31,7 @@ object RetrofitHolder {
                 .readTimeout(DEFAULT_TIMEOUT,TimeUnit.SECONDS)
                 .cookieJar(cookieJar)
         if(DeveloperConfig.isDebug){
-            okHttpBuilder.addInterceptor(LoggerInterceptor())
+            okHttpBuilder.addInterceptor(LoggerInterceptor("Okhttp"))
         }
 
         mOkHttpClient = okHttpBuilder.build()

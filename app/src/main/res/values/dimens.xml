@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bottom_nv_height">56dp</dimen>
+
+    <!--字体大小-->
+    <dimen name="ts_title">18dp</dimen>
+    <dimen name="ts_subtitle">16dp</dimen>
+    <dimen name="ts_content">14dp</dimen>
+    <dimen name="ts_tip">12dp</dimen>
 </resources>

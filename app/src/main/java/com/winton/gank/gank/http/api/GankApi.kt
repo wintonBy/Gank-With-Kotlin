@@ -12,11 +12,11 @@ import retrofit2.http.GET
 interface GankApi {
 
     companion object {
-        const val baseUrl:String ="http://gank.io/api"
+        const val baseUrl:String ="http://gank.io/api/"
     }
 
 
-    @GET("/today")
+    @GET("today")
     fun today():Flowable<TodayResponse>
 
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Gank</string>
+    <string name="network_error">网络异常</string>
+    <string name="server_error">服务异常</string>
+    <string name="request_error">请求异常</string>
+    <string name="data_error">数据解析异常</string>
 </resources>

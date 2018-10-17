@@ -47,6 +47,9 @@ dependencies {
 
     implementation deps.support.appcompatV7
     implementation deps.support.recyclerviewV7
+    implementation deps.support.V4
+    implementation deps.support.design
+    implementation deps.lifecycle.extensions
 
     implementation deps.constraint
     implementation deps.BottomNavigationView

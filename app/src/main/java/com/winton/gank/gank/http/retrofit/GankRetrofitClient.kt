@@ -4,10 +4,10 @@ import com.winton.gank.gank.http.BaseGankSubscriber
 import com.winton.gank.gank.http.ScHelper
 import com.winton.gank.gank.http.api.GankApi
 import com.winton.gank.gank.http.response.gank.TodayResponse
-import io.reactivex.Flowable
-import io.reactivex.FlowableSubscriber
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * @author: winton
@@ -23,6 +23,8 @@ class GankRetrofitClient(val okHttpClient: OkHttpClient) {
         val client = Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(GankApi.baseUrl)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
         server = client.create(GankApi::class.java)
     }

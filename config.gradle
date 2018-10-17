@@ -3,7 +3,7 @@
 def versions = [:]
 versions.gradle                 = "3.1.4"
 versions.kotlin                 = "1.2.61"
-versions.support                = "26.0.0"
+versions.support                = "27.1.0"
 versions.gson                   = "2.6.2"
 versions.fresco                 = "0.10.0"
 versions.multidex               = "1.0.1"
@@ -22,6 +22,7 @@ versions.junit                  = "4.12"
 versions.atsl_runner            = "1.0.1"
 versions.dagger                 = "2.15"
 versions.utilcode               = "1.16.1"
+versions.lifecycle              = "1.1.1"
 
 
 def build_version = [:]
@@ -56,7 +57,7 @@ deps.EasyStatueView         = "com.github.wintonBy:EasyStatueView:$versions.Easy
 deps.Cookie                 = "com.github.franmontiel:PersistentCookieJar:$versions.Cookie"
 deps.Retrofit               = "com.squareup.retrofit2:retrofit:$versions.Retrofit"
 deps.converter_gson         = "com.squareup.retrofit2:converter-gson:$versions.Retrofit"
-deps.adapter_rxjava         = "com.squareup.retrofit2:adapter-rxjava:$versions.Retrofit"
+deps.adapter_rxjava         = "com.squareup.retrofit2:adapter-rxjava2:$versions.Retrofit"
 deps.RxJava                 = "io.reactivex.rxjava2:rxjava:$versions.RxJava"
 deps.rxandroid              = "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
 deps.junit                  = "junit:junit:$versions.junit"
@@ -79,6 +80,13 @@ deps.gradle = gradle
 def databinding = [:]
 databinding.kapt = "com.android.databinding:compiler:$versions.gradle"
 deps.databinding = databinding
+
+def lifecycle = [:]
+lifecycle.runtime = "android.arch.lifecycle:runtime:$versions.lifecycle"
+lifecycle.extensions = "android.arch.lifecycle:extensions:$versions.lifecycle"
+lifecycle.java8 = "android.arch.lifecycle:common-java8:$versions.lifecycle"
+lifecycle.compiler = "android.arch.lifecycle:compiler:$versions.lifecycle"
+deps.lifecycle = lifecycle
 
 ext.deps = deps
 

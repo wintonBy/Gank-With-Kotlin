@@ -2,6 +2,7 @@ package com.winton.gank.gank
 
 import android.app.Activity
 import android.app.Application
+import com.blankj.utilcode.util.Utils
 import com.winton.gank.gank.di.AppInjector
 import com.winton.library.PriorityExecutor
 import dagger.android.AndroidInjector
@@ -36,6 +37,7 @@ class App:Application(),HasActivityInjector {
         super.onCreate()
         INSTANCE = this
         AppInjector.init(this)
+        Utils.init(this)
     }
 
     override fun activityInjector() = dispatchingAndroidInjector

@@ -65,6 +65,7 @@ class MainActivity : BaseActivity<ActMainBinding>() {
             }
         })
         mNV.check(0)
+        changeFragment(0)
     }
 
     /**

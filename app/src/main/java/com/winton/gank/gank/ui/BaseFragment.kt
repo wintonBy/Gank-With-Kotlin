@@ -18,12 +18,18 @@ abstract class BaseFragment<T:ViewDataBinding>:Fragment() {
     lateinit var binding:T
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater,getLayoutId(),container,false)
+        initView()
         initListener()
         initData()
         return binding.root
     }
 
+    open fun initView(){
+
+    }
+
     open fun initData() {
+
     }
 
     open fun initListener() {
