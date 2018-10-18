@@ -64,4 +64,6 @@ dependencies {
     implementation deps.rxandroid
     /*工具类*/
     implementation deps.utilcode
+
+    implementation 'com.google.android:flexbox:1.0.0'
 }

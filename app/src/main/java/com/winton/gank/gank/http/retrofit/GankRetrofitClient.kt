@@ -15,9 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory
  * @desc: gank 服务端的RetrofitClient
  */
 
-class GankRetrofitClient(val okHttpClient: OkHttpClient) {
+class GankRetrofitClient(private val okHttpClient: OkHttpClient) {
 
-    private lateinit var server:GankApi
+    private  var server:GankApi
 
     init {
         val client = Retrofit.Builder()

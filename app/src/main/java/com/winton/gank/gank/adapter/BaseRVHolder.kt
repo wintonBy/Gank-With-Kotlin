@@ -9,7 +9,7 @@ import android.view.View
  * @time: 2018/10/17 下午6:00
  * @desc: Recycle ViewHolder
  */
-class BaseRVHolder :RecyclerView.ViewHolder {
+open class BaseRVHolder :RecyclerView.ViewHolder {
 
     lateinit var binding:ViewDataBinding
 
