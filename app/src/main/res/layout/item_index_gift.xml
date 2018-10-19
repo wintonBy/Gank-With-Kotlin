@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <import type="com.winton.gank.gank.http.bean.TitleBean"/>
+        <variable
+            name="gankBean"
+            type="com.winton.gank.gank.http.bean.TitleBean"/>
+    </data>
+    <ImageView
+        bind:src="@{gankBean.url}"
+        bind:placeHolder="@{@drawable/default_img}"
+        bind:error="@{@drawable/default_img}"
+        android:id="@+id/iv_gift"
+        android:layout_width="match_parent"
+        android:scaleType="fitCenter"
+        android:layout_height="220dp" />
+</layout>

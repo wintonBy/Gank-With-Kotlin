@@ -20,7 +20,6 @@
             android:layout_marginStart="8dp"
             android:text="@{gankBean.desc}"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:textSize="@dimen/ts_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

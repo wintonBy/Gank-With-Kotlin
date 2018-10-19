@@ -41,6 +41,9 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
         super.initView()
         binding.rvIndex.layoutManager = LinearLayoutManager(context)
         binding.rvIndex.addItemDecoration(CommItemDecoration.createVertical(context!!,Color.GRAY,2))
+        binding.srl.setOnRefreshListener {
+            viewModel.start()
+        }
     }
 
 

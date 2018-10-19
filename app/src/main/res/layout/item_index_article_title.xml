@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -14,18 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <TextView
             android:id="@+id/tv_group_titless"
             android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
             android:text="@{gankBean.type}"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/ts_title"
             android:textStyle="bold"
-            android:singleLine="true"
-            android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,11 +39,22 @@
             android:layout_marginStart="8dp"
             android:text="@{gankBean.desc}"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:textSize="@dimen/ts_subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_img"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_group_titless" />
+            app:layout_constraintTop_toTopOf="@+id/iv_img" />
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_group_titless"
+            app:srcCompat="@mipmap/iv_default_android" />
+
+
     </android.support.constraint.ConstraintLayout>
 
 </layout>

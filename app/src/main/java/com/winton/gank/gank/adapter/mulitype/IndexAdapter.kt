@@ -5,16 +5,23 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.winton.gank.gank.BR
+import android.widget.ImageView
+import android.widget.TextView
+import com.blankj.utilcode.util.LogUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.winton.gank.gank.App
 import com.winton.gank.gank.R
+import com.winton.gank.gank.BR
 import com.winton.gank.gank.adapter.BaseRVHolder
 import com.winton.gank.gank.databinding.ItemIndexArticleBinding
 import com.winton.gank.gank.databinding.ItemIndexArticleEndBinding
 import com.winton.gank.gank.databinding.ItemIndexArticleTitleBinding
+import com.winton.gank.gank.databinding.ItemIndexGiftBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.http.response.gank.ResultBean
+import java.util.*
 
 /**
  * @author: winton
@@ -22,26 +29,27 @@ import com.winton.gank.gank.http.response.gank.ResultBean
  * @desc: 首页Adapter
  */
 
-class IndexAdapter:RecyclerView.Adapter<IndexAdapter.ViewHolder>{
+class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
 
     companion object {
         const val T_TITLE = 1
         const val T_CONTENT = 2
         const val T_END = 3
+        const val T_IMAGE = 4
     }
 
 
-    private  var mContext:Context
+    private var mContext: Context
 
-    private val bindIdMap:HashMap<Int,Int> = HashMap()
+    private val bindIdMap: HashMap<Int, Int> = HashMap()
 
-    private var mData:ArrayList<IndexItem> = ArrayList()
+    private var mData: ArrayList<IndexItem> = ArrayList()
 
     constructor(mContext: Context) : super() {
         this.mContext = mContext
     }
 
-    fun updateData(orgData: ResultBean){
+    fun updateData(orgData: ResultBean) {
         fixData(orgData)
         this.notifyDataSetChanged()
     }
@@ -49,20 +57,25 @@ class IndexAdapter:RecyclerView.Adapter<IndexAdapter.ViewHolder>{
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(mContext)
-        when(viewType){
-            T_TITLE ->{
-                val binding = DataBindingUtil.inflate<ItemIndexArticleTitleBinding>(layoutInflater, R.layout.item_index_article_title,parent,false)
-                bindIdMap.put(T_TITLE,BR.gankBean)
+        when (viewType) {
+            T_IMAGE -> {
+                val binding = DataBindingUtil.inflate<ItemIndexGiftBinding>(layoutInflater, R.layout.item_index_gift, parent, false)
+                bindIdMap.put(T_IMAGE, BR.gankBean)
                 return ViewHolder(binding)
             }
-            T_END ->{
-                val binding = DataBindingUtil.inflate<ItemIndexArticleEndBinding>(layoutInflater,R.layout.item_index_article_end,parent,false)
-                bindIdMap.put(T_END,BR.gankBean)
+            T_TITLE -> {
+                val binding = DataBindingUtil.inflate<ItemIndexArticleTitleBinding>(layoutInflater, R.layout.item_index_article_title, parent, false)
+                bindIdMap.put(T_TITLE, BR.gankBean)
                 return ViewHolder(binding)
             }
-            else ->{
-                val binding = DataBindingUtil.inflate<ItemIndexArticleBinding>(layoutInflater,R.layout.item_index_article,parent,false)
-                bindIdMap.put(T_CONTENT,BR.gankBean)
+            T_END -> {
+                val binding = DataBindingUtil.inflate<ItemIndexArticleEndBinding>(layoutInflater, R.layout.item_index_article_end, parent, false)
+                bindIdMap.put(T_END, BR.gankBean)
+                return ViewHolder(binding)
+            }
+            else -> {
+                val binding = DataBindingUtil.inflate<ItemIndexArticleBinding>(layoutInflater, R.layout.item_index_article, parent, false)
+                bindIdMap.put(T_CONTENT, BR.gankBean)
                 return ViewHolder(binding)
             }
         }
@@ -73,12 +86,11 @@ class IndexAdapter:RecyclerView.Adapter<IndexAdapter.ViewHolder>{
         return mData.size
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var variableId = bindIdMap[getItemViewType(position)]
         var item = mData[position].item
-        if(item != null && variableId != null){
-            holder.bind(variableId,item)
+        if (item != null && variableId != null) {
+            holder.bind(variableId, item)
         }
     }
 
@@ -89,8 +101,11 @@ class IndexAdapter:RecyclerView.Adapter<IndexAdapter.ViewHolder>{
     /**
      * 数据转换
      */
-    private fun fixData(orgData: ResultBean){
+    private fun fixData(orgData: ResultBean) {
         mData.clear()
+        orgData.gift?.let {
+            addGift(it)
+        }
         orgData.android?.let {
             addItems(it)
         }
@@ -106,30 +121,96 @@ class IndexAdapter:RecyclerView.Adapter<IndexAdapter.ViewHolder>{
 
     }
 
-    private fun addItems(items:List<TitleBean>){
-        for(i in items.indices){
-            when(i){
-                0 ->{
-                    mData.add(IndexItem(T_TITLE,items[i]))
+    /**
+     * 添加普通的资讯
+     */
+    private fun addItems(items: List<TitleBean>) {
+        for (i in items.indices) {
+            when (i) {
+                0 -> {
+                    mData.add(IndexItem(T_TITLE, items[i]))
                 }
-                items.size -1 ->{
-                    mData.add(IndexItem(T_END,items[i]))
+                items.size - 1 -> {
+                    mData.add(IndexItem(T_END, items[i]))
                 }
-                else ->{
-                    mData.add(IndexItem(T_CONTENT,items[i]))
+                else -> {
+                    mData.add(IndexItem(T_CONTENT, items[i]))
                 }
             }
         }
     }
 
-    class ViewHolder:BaseRVHolder{
-        constructor(binding: ViewDataBinding) : super(binding.root){
+    /**
+     * 添加福利
+     */
+    private fun addGift(items: List<TitleBean>) {
+        for (item in items) {
+            mData.add(IndexItem(T_IMAGE, item))
+        }
+    }
+
+    class ViewHolder : BaseRVHolder {
+        constructor(binding: ViewDataBinding) : super(binding.root) {
             this.binding = binding
         }
 
         override fun bind(variableId: Int, value: Any) {
             super.bind(variableId, value)
+            if (binding is ItemIndexGiftBinding) {
+                return
+            }
+            bindArticleImg(value as TitleBean)
         }
 
+        private fun bindArticleImg(bean: TitleBean) {
+            val images = bean.images
+            var imgUrl  = ""
+            images?.let {
+                if(it.isNotEmpty()){
+                    imgUrl = it[0]
+                }
+            }
+            when (binding) {
+                is ItemIndexArticleTitleBinding -> {
+                    loadImage((binding as ItemIndexArticleTitleBinding).ivImg, imgUrl)
+                    setTitleIcon((binding as ItemIndexArticleTitleBinding).tvGroupTitless, bean.type)
+                }
+                is ItemIndexArticleBinding -> {
+                    loadImage((binding as ItemIndexArticleBinding).ivImg, imgUrl)
+                }
+            }
+        }
+
+        /**
+         * 设置分组的icon
+         */
+        private fun setTitleIcon(tvGroupTitless: TextView, type: String) {
+            LogUtils.dTag("winton",type);
+            var drId = R.mipmap.ic_default_group
+            when (type) {
+                "Android" -> {
+                    drId = R.mipmap.ic_android
+                }
+                "iOS" -> {
+                    drId = R.mipmap.ic_ios
+                }
+                "App" -> {
+                    drId = R.mipmap.ic_app
+                }
+            }
+            var dr = App.INSTANCE.resources.getDrawable(drId)
+            dr.setBounds(0, 0, dr.minimumWidth, dr.minimumHeight)
+            tvGroupTitless.setCompoundDrawables(null, null, dr, null)
+        }
+
+
+        private fun loadImage(view: ImageView, url: String) {
+            Glide.with(view.context).applyDefaultRequestOptions(RequestOptions()
+                    .placeholder(R.mipmap.default_img))
+                    .load(url)
+                    .into(view)
+        }
     }
+
+
 }
