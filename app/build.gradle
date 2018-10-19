@@ -69,4 +69,7 @@ dependencies {
 
     implementation deps.glide.lib
     annotationProcessor deps.glide.compiler
+
+    implementation deps.bigImage.bigImage
+    implementation deps.bigImage.glide
 }

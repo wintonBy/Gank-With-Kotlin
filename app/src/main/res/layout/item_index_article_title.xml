@@ -16,20 +16,28 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_group_titless"
+            android:id="@+id/tv_group_title"
             android:layout_width="0dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="40dp"
+            android:background="@android:color/white"
             android:singleLine="true"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
             android:text="@{gankBean.type}"
             android:textColor="@android:color/black"
             android:textSize="@dimen/ts_title"
+            android:gravity="center_vertical"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/tv_group_title"
+            android:id="@+id/line"
+            android:background="@color/divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
 
         <TextView
             android:id="@+id/tv_title"
@@ -51,7 +59,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_group_titless"
+            app:layout_constraintTop_toBottomOf="@+id/line"
             app:srcCompat="@mipmap/iv_default_android" />
 
 

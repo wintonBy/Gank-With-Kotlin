@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <FrameLayout
+        android:background="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.github.piasy.biv.view.BigImageView
+            android:id="@+id/big_image"
+            app:failureImage="@drawable/default_img"
+            app:failureImageInitScaleType="center"
+            app:optimizeDisplay="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.github.piasy.biv.view.BigImageView>
+
+    </FrameLayout>
+
+
+</layout>

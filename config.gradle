@@ -25,6 +25,7 @@ versions.utilcode               = "1.16.1"
 versions.lifecycle              = "1.1.1"
 versions.glide                  = "4.8.0"
 versions.flexbox                = "1.0.0"
+versions.BigImageViewer         = "1.5.5"
 
 
 def build_version = [:]
@@ -65,6 +66,11 @@ deps.rxandroid              = "io.reactivex.rxjava2:rxandroid:$versions.rxandroi
 deps.junit                  = "junit:junit:$versions.junit"
 deps.utilcode               = "com.blankj:utilcode:$versions.utilcode"
 deps.flexbox                = "com.google.android:flexbox:$versions.flexbox"
+
+def bigImage = [:]
+bigImage.bigImage = "com.github.piasy:BigImageViewer:$versions.BigImageViewer"
+bigImage.glide = "com.github.piasy:GlideImageLoader:$versions.BigImageViewer"
+deps.bigImage = bigImage
 
 def atsl = [:]
 atsl.runner = "com.android.support.test:runner:$versions.atsl_runner"
@@ -119,6 +125,9 @@ def addRepos(RepositoryHandler handler){
     handler.mavenCentral()
     handler.maven { url 'https://maven.google.com' }
     handler.maven { url 'https://jitpack.io' }
+    handler.maven {
+        url  "http://dl.bintray.com/piasy/maven"
+    }
     handler.google()
     handler.jcenter()
 }

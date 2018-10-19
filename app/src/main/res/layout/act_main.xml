@@ -20,6 +20,7 @@
             app:textSize="12dp"
             app:text_margin_bottom="5dp"
             app:activeTextColor="@color/colorPrimary"
+            app:unactiveTextColor="@color/divider_line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_nv_height"
             app:layout_constraintBottom_toBottomOf="parent"

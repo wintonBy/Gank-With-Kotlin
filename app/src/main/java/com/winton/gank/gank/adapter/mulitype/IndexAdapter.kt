@@ -41,6 +41,8 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
 
     private var mContext: Context
 
+    private var  onItemClickListener:OnItemClick? = null
+
     private val bindIdMap: HashMap<Int, Int> = HashMap()
 
     private var mData: ArrayList<IndexItem> = ArrayList()
@@ -61,25 +63,41 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
             T_IMAGE -> {
                 val binding = DataBindingUtil.inflate<ItemIndexGiftBinding>(layoutInflater, R.layout.item_index_gift, parent, false)
                 bindIdMap.put(T_IMAGE, BR.gankBean)
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                }
                 return ViewHolder(binding)
             }
             T_TITLE -> {
                 val binding = DataBindingUtil.inflate<ItemIndexArticleTitleBinding>(layoutInflater, R.layout.item_index_article_title, parent, false)
                 bindIdMap.put(T_TITLE, BR.gankBean)
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                }
                 return ViewHolder(binding)
             }
             T_END -> {
                 val binding = DataBindingUtil.inflate<ItemIndexArticleEndBinding>(layoutInflater, R.layout.item_index_article_end, parent, false)
                 bindIdMap.put(T_END, BR.gankBean)
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                }
                 return ViewHolder(binding)
             }
             else -> {
                 val binding = DataBindingUtil.inflate<ItemIndexArticleBinding>(layoutInflater, R.layout.item_index_article, parent, false)
                 bindIdMap.put(T_CONTENT, BR.gankBean)
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                }
                 return ViewHolder(binding)
             }
         }
 
+    }
+
+    fun registerOnItemClickListener(listener:OnItemClick){
+        this.onItemClickListener = listener
     }
 
     override fun getItemCount(): Int {
@@ -91,6 +109,7 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
         var item = mData[position].item
         if (item != null && variableId != null) {
             holder.bind(variableId, item)
+            holder.binding.root.tag =mData[position]
         }
     }
 
@@ -173,7 +192,7 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
             when (binding) {
                 is ItemIndexArticleTitleBinding -> {
                     loadImage((binding as ItemIndexArticleTitleBinding).ivImg, imgUrl)
-                    setTitleIcon((binding as ItemIndexArticleTitleBinding).tvGroupTitless, bean.type)
+                    setTitleIcon((binding as ItemIndexArticleTitleBinding).tvGroupTitle, bean.type)
                 }
                 is ItemIndexArticleBinding -> {
                     loadImage((binding as ItemIndexArticleBinding).ivImg, imgUrl)
@@ -199,8 +218,8 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
                 }
             }
             var dr = App.INSTANCE.resources.getDrawable(drId)
-            dr.setBounds(0, 0, dr.minimumWidth, dr.minimumHeight)
-            tvGroupTitless.setCompoundDrawables(null, null, dr, null)
+            dr.setBounds(0, 0, dr.minimumWidth+10, dr.minimumHeight+10)
+            tvGroupTitless.setCompoundDrawables(dr, null, null, null)
         }
 
 
@@ -210,6 +229,11 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
                     .load(url)
                     .into(view)
         }
+
+    }
+
+    interface OnItemClick{
+        fun onItemClick(item:IndexItem)
     }
 
 

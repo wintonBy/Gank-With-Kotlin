@@ -13,13 +13,21 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.winton.gank.gank.ui.activity.MainActivity">
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name="com.winton.gank.gank.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".ui.activity.WebActivity" />
+        <activity
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"
+            android:name=".ui.activity.ImageActivity" />
     </application>
 
 </manifest>

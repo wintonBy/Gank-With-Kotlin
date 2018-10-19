@@ -8,12 +8,16 @@
             name="gankBean"
             type="com.winton.gank.gank.http.bean.TitleBean"/>
     </data>
-    <ImageView
-        bind:src="@{gankBean.url}"
-        bind:placeHolder="@{@drawable/default_img}"
-        bind:error="@{@drawable/default_img}"
-        android:id="@+id/iv_gift"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:scaleType="fitCenter"
-        android:layout_height="220dp" />
+        android:layout_height="wrap_content">
+        <ImageView
+            bind:src="@{gankBean.url}"
+            bind:placeHolder="@{@drawable/default_img}"
+            bind:error="@{@drawable/default_img}"
+            android:id="@+id/iv_gift"
+            android:layout_width="match_parent"
+            android:scaleType="fitCenter"
+            android:layout_height="220dp" />
+    </FrameLayout>
 </layout>
