@@ -51,55 +51,10 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
     override fun initData() {
         super.initData()
         viewModel = ViewModelProviders.of(this).get(IndexViewModel::class.java)
-        adapter = IndexVPAdapter()
-        adapter.registerOnItemClickListener(object :IndexAdapter.OnItemClick{
-            override fun onItemClick(item: IndexItem) {
-                when(item.getType()){
-                    IndexAdapter.T_IMAGE ->{
-                        val url = item.item?.url
-                        if(url != null){
-                            ImageActivity.start(context!!,url)
-                        }else{
-                            ToastUtils.showLong("连接为空")
-                        }
-                    }
-                    else->{
-                        var url = item.item?.url
-                        if(url != null){
-                            WebActivity.start(context!!,url)
-                        }else{
-                            ToastUtils.showLong("连接为空")
-                        }
-                    }
-                }
-            }
-        })
         binding.rvIndex.adapter = adapter
-        viewModel.getIndexData().observe(this, Observer {
-            it?.let {
-                when(it.status){
-                    Resource.ERROR ->{
-                        binding.status.showError()
-                    }
-                    Resource.SUCCESS ->{
-                        submitTab(it.data?.category)
-                        submitResult(it.data?.results)
-                        binding.status.showContent()
-                    }
-                    Resource.LOADING ->{
-                        binding.status.showLoading()
-                    }
-                }
-            }
-        })
         viewModel.start()
     }
 
-    private fun submitResult(results: ResultBean?) {
-        results?.let {
-            adapter.updateData(it)
-        }
-    }
 
     private fun submitTab(tabs:List<String>?){
         tabs?.let {
