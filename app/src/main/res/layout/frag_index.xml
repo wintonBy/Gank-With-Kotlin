@@ -16,24 +16,13 @@
 
         </android.support.design.widget.TabLayout>
 
-        <com.winton.librarystatue.StatueView
-            android:id="@+id/status"
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/srl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_index"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </android.support.v7.widget.RecyclerView>
-            </android.support.v4.widget.SwipeRefreshLayout>
-        </com.winton.librarystatue.StatueView>
+        </android.support.v4.view.ViewPager>
 
     </LinearLayout>
 

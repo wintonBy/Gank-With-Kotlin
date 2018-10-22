@@ -20,7 +20,9 @@ object BindingUtils {
                 .applyDefaultRequestOptions(
                         RequestOptions()
                                 .placeholder(placeHolder)
-                                .error(errorId))
+                                .error(errorId)
+                                .circleCrop()
+                                )
                 .load(url)
                 .into(imageView)
     }

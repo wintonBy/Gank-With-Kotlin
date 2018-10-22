@@ -3,6 +3,7 @@ package com.winton.gank.gank.http.retrofit
 import com.winton.gank.gank.http.BaseGankSubscriber
 import com.winton.gank.gank.http.ScHelper
 import com.winton.gank.gank.http.api.GankApi
+import com.winton.gank.gank.http.response.gank.CategoryResponse
 import com.winton.gank.gank.http.response.gank.TodayResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -36,6 +37,15 @@ class GankRetrofitClient(private val okHttpClient: OkHttpClient) {
      */
     fun today(subscriber: BaseGankSubscriber<TodayResponse>){
         server.today().compose(ScHelper.compose())
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 分类
+     */
+    fun category(category: String,pageIndex:Int,subscriber: BaseGankSubscriber<CategoryResponse>){
+        server.category(category,10,pageIndex)
+                .compose(ScHelper.compose())
                 .subscribe(subscriber)
     }
 

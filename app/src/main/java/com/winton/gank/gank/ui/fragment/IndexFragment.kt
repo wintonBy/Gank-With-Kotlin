@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ToastUtils
 import com.winton.gank.gank.App
 import com.winton.gank.gank.R
+import com.winton.gank.gank.adapter.IndexVPAdapter
 import com.winton.gank.gank.adapter.mulitype.IndexAdapter
 import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.databinding.FragIndexBinding
@@ -35,7 +36,7 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
     }
 
     private lateinit var viewModel:IndexViewModel
-    private lateinit var adapter: IndexAdapter
+    private lateinit var adapter: IndexVPAdapter
 
 
     override fun getLayoutId(): Int {
@@ -44,18 +45,13 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
 
     override fun initView() {
         super.initView()
-        binding.rvIndex.layoutManager = LinearLayoutManager(context)
-        binding.rvIndex.addItemDecoration(CommItemDecoration.createVertical(context!!, App.INSTANCE.resources.getColor(R.color.divider_line),2))
-        binding.srl.setOnRefreshListener {
-            viewModel.start()
-        }
     }
 
 
     override fun initData() {
         super.initData()
         viewModel = ViewModelProviders.of(this).get(IndexViewModel::class.java)
-        adapter = IndexAdapter(context!!)
+        adapter = IndexVPAdapter()
         adapter.registerOnItemClickListener(object :IndexAdapter.OnItemClick{
             override fun onItemClick(item: IndexItem) {
                 when(item.getType()){
@@ -108,8 +104,17 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
     private fun submitTab(tabs:List<String>?){
         tabs?.let {
             binding.tabIndex.addTab(binding.tabIndex.newTab().setText("今日推荐"))
-            for(item in it){
-                binding.tabIndex.addTab(binding.tabIndex.newTab().setText(item))
+            if(it.contains("Android")){
+                binding.tabIndex.addTab(binding.tabIndex.newTab().setText("Android"))
+            }
+            if(it.contains("iOS")){
+                binding.tabIndex.addTab(binding.tabIndex.newTab().setText("iOS"))
+            }
+            if(it.contains("App")){
+                binding.tabIndex.addTab(binding.tabIndex.newTab().setText("App"))
+            }
+            if(it.contains("福利")){
+                binding.tabIndex.addTab(binding.tabIndex.newTab().setText("福利"))
             }
         }
     }
