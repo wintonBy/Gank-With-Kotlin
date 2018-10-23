@@ -1,24 +1,13 @@
 package com.winton.gank.gank.ui.fragment
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import com.blankj.utilcode.util.ToastUtils
-import com.winton.gank.gank.App
+import android.support.v4.app.Fragment
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.IndexVPAdapter
-import com.winton.gank.gank.adapter.mulitype.IndexAdapter
-import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.databinding.FragIndexBinding
-import com.winton.gank.gank.http.response.gank.ResultBean
-import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
-import com.winton.gank.gank.ui.activity.ImageActivity
-import com.winton.gank.gank.ui.activity.WebActivity
 import com.winton.gank.gank.viewmodel.IndexViewModel
-import com.winton.gank.gank.widget.CommItemDecoration
 
 /**
  * @author: winton
@@ -37,40 +26,36 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
 
     private lateinit var viewModel:IndexViewModel
     private lateinit var adapter: IndexVPAdapter
+    private val framents by lazy {
+        ArrayList<Fragment>().apply {
+            this.add(TodayFragment.newInstance(null))
+            this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"Android") }))
+            this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"iOS") }))
+            this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"App") }))
+            this.add(GirlsFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"福利") }))
+        }
+    }
 
 
     override fun getLayoutId(): Int {
         return R.layout.frag_index
     }
 
-    override fun initView() {
-        super.initView()
-    }
-
-
     override fun initData() {
         super.initData()
         viewModel = ViewModelProviders.of(this).get(IndexViewModel::class.java)
-        binding.rvIndex.adapter = adapter
+        adapter = IndexVPAdapter(fragmentManager,framents)
+        binding.vp.adapter = adapter
+        binding.tabIndex.setupWithViewPager(binding.vp)
+        initTab()
         viewModel.start()
     }
 
-
-    private fun submitTab(tabs:List<String>?){
-        tabs?.let {
-            binding.tabIndex.addTab(binding.tabIndex.newTab().setText("今日推荐"))
-            if(it.contains("Android")){
-                binding.tabIndex.addTab(binding.tabIndex.newTab().setText("Android"))
-            }
-            if(it.contains("iOS")){
-                binding.tabIndex.addTab(binding.tabIndex.newTab().setText("iOS"))
-            }
-            if(it.contains("App")){
-                binding.tabIndex.addTab(binding.tabIndex.newTab().setText("App"))
-            }
-            if(it.contains("福利")){
-                binding.tabIndex.addTab(binding.tabIndex.newTab().setText("福利"))
-            }
-        }
+    private fun initTab(){
+        binding.tabIndex.getTabAt(0)?.text = "今日推荐"
+        binding.tabIndex.getTabAt(1)?.text = "Android"
+        binding.tabIndex.getTabAt(2)?.text = "iOS"
+        binding.tabIndex.getTabAt(3)?.text = "App"
+        binding.tabIndex.getTabAt(4)?.text = "福利"
     }
 }

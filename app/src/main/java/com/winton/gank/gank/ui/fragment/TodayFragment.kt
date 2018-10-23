@@ -7,16 +7,14 @@ import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ToastUtils
 import com.winton.gank.gank.App
 import com.winton.gank.gank.R
-import com.winton.gank.gank.adapter.IndexVPAdapter
 import com.winton.gank.gank.adapter.mulitype.IndexAdapter
 import com.winton.gank.gank.adapter.mulitype.IndexItem
-import com.winton.gank.gank.databinding.FragTodayBinding
+import com.winton.gank.gank.databinding.FragListCommonBinding
 import com.winton.gank.gank.http.response.gank.ResultBean
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.ImageActivity
 import com.winton.gank.gank.ui.activity.WebActivity
-import com.winton.gank.gank.viewmodel.IndexViewModel
 import com.winton.gank.gank.viewmodel.TodayViewModel
 import com.winton.gank.gank.widget.CommItemDecoration
 
@@ -25,7 +23,7 @@ import com.winton.gank.gank.widget.CommItemDecoration
  * @time: 2018/10/22 下午8:51
  * @desc: 描述
  */
-class TodayFragment:BaseFragment<FragTodayBinding>() {
+class TodayFragment:BaseFragment<FragListCommonBinding>() {
 
     companion object {
         fun newInstance(params: Bundle?):TodayFragment{
@@ -50,7 +48,7 @@ class TodayFragment:BaseFragment<FragTodayBinding>() {
 
     override fun initData() {
         super.initData()
-        viewModel = ViewModelProviders.of(this).get(IndexViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(TodayViewModel::class.java)
         adapter = IndexAdapter(context!!)
         adapter.registerOnItemClickListener(object : IndexAdapter.OnItemClick{
             override fun onItemClick(item: IndexItem) {
@@ -94,7 +92,7 @@ class TodayFragment:BaseFragment<FragTodayBinding>() {
         viewModel.start()
     }
     override fun getLayoutId(): Int {
-        return R.layout.frag_today
+        return R.layout.frag_list_common
     }
 
     private fun submitResult(results: ResultBean?) {

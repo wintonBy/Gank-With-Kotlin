@@ -12,14 +12,15 @@ import com.winton.gank.gank.ui.fragment.IndexFragment
 import com.winton.gank.gank.ui.fragment.MyFragment
 import com.winton.gank.gank.ui.fragment.NewsFragment
 
+
 class MainActivity : BaseActivity<ActMainBinding>() {
 
     private lateinit var mNV: NavigationView
     private lateinit var nvItems: ArrayList<NavigationView.Model>
-    private lateinit var fragments:ArrayList<Model>
+    private lateinit var fragments: ArrayList<Model>
 
     private var currentIndex = -1
-    private val fm:FragmentManager by lazy { supportFragmentManager }
+    private val fm: FragmentManager by lazy { supportFragmentManager }
 
     override fun getLayoutId(): Int {
         return R.layout.act_main
@@ -38,10 +39,10 @@ class MainActivity : BaseActivity<ActMainBinding>() {
     private fun initFragments() {
         fragments = ArrayList()
         fragments.apply {
-            this.add(Model("index",IndexFragment.newInstance(null)))
-            this.add(Model("news",NewsFragment.newInstance(null)))
-            this.add(Model("girls",GirlsFragment.newInstance(null)))
-            this.add(Model("me",MyFragment.newInstance(null)))
+            this.add(Model("index", IndexFragment.newInstance(null)))
+            this.add(Model("news", NewsFragment.newInstance(null)))
+            this.add(Model("girls", GirlsFragment.newInstance(null)))
+            this.add(Model("me", MyFragment.newInstance(null)))
         }
     }
 
@@ -51,12 +52,12 @@ class MainActivity : BaseActivity<ActMainBinding>() {
     private fun initNavigation() {
         nvItems = ArrayList()
         nvItems.add(NavigationView.Model.Builder(R.mipmap.index_check, R.mipmap.index_uncheck).title("首页").build())
-        nvItems.add(NavigationView.Model.Builder(R.mipmap.news_check,R.mipmap.news_uncheck).title("新闻").build())
-        nvItems.add(NavigationView.Model.Builder(R.mipmap.girl_check,R.mipmap.girl_uncheck).title("打望").build())
-        nvItems.add(NavigationView.Model.Builder(R.mipmap.me_check,R.mipmap.me_uncheck).title("我的").build())
+        nvItems.add(NavigationView.Model.Builder(R.mipmap.news_check, R.mipmap.news_uncheck).title("新闻").build())
+        nvItems.add(NavigationView.Model.Builder(R.mipmap.girl_check, R.mipmap.girl_uncheck).title("打望").build())
+        nvItems.add(NavigationView.Model.Builder(R.mipmap.me_check, R.mipmap.me_uncheck).title("我的").build())
         mNV.setItems(nvItems)
         mNV.build()
-        mNV.setOnTabSelectedListener(object :NavigationView.OnTabSelectedListener{
+        mNV.setOnTabSelectedListener(object : NavigationView.OnTabSelectedListener {
             override fun unselected(index: Int, model: NavigationView.Model?) {
             }
 
@@ -71,25 +72,25 @@ class MainActivity : BaseActivity<ActMainBinding>() {
     /**
      * 切换fragment
      */
-    private fun changeFragment(index:Int){
-        if(index == currentIndex){
+    private fun changeFragment(index: Int) {
+        if (index == currentIndex) {
             return
         }
         val lastIndex = currentIndex
         currentIndex = index
         val model = fragments[index]
         val ft = fm.beginTransaction()
-        if(!model.fragment.isAdded){
-            ft.add(R.id.fl_content,model.fragment,model.tag)
+        if (!model.fragment.isAdded) {
+            ft.add(R.id.fl_content, model.fragment, model.tag)
         }
-        if(lastIndex != -1){
+        if (lastIndex != -1) {
             ft.hide(fragments[lastIndex].fragment)
         }
         ft.show(model.fragment)
         ft.commit()
     }
 
-    private class Model(tag:String,fragment: Fragment){
+    private class Model(tag: String, fragment: Fragment) {
         val tag = tag
         val fragment = fragment
     }

@@ -10,5 +10,5 @@ import com.winton.gank.gank.http.response.BaseGankResponse
  */
 class CategoryResponse:BaseGankResponse() {
 
-    var result:ArrayList<TitleBean>? = null
+    var results:ArrayList<TitleBean>? = null
 }
