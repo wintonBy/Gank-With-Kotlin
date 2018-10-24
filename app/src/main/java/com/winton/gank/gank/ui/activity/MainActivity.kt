@@ -1,5 +1,7 @@
 package com.winton.gank.gank.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -21,6 +23,14 @@ class MainActivity : BaseActivity<ActMainBinding>() {
 
     private var currentIndex = -1
     private val fm: FragmentManager by lazy { supportFragmentManager }
+
+    companion object {
+        fun start(context: Context){
+            var intent = Intent(context,MainActivity::class.java)
+            context.startActivity(intent)
+        }
+
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.act_main

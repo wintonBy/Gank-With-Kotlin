@@ -7,6 +7,7 @@ import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.IndexVPAdapter
 import com.winton.gank.gank.databinding.FragIndexBinding
 import com.winton.gank.gank.ui.BaseFragment
+import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.IndexViewModel
 
 /**
@@ -57,5 +58,11 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
         binding.tabIndex.getTabAt(2)?.text = "iOS"
         binding.tabIndex.getTabAt(3)?.text = "App"
         binding.tabIndex.getTabAt(4)?.text = "福利"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        UiTools.fitTitleBar(activity!!.window)
+
     }
 }

@@ -11,6 +11,10 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_index"
             app:tabMode="scrollable"
+            app:tabBackground="@color/tab_selected_text_color"
+            app:tabIndicatorColor="@color/tab_selected_text_color"
+            app:tabSelectedTextColor="@color/tab_selected_text_color"
+            app:tabTextColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

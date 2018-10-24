@@ -236,5 +236,4 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
         fun onItemClick(item:IndexItem)
     }
 
-
 }

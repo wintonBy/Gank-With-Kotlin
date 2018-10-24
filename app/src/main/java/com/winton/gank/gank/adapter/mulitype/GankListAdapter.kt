@@ -26,6 +26,7 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
 
     private var mContext:Context
     private var mData:ArrayList<IndexItem>
+    private var onItemClickListener:OnItemClick? = null
 
     companion object {
         const val T_NO_IMG = 1
@@ -42,6 +43,10 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
         this.mData.clear()
         this.mData.addAll(fixData(data))
         notifyDataSetChanged()
+    }
+
+    fun setItemClickListener(listener:OnItemClick){
+        onItemClickListener = listener
     }
 
     /**
@@ -67,14 +72,23 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
         when(viewType){
             T_ONE_IMG ->{
                 val binding = DataBindingUtil.inflate<ItemGankListOneImageBinding>(layoutInflater, R.layout.item_gank_list_one_image,parent,false)
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                }
                 return ViewHolder(binding)
             }
             T_MANY_IMG ->{
                 val binding = DataBindingUtil.inflate<ItemGankListManyImageBinding>(layoutInflater, R.layout.item_gank_list_many_image,parent,false)
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                }
                 return ViewHolder(binding)
             }
             else -> {
                 val binding = DataBindingUtil.inflate<ItemGankListNoImageBinding>(layoutInflater, R.layout.item_gank_list_no_image,parent,false)
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                }
                 return ViewHolder(binding)
             }
         }
@@ -87,6 +101,7 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindData(position,mData[position].item!!)
+        holder.binding.root.tag =mData[position]
     }
 
     class ViewHolder:BaseRVHolder{
@@ -102,6 +117,10 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
                     }
                 }
                 is ItemGankListOneImageBinding ->{
+                    (binding as ItemGankListOneImageBinding).let {
+                        it.tvTitle.text = item.desc
+                        loadImage(it.ivImg,item.images[0])
+                    }
 
                 }
                 is ItemGankListManyImageBinding ->{
@@ -110,7 +129,10 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
                         loadImage(it.img1,item.images[0])
                         loadImage(it.img2,item.images[1])
                         if(item.images.size >= 3){
+                            it.img3.visibility = View.VISIBLE
                             loadImage(it.img3,item.images[2])
+                        }else{
+                            it.img3.visibility = View.GONE
                         }
                     }
                 }
@@ -125,7 +147,7 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
 
     }
 
-
-
-
+    interface OnItemClick{
+        fun onItemClick(item:IndexItem)
+    }
 }
