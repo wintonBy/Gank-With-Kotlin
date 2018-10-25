@@ -9,4 +9,9 @@
     <color name="divider_line">#d0d0d0</color>
 
     <color name="tab_selected_text_color">#596efb</color>
+
+
+    <color name="swip_color_1">#ff0f0f</color>
+    <color name="swip_color_2">#0f0fff</color>
+    <color name="swip_color_3">#5f7fa0</color>
 </resources>

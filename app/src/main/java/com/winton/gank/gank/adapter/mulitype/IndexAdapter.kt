@@ -21,6 +21,7 @@ import com.winton.gank.gank.databinding.ItemIndexArticleTitleBinding
 import com.winton.gank.gank.databinding.ItemIndexGiftBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.http.response.gank.ResultBean
+import com.winton.gank.gank.utils.BindingUtils
 import java.util.*
 
 /**
@@ -175,9 +176,6 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
 
         override fun bind(variableId: Int, value: Any) {
             super.bind(variableId, value)
-            if (binding is ItemIndexGiftBinding) {
-                return
-            }
             bindArticleImg(value as TitleBean)
         }
 
@@ -191,11 +189,14 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
             }
             when (binding) {
                 is ItemIndexArticleTitleBinding -> {
-                    loadImage((binding as ItemIndexArticleTitleBinding).ivImg, imgUrl)
+                    BindingUtils.bindArticleImg((binding as ItemIndexArticleTitleBinding).ivImg, imgUrl)
                     setTitleIcon((binding as ItemIndexArticleTitleBinding).tvGroupTitle, bean.type)
                 }
                 is ItemIndexArticleBinding -> {
-                    loadImage((binding as ItemIndexArticleBinding).ivImg, imgUrl)
+                    BindingUtils.bindArticleImg((binding as ItemIndexArticleBinding).ivImg, imgUrl)
+                }
+                is ItemIndexGiftBinding ->{
+                    BindingUtils.bindGift((binding as ItemIndexGiftBinding).ivGift,bean.url)
                 }
             }
         }
@@ -220,14 +221,6 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
             var dr = App.INSTANCE.resources.getDrawable(drId)
             dr.setBounds(0, 0, dr.minimumWidth+10, dr.minimumHeight+10)
             tvGroupTitless.setCompoundDrawables(dr, null, null, null)
-        }
-
-
-        private fun loadImage(view: ImageView, url: String) {
-            Glide.with(view.context).applyDefaultRequestOptions(RequestOptions()
-                    .placeholder(R.mipmap.default_img))
-                    .load(url)
-                    .into(view)
         }
 
     }

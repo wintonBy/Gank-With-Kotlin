@@ -15,6 +15,7 @@ import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.ImageActivity
 import com.winton.gank.gank.ui.activity.WebActivity
+import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.TodayViewModel
 import com.winton.gank.gank.widget.CommItemDecoration
 
@@ -34,6 +35,7 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
 
     }
 
+    private var isFirstLoad = true
     private lateinit var viewModel: TodayViewModel
     private lateinit var adapter: IndexAdapter
 
@@ -41,6 +43,7 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
         super.initView()
         binding.rvIndex.layoutManager = LinearLayoutManager(context)
         binding.rvIndex.addItemDecoration(CommItemDecoration.createVertical(context!!, App.INSTANCE.resources.getColor(R.color.divider_line),2))
+        UiTools.initSwipRefresh(binding.srl)
         binding.srl.setOnRefreshListener {
             viewModel.start()
         }
@@ -82,9 +85,14 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
                     Resource.SUCCESS ->{
                         submitResult(it.data?.results)
                         binding.status.showContent()
+                        binding.srl.isRefreshing = false
                     }
                     Resource.LOADING ->{
-                        binding.status.showLoading()
+                        if(isFirstLoad){
+                            binding.status.showLoading()
+                            isFirstLoad = false
+                        }
+
                     }
                 }
             }

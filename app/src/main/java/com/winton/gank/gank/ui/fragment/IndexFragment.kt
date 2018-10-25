@@ -1,13 +1,14 @@
 package com.winton.gank.gank.ui.fragment
 
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.githang.statusbar.StatusBarCompat
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.IndexVPAdapter
 import com.winton.gank.gank.databinding.FragIndexBinding
 import com.winton.gank.gank.ui.BaseFragment
-import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.IndexViewModel
 
 /**
@@ -47,6 +48,7 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
         viewModel = ViewModelProviders.of(this).get(IndexViewModel::class.java)
         adapter = IndexVPAdapter(fragmentManager,framents)
         binding.vp.adapter = adapter
+        binding.vp.offscreenPageLimit = framents.size
         binding.tabIndex.setupWithViewPager(binding.vp)
         initTab()
         viewModel.start()
@@ -62,7 +64,6 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
 
     override fun onResume() {
         super.onResume()
-        UiTools.fitTitleBar(activity!!.window)
-
+        StatusBarCompat.setStatusBarColor(activity, Color.WHITE,true)
     }
 }

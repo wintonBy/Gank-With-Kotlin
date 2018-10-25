@@ -13,6 +13,7 @@ import com.winton.gank.gank.databinding.FragListCommonBinding
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.WebActivity
+import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.GankListViewModel
 import com.winton.gank.gank.widget.CommItemDecoration
 
@@ -45,6 +46,7 @@ class GankListFragment:BaseFragment<FragListCommonBinding>() {
         super.initView()
         binding.rvIndex.addItemDecoration(CommItemDecoration.createVertical(context!!, App.INSTANCE.resources.getColor(R.color.divider_line),2))
         binding.rvIndex.layoutManager = LinearLayoutManager(context!!)
+        UiTools.initSwipRefresh(binding.srl)
     }
 
     override fun initData() {
@@ -56,7 +58,7 @@ class GankListFragment:BaseFragment<FragListCommonBinding>() {
                 if(url != null){
                     WebActivity.start(context!!,url)
                 }else{
-                    ToastUtils.showLong("连接为空")
+                    ToastUtils.showLong("链接为空")
                 }
             }
         })

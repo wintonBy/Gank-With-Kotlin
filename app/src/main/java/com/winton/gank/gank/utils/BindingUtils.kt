@@ -1,10 +1,10 @@
 package com.winton.gank.gank.utils
 
-import android.databinding.BindingAdapter
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestOptions
+import com.winton.gank.gank.R
+import com.winton.gank.gank.utils.glide.GlideApp
 
 /**
  * @author: winton
@@ -13,32 +13,21 @@ import com.bumptech.glide.request.RequestOptions
  */
 object BindingUtils {
 
-    @BindingAdapter("src","placeHolder","error")
-    @JvmStatic
-    fun bindGift(imageView: ImageView, url:String, placeHolder:Drawable, errorId:Drawable){
-        Glide.with(imageView.context)
-                .applyDefaultRequestOptions(
-                        RequestOptions()
-                                .placeholder(placeHolder)
-                                .error(errorId)
-                                .circleCrop()
-                                )
+    fun bindGift(imageView: ImageView, url:String){
+        GlideApp.with(imageView.context)
                 .load(url)
+                .error(R.mipmap.default_img)
+                .circleCrop()
+                .transition(withCrossFade())
                 .into(imageView)
     }
 
-    @BindingAdapter("src","placeHolder")
-    @JvmStatic
-    fun bindArticleImg(imageView: ImageView,urls:List<String>?,placeHolder: Drawable){
-        urls?.let {
-            if(it.isNotEmpty()){
-                Glide.with(imageView.context)
-                        .applyDefaultRequestOptions(
-                                RequestOptions()
-                                        .placeholder(placeHolder))
-                        .load(urls[0])
-                        .into(imageView)
-            }
-        }
+    fun bindArticleImg(imageView: ImageView,url:String){
+            GlideApp.with(imageView.context)
+                    .load(url)
+                    .error(R.mipmap.default_img)
+                    .placeholder(R.mipmap.default_img)
+                    .transition(withCrossFade())
+                    .into(imageView)
     }
 }

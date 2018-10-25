@@ -3,23 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:background="@color/page_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_index"
+                app:tabMode="scrollable"
+                app:tabBackground="@android:color/white"
+                app:tabIndicatorColor="@color/tab_selected_text_color"
+                app:tabSelectedTextColor="@color/tab_selected_text_color"
+                app:tabTextColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_index"
-            app:tabMode="scrollable"
-            app:tabBackground="@color/tab_selected_text_color"
-            app:tabIndicatorColor="@color/tab_selected_text_color"
-            app:tabSelectedTextColor="@color/tab_selected_text_color"
-            app:tabTextColor="@android:color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </android.support.design.widget.TabLayout>
-
+            </android.support.design.widget.TabLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp"

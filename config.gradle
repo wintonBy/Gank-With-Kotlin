@@ -26,6 +26,8 @@ versions.lifecycle              = "1.1.1"
 versions.glide                  = "4.8.0"
 versions.flexbox                = "1.0.0"
 versions.BigImageViewer         = "1.5.5"
+versions.StatusBarCompat        = "2.1.4"
+versions.status_bar_compat      = "0.7"
 
 
 def build_version = [:]
@@ -66,6 +68,8 @@ deps.rxandroid              = "io.reactivex.rxjava2:rxandroid:$versions.rxandroi
 deps.junit                  = "junit:junit:$versions.junit"
 deps.utilcode               = "com.blankj:utilcode:$versions.utilcode"
 deps.flexbox                = "com.google.android:flexbox:$versions.flexbox"
+deps.StatusBarCompat        = "com.github.niorgai:StatusBarCompat:$versions.StatusBarCompat"
+deps.status_bar_compat      = "com.githang:status-bar-compat:$versions.status_bar_compat"
 
 def bigImage = [:]
 bigImage.bigImage = "com.github.piasy:BigImageViewer:$versions.BigImageViewer"

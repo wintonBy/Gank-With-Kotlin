@@ -16,6 +16,7 @@ import com.winton.gank.gank.databinding.ItemGankListManyImageBinding
 import com.winton.gank.gank.databinding.ItemGankListNoImageBinding
 import com.winton.gank.gank.databinding.ItemGankListOneImageBinding
 import com.winton.gank.gank.http.bean.TitleBean
+import com.winton.gank.gank.utils.BindingUtils
 
 /**
  * @author: winton
@@ -43,6 +44,12 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
         this.mData.clear()
         this.mData.addAll(fixData(data))
         notifyDataSetChanged()
+    }
+
+    fun add(data: ArrayList<TitleBean>){
+        var oldSize = mData.size
+        this.mData.addAll(fixData(data))
+        notifyItemRangeChanged(oldSize-1,data.size)
     }
 
     fun setItemClickListener(listener:OnItemClick){
@@ -119,18 +126,18 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
                 is ItemGankListOneImageBinding ->{
                     (binding as ItemGankListOneImageBinding).let {
                         it.tvTitle.text = item.desc
-                        loadImage(it.ivImg,item.images[0])
+                        BindingUtils.bindArticleImg(it.ivImg,item.images[0])
                     }
 
                 }
                 is ItemGankListManyImageBinding ->{
                     (binding as ItemGankListManyImageBinding).let {
                         it.title.text = item.desc
-                        loadImage(it.img1,item.images[0])
-                        loadImage(it.img2,item.images[1])
+                        BindingUtils.bindArticleImg(it.img1,item.images[0])
+                        BindingUtils.bindArticleImg(it.img2,item.images[1])
                         if(item.images.size >= 3){
                             it.img3.visibility = View.VISIBLE
-                            loadImage(it.img3,item.images[2])
+                            BindingUtils.bindArticleImg(it.img3,item.images[2])
                         }else{
                             it.img3.visibility = View.GONE
                         }
@@ -138,13 +145,6 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
                 }
             }
         }
-        private fun loadImage(view: ImageView, url: String) {
-            Glide.with(view.context).applyDefaultRequestOptions(RequestOptions()
-                    .placeholder(R.mipmap.default_img))
-                    .load(url)
-                    .into(view)
-        }
-
     }
 
     interface OnItemClick{

@@ -68,8 +68,9 @@ dependencies {
     implementation deps.flexbox
 
     implementation deps.glide.lib
-    annotationProcessor deps.glide.compiler
+    kapt deps.glide.compiler
 
     implementation deps.bigImage.bigImage
     implementation deps.bigImage.glide
+    implementation deps.status_bar_compat
 }
