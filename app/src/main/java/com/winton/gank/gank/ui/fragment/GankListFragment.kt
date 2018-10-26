@@ -63,9 +63,6 @@ class GankListFragment:BaseFragment<FragListCommonBinding>() {
             }
         })
         binding.rvIndex.adapter = adapter
-        binding.rvIndex.setOnClickListener {
-
-        }
         category = arguments?.getString(CATEGORY)
         viewModel = ViewModelProviders.of(this).get(GankListViewModel::class.java)
         viewModel.getListData().observe(this, Observer {

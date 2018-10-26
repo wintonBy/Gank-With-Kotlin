@@ -26,7 +26,6 @@ object BindingUtils {
             GlideApp.with(imageView.context)
                     .load(url)
                     .error(R.mipmap.default_img)
-                    .placeholder(R.mipmap.default_img)
                     .transition(withCrossFade())
                     .into(imageView)
     }

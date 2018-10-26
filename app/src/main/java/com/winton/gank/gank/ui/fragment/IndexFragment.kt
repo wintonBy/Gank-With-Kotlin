@@ -34,7 +34,7 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
             this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"Android") }))
             this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"iOS") }))
             this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"App") }))
-            this.add(GirlsFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"福利") }))
+            this.add(GirlsFragment.newInstance(Bundle().apply { this.putString(GirlsFragment.CATEGORY,"福利") }))
         }
     }
 
