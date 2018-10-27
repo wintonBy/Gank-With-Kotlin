@@ -27,7 +27,7 @@ class CommItemDecoration private constructor(context: Context, private val mOrie
         mPaint.setColor(color)
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
         if (mOrientation == VERTICAL_LIST) {
             drawVertical(c, parent)
@@ -68,7 +68,7 @@ class CommItemDecoration private constructor(context: Context, private val mOrie
         }
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         if (mOrientation == VERTICAL_LIST) {
             outRect.set(0, 0, 0, mSpace)

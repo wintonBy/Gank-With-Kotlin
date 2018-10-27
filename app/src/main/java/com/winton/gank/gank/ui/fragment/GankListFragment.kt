@@ -44,7 +44,6 @@ class GankListFragment:BaseFragment<FragListCommonBinding>() {
 
     override fun initView() {
         super.initView()
-        binding.rvIndex.addItemDecoration(CommItemDecoration.createVertical(context!!, App.INSTANCE.resources.getColor(R.color.divider_line),2))
         binding.rvIndex.layoutManager = LinearLayoutManager(context!!)
         UiTools.initSwipRefresh(binding.srl)
     }

@@ -11,12 +11,12 @@ import com.winton.gank.gank.http.bean.TitleBean
 class GankGirlsDiff:DiffUtil.ItemCallback<TitleBean>() {
 
 
-    override fun areContentsTheSame(oldItem: TitleBean?, newItem: TitleBean?): Boolean {
-        return oldItem?.url == newItem?.url
+    override fun areContentsTheSame(oldItem: TitleBean, newItem: TitleBean): Boolean {
+        return oldItem.url == newItem.url
     }
 
-    override fun areItemsTheSame(oldItem: TitleBean?, newItem: TitleBean?): Boolean {
-        return oldItem?.url == newItem?.url
+    override fun areItemsTheSame(oldItem: TitleBean, newItem: TitleBean): Boolean {
+        return oldItem.url == newItem.url
     }
 
 }

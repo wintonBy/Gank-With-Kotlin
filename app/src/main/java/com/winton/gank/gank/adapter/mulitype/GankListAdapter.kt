@@ -17,6 +17,7 @@ import com.winton.gank.gank.databinding.ItemGankListNoImageBinding
 import com.winton.gank.gank.databinding.ItemGankListOneImageBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.BindingUtils
+import com.winton.gank.gank.utils.StringUtils
 
 /**
  * @author: winton
@@ -121,11 +122,15 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
                 is ItemGankListNoImageBinding ->{
                     (binding as ItemGankListNoImageBinding).let {
                         it.title.text = item.desc
+                        it.tvAuthor.text = item.who
+                        it.tvPubTime.text = StringUtils.getGankReadTime(item.createdAt)
                     }
                 }
                 is ItemGankListOneImageBinding ->{
                     (binding as ItemGankListOneImageBinding).let {
                         it.tvTitle.text = item.desc
+                        it.tvAuthor.text = item.who
+                        it.tvPubTime.text = StringUtils.getGankReadTime(item.createdAt)
                         BindingUtils.bindArticleImg(it.ivImg,item.images[0])
                     }
 
@@ -133,6 +138,8 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
                 is ItemGankListManyImageBinding ->{
                     (binding as ItemGankListManyImageBinding).let {
                         it.title.text = item.desc
+                        it.tvAuthor.text = item.who
+                        it.tvPubTime.text = StringUtils.getGankReadTime(item.createdAt)
                         BindingUtils.bindArticleImg(it.img1,item.images[0])
                         BindingUtils.bindArticleImg(it.img2,item.images[1])
                         if(item.images.size >= 3){
