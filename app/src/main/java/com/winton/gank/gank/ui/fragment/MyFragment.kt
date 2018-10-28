@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.FragMeBinding
 import com.winton.gank.gank.ui.BaseFragment
+import com.winton.gank.gank.utils.BindingUtils
+import com.winton.gank.gank.utils.glide.GlideApp
 
 /**
  * @author: winton
@@ -22,5 +24,10 @@ class MyFragment: BaseFragment<FragMeBinding>() {
 
     override fun getLayoutId(): Int {
         return R.layout.frag_me
+    }
+
+    override fun initData() {
+        super.initData()
+        BindingUtils.bindGift(binding.imageView, "http://wintonby.github.io/assets/images/winton.jpg")
     }
 }

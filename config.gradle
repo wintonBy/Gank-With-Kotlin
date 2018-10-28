@@ -3,7 +3,7 @@
 def versions = [:]
 versions.gradle                 = "3.1.4"
 versions.kotlin                 = "1.2.61"
-versions.support                = "27.1.0"
+versions.support                = "28.0.0"
 versions.gson                   = "2.6.2"
 versions.fresco                 = "0.10.0"
 versions.multidex               = "1.0.1"
@@ -25,14 +25,14 @@ versions.utilcode               = "1.16.1"
 versions.lifecycle              = "1.1.1"
 versions.glide                  = "4.8.0"
 versions.flexbox                = "1.0.0"
-versions.BigImageViewer         = "1.5.5"
+versions.BigImageViewer         = "1.5.6"
 versions.StatusBarCompat        = "2.1.4"
 versions.status_bar_compat      = "0.7"
 
 
 def build_version = [:]
 build_version.compileSdkVersion   =  28
-build_version.buildToolsVersion   =  "27.0.0"
+build_version.buildToolsVersion   =  "28.0.3"
 build_version.minSdkVersion       =  17
 build_version.targetSdkVersion    =  28
 build_version.versionCode         =   1
@@ -127,11 +127,9 @@ ext.deps = deps
 
 def addRepos(RepositoryHandler handler){
     handler.mavenCentral()
+    handler.maven { url  "http://dl.bintray.com/piasy/maven" }
     handler.maven { url 'https://maven.google.com' }
     handler.maven { url 'https://jitpack.io' }
-    handler.maven {
-        url  "http://dl.bintray.com/piasy/maven"
-    }
     handler.google()
     handler.jcenter()
 }

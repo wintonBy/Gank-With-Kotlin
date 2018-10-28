@@ -2,13 +2,10 @@ package com.winton.gank.gank.adapter
 
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.support.v7.util.DiffUtil
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.winton.gank.gank.R
-import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.databinding.ItemGirlsListBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.BindingUtils

@@ -1,9 +1,6 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 
@@ -74,4 +71,7 @@ dependencies {
     implementation deps.bigImage.bigImage
     implementation deps.bigImage.glide
     implementation deps.status_bar_compat
+
+
+
 }
