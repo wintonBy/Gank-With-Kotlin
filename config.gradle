@@ -1,7 +1,7 @@
 //所有工程都要用的公共配置，由各个子模块直接apply from
 
 def versions = [:]
-versions.gradle                 = "3.1.4"
+versions.gradle                 = '3.2.0'
 versions.kotlin                 = "1.2.61"
 versions.support                = "28.0.0"
 versions.gson                   = "2.6.2"
@@ -41,14 +41,14 @@ ext.build_version = build_version
 
 def deps = [:]
 def support = [:]
-support.V4                  = "com.android.support:support-v4:$versions.support"
-support.appcompatV7         = "com.android.support:appcompat-v7:$versions.support"
+support.V4                   = "com.android.support:support-v4:$versions.support"
+support.appcompatV7          = "com.android.support:appcompat-v7:$versions.support"
 support.design               = "com.android.support:design:$versions.support"
 support.cardviewV7           = "com.android.support:cardview-v7:$versions.support"
 support.recyclerviewV7       = "com.android.support:recyclerview-v7:$versions.support"
-support.annotations = "com.android.support:support-annotations:$versions.support"
-support.core_utils = "com.android.support:support-core-utils:$versions.support"
-deps.support = support
+support.annotations          = "com.android.support:support-annotations:$versions.support"
+support.core_utils           = "com.android.support:support-core-utils:$versions.support"
+deps.support                 = support
 
 deps.fresco                 = "com.facebook.fresco:fresco:$versions.fresco"
 deps.gson                   = "com.google.code.gson:gson:$versions.gson"
@@ -72,52 +72,52 @@ deps.StatusBarCompat        = "com.github.niorgai:StatusBarCompat:$versions.Stat
 deps.status_bar_compat      = "com.githang:status-bar-compat:$versions.status_bar_compat"
 
 def bigImage = [:]
-bigImage.bigImage = "com.github.piasy:BigImageViewer:$versions.BigImageViewer"
-bigImage.glide = "com.github.piasy:GlideImageLoader:$versions.BigImageViewer"
-deps.bigImage = bigImage
+bigImage.bigImage           = "com.github.piasy:BigImageViewer:$versions.BigImageViewer"
+bigImage.glide              = "com.github.piasy:GlideImageLoader:$versions.BigImageViewer"
+deps.bigImage               = bigImage
 
 def atsl = [:]
-atsl.runner = "com.android.support.test:runner:$versions.atsl_runner"
-atsl.rules = "com.android.support.test:rules:$versions.atsl_runner"
-deps.atsl = atsl
+atsl.runner                 = "com.android.support.test:runner:$versions.atsl_runner"
+atsl.rules                  = "com.android.support.test:rules:$versions.atsl_runner"
+deps.atsl                   = atsl
 
 def kotlin = [:]
 kotlin.plugin               = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 kotlin.stdlib               = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 deps.kotlin = kotlin
 
-def gradle = [:]
+def gradle                  = [:]
 gradle.plugin               = "com.android.tools.build:gradle:$versions.gradle"
-deps.gradle = gradle
+deps.gradle                 = gradle
 
 def databinding = [:]
-databinding.kapt = "com.android.databinding:compiler:$versions.gradle"
-deps.databinding = databinding
+databinding.kapt            = "com.android.databinding:compiler:$versions.gradle"
+deps.databinding            = databinding
 
 def glide = [:]
-glide.lib = "com.github.bumptech.glide:glide:$versions.glide"
-glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
-deps.glide = glide
+glide.lib                   = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler              = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide                  = glide
 
 def lifecycle = [:]
-lifecycle.runtime = "android.arch.lifecycle:runtime:$versions.lifecycle"
-lifecycle.extensions = "android.arch.lifecycle:extensions:$versions.lifecycle"
-lifecycle.java8 = "android.arch.lifecycle:common-java8:$versions.lifecycle"
-lifecycle.compiler = "android.arch.lifecycle:compiler:$versions.lifecycle"
-deps.lifecycle = lifecycle
+lifecycle.runtime           = "android.arch.lifecycle:runtime:$versions.lifecycle"
+lifecycle.extensions        = "android.arch.lifecycle:extensions:$versions.lifecycle"
+lifecycle.java8             = "android.arch.lifecycle:common-java8:$versions.lifecycle"
+lifecycle.compiler          = "android.arch.lifecycle:compiler:$versions.lifecycle"
+deps.lifecycle              = lifecycle
 
 
 def espresso = [:]
-espresso.core = "com.android.support.test.espresso:espresso-core:$versions.espresso"
-espresso.contrib = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
-espresso.intents = "com.android.support.test.espresso:espresso-intents:$versions.espresso"
+espresso.core               = "com.android.support.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib            = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents            = "com.android.support.test.espresso:espresso-intents:$versions.espresso"
 deps.espresso = espresso
 
 def dagger = [:]
-dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
-dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
-dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
-dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.runtime                  = "com.google.dagger:dagger:$versions.dagger"
+dagger.android                  = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support          = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler                 = "com.google.dagger:dagger-compiler:$versions.dagger"
 dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
 
 deps.dagger = dagger
@@ -126,11 +126,11 @@ ext.deps = deps
 
 
 def addRepos(RepositoryHandler handler){
-    handler.mavenCentral()
     handler.maven { url  "http://dl.bintray.com/piasy/maven" }
     handler.maven { url 'https://maven.google.com' }
     handler.maven { url 'https://jitpack.io' }
     handler.google()
+    handler.mavenCentral()
     handler.jcenter()
 }
 ext.addRepos = this.&addRepos

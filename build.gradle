@@ -7,6 +7,9 @@ buildscript {
         classpath deps.gradle.plugin
         classpath deps.kotlin.plugin
     }
+    repositories {
+        google()
+    }
 }
 
 allprojects {

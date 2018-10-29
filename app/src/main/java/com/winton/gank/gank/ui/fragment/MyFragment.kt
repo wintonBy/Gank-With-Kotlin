@@ -1,10 +1,18 @@
 package com.winton.gank.gank.ui.fragment
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import com.winton.gank.gank.R
+import com.winton.gank.gank.adapter.ItemTouchHelperCallBack
+import com.winton.gank.gank.adapter.MeAdapter
 import com.winton.gank.gank.databinding.FragMeBinding
+import com.winton.gank.gank.http.bean.PersonCenterBean
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.utils.BindingUtils
+import com.winton.gank.gank.utils.diffutils.PersonCenterBeanDiff
 import com.winton.gank.gank.utils.glide.GlideApp
 
 /**
@@ -22,12 +30,48 @@ class MyFragment: BaseFragment<FragMeBinding>() {
         }
     }
 
+    private lateinit var adapter: MeAdapter
+    private lateinit var itemTouchHelper: ItemTouchHelper
+
+    private val mData:ArrayList<PersonCenterBean> by lazy {
+        ArrayList<PersonCenterBean>().apply {
+            this.add(PersonCenterBean("我的GitHub").apply {iconId = R.mipmap.github})
+            this.add(PersonCenterBean("我的CSDN").apply {iconId = R.mipmap.csdn})
+            this.add(PersonCenterBean("我的BLOG").apply {iconId = R.mipmap.blog})
+
+        }
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.frag_me
     }
 
+    override fun initView() {
+        super.initView()
+        binding.rv.layoutManager = GridLayoutManager(context!!,3)
+    }
+
+    override fun initListener() {
+        super.initListener()
+    }
+
     override fun initData() {
         super.initData()
+        adapter = MeAdapter(context!!)
+        adapter.setOnItemClickListener(object :MeAdapter.OnItemClick{
+            override fun onItemClick(item: PersonCenterBean) {
+            }
+        })
+        adapter.setOnItemLongClickListener(object :MeAdapter.OnItemLongClick{
+            override fun onItemLongClick(viewHolder: RecyclerView.ViewHolder): Boolean {
+                itemTouchHelper.startDrag(viewHolder)
+                return true
+            }
+        })
+        adapter.update(mData)
+        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallBack(adapter))
+        itemTouchHelper.attachToRecyclerView(binding.rv)
+        binding.rv.adapter = adapter
         BindingUtils.bindGift(binding.imageView, "http://wintonby.github.io/assets/images/winton.jpg")
     }
 }
