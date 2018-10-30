@@ -5,11 +5,12 @@
   <img src="screen/start.png" width="200"/>
   <img src="screen/today.png" width="200"/>
   <img src="screen/gift.png" width="200" />
-  <img src="screen/image.png" width="200"/>
+  <img src="screen/image.gif" width="200"/>
 </div>
 <div align="left">
   <img src="screen/iOS.png" width="200" />
   <img src="screen/web.png" width="200" />
+  <img src="screen/me.gif" width="200" />
 </div>  
 
 
