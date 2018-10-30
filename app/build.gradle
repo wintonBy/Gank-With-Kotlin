@@ -34,7 +34,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
-    kapt deps.databinding.kapt
+//    kapt deps.databinding.kapt
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
 
@@ -71,7 +71,6 @@ dependencies {
     implementation deps.bigImage.bigImage
     implementation deps.bigImage.glide
     implementation deps.status_bar_compat
-
 
 
 }

@@ -3,12 +3,15 @@ package com.winton.gank.gank.adapter
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.graphics.Color
 import android.support.v7.util.DiffUtil
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemMeCenterBinding
 import com.winton.gank.gank.http.bean.PersonCenterBean
@@ -76,7 +79,7 @@ class MeAdapter:RecyclerView.Adapter<MeAdapter.ViewHolder> {
         holder.binding.root.tag = mData[position]
     }
 
-    class ViewHolder:BaseRVHolder{
+    class ViewHolder:BaseRVHolder,ItemTouchListener{
         constructor(binding: ViewDataBinding) : super(binding.root){
             this.binding = binding
         }
@@ -89,15 +92,47 @@ class MeAdapter:RecyclerView.Adapter<MeAdapter.ViewHolder> {
                 }
             }
         }
+
+        override fun onItemSelect() {
+            (itemView as CardView).apply {
+                this.setCardBackgroundColor(App.INSTANCE.getColor(R.color.divider_line))
+
+            }
+        }
+
+        override fun onItemClear() {
+            (itemView as CardView).apply {
+                this.setCardBackgroundColor(Color.TRANSPARENT)
+
+            }
+        }
     }
+
+    /**
+     * 单击Item
+     */
     interface OnItemClick{
         fun onItemClick(item: PersonCenterBean)
     }
+
+    /**
+     * 长按Item
+     */
     interface OnItemLongClick{
         fun onItemLongClick(viewHolder: RecyclerView.ViewHolder):Boolean
     }
 }
 
+
+interface ItemTouchListener{
+    fun onItemSelect()
+
+    fun onItemClear()
+}
+
+/**
+ * 拖拽回调
+ */
 class ItemTouchHelperCallBack:ItemTouchHelper.Callback{
 
     private var mAdapter:MeAdapter
@@ -108,7 +143,6 @@ class ItemTouchHelperCallBack:ItemTouchHelper.Callback{
 
 
     override fun getMovementFlags(p0: RecyclerView, p1: RecyclerView.ViewHolder): Int {
-
 
         return makeMovementFlags(ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.DOWN or ItemTouchHelper.UP,0)
     }
@@ -130,10 +164,20 @@ class ItemTouchHelperCallBack:ItemTouchHelper.Callback{
     }
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        viewHolder?.let {
+            if(actionState != ItemTouchHelper.ACTION_STATE_IDLE){
+                if(viewHolder is ItemTouchListener){
+                    viewHolder.onItemSelect()
+                }
+            }
+        }
         super.onSelectedChanged(viewHolder, actionState)
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
+        if(viewHolder is ItemTouchListener){
+            viewHolder.onItemClear()
+        }
     }
 }

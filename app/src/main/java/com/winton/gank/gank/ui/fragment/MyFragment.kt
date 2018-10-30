@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.ItemTouchHelperCallBack
 import com.winton.gank.gank.adapter.MeAdapter
@@ -14,6 +15,7 @@ import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.utils.BindingUtils
 import com.winton.gank.gank.utils.diffutils.PersonCenterBeanDiff
 import com.winton.gank.gank.utils.glide.GlideApp
+import com.winton.gank.gank.widget.CommItemDecoration
 
 /**
  * @author: winton
@@ -72,6 +74,5 @@ class MyFragment: BaseFragment<FragMeBinding>() {
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallBack(adapter))
         itemTouchHelper.attachToRecyclerView(binding.rv)
         binding.rv.adapter = adapter
-        BindingUtils.bindGift(binding.imageView, "http://wintonby.github.io/assets/images/winton.jpg")
     }
 }
