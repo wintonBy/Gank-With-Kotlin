@@ -12,7 +12,11 @@
   <img src="screen/web.png" width="200" />
   <img src="screen/me.gif" width="200" />
 </div>  
-
+# UI亮点
+### 1.沉浸式状态栏
+### 2.可拖拽的RecyclerView
+### 3.瀑布流照片墙
+### 4.多类型Item RecyclerView
 
 # 项目架构
 
