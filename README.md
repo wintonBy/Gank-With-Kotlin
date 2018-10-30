@@ -3,6 +3,12 @@
 # UI效果展示
 
 <img src="screen/start.png" width="320" hspace="20"/>
+<img src="screen/today.png" width="320" hspace="20"/>
+<img src="screen/gift.png" width="320" hspace="20"/>
+<img src="screen/image.png" width="320" hspace="20"/>
+<img src="screen/iOS.png" width="320" hspace="20"/>
+<img src="screen/web.png" width="320" hspace="20"/>
+
 
 # 项目架构
 

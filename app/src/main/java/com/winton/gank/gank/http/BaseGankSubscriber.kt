@@ -24,7 +24,7 @@ abstract class BaseGankSubscriber<T:BaseGankResponse>:FlowableSubscriber<T> {
     override fun onSubscribe(s: Subscription) {
         mSub = s
         start()
-        if(!NetworkUtils.isAvailableByPing()){
+        if(!NetworkUtils.isConnected()){
             onFail(ErrorCode.NETWORK_ERROR, App.INSTANCE.getString(R.string.network_error))
         }else{
             mSub.request(Long.MAX_VALUE)
