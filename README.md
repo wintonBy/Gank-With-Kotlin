@@ -17,9 +17,7 @@
 # 项目架构
 
 # 开源依赖
-<li>
 [EasyStatueView](https://github.com/wintonBy/EasyStatueView)
-</li>
 <li>
 [BottomNavigationView](https://github.com/wintonBy/BottomNavigationView)
 </li>
