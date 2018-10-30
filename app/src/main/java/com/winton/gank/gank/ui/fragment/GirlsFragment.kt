@@ -3,6 +3,7 @@ package com.winton.gank.gank.ui.fragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.GirlsAdapter
@@ -15,6 +16,8 @@ import com.winton.gank.gank.ui.activity.ImageActivity
 import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.utils.diffutils.GankGirlsDiff
 import com.winton.gank.gank.viewmodel.GankListViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author: winton
@@ -25,6 +28,8 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
 
     private var category:String? = null
     private var pageIndex = 1
+    private var hasNext = true
+    private val spanCount = 2
     private lateinit var adapter: GirlsAdapter
     private lateinit var viewModel: GankListViewModel
     companion object {
@@ -42,12 +47,48 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
     }
 
     override fun initView() {
-        binding.rv.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        binding.rv.layoutManager = StaggeredGridLayoutManager(spanCount,StaggeredGridLayoutManager.VERTICAL)
         UiTools.initSwipRefresh(binding.srl)
     }
 
+    override fun initListener() {
+        super.initListener()
+        binding.rv.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+            var visibleItems:IntArray = IntArray(spanCount)
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState == RecyclerView.SCROLL_STATE_IDLE && hasNext ){
+                    (recyclerView.layoutManager as StaggeredGridLayoutManager).findLastCompletelyVisibleItemPositions(visibleItems)
+                    for(pos  in visibleItems){
+                        if(pos >= adapter.itemCount - 1 - (2* spanCount)){
+                            //可见view中包含最后2行 就加载下一页
+                            loadMore()
+                            break
+                        }
+                    }
+                }
+
+            }
+        })
+        /**
+         * 下拉监听
+         */
+        binding.srl.setOnRefreshListener {
+            category?.let {
+                pageIndex = 1
+                viewModel.loadData(it,pageIndex)
+            }
+        }
+    }
+
+
     override fun initData() {
-        adapter = GirlsAdapter(GankGirlsDiff(),context!!)
+        adapter = GirlsAdapter(context!!)
         adapter.setOnItemClickListener(object :GirlsAdapter.OnItemClick{
             override fun onItemClick(item: TitleBean) {
                 ImageActivity.start(activity!!,item.url)
@@ -59,21 +100,41 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
         viewModel.getListData().observe(this, Observer {
             when(it?.status){
                 Resource.LOADING ->{
-                    binding.sv.showLoading()
+                    if(pageIndex == 1){
+                        binding.sv.showLoading()
+                    }
                 }
                 Resource.SUCCESS->{
                     binding.sv.showContent()
+                    binding.srl.isRefreshing = false
                     it.data?.results?.run {
-                        adapter.submitList(this)
+                        if(pageIndex == 1){
+                            adapter.update(this)
+                        }else{
+                            adapter.add(this)
+                        }
+                        if(this.size < 15){
+                            hasNext = false
+                        }
                     }
                 }
                 Resource.ERROR->{
-                    binding.sv.showError()
+                    binding.srl.isRefreshing = false
+                    if(pageIndex == 1){
+                        binding.sv.showError()
+                    }
                 }
             }
         })
         category?.let {
             binding.sv.showLoading()
+            viewModel.loadData(it,pageIndex)
+        }
+    }
+
+    private fun loadMore(){
+        category?.let {
+            pageIndex++
             viewModel.loadData(it,pageIndex)
         }
     }

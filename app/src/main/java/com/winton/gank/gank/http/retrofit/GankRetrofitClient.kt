@@ -44,7 +44,7 @@ class GankRetrofitClient(private val okHttpClient: OkHttpClient) {
      * 分类
      */
     fun category(category: String,pageIndex:Int,subscriber: BaseGankSubscriber<CategoryResponse>){
-        server.category(category,10,pageIndex)
+        server.category(category,15,pageIndex)
                 .compose(ScHelper.compose())
                 .subscribe(subscriber)
     }

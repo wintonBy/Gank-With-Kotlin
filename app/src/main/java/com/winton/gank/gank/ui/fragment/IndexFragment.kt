@@ -30,11 +30,11 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
     private lateinit var adapter: IndexVPAdapter
     private val framents by lazy {
         ArrayList<Fragment>().apply {
+            this.add(GirlsFragment.newInstance(Bundle().apply { this.putString(GirlsFragment.CATEGORY,"福利") }))
             this.add(TodayFragment.newInstance(null))
             this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"Android") }))
             this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"iOS") }))
             this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"App") }))
-            this.add(GirlsFragment.newInstance(Bundle().apply { this.putString(GirlsFragment.CATEGORY,"福利") }))
         }
     }
 
@@ -55,11 +55,14 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
     }
 
     private fun initTab(){
-        binding.tabIndex.getTabAt(0)?.text = "今日推荐"
-        binding.tabIndex.getTabAt(1)?.text = "Android"
-        binding.tabIndex.getTabAt(2)?.text = "iOS"
-        binding.tabIndex.getTabAt(3)?.text = "App"
-        binding.tabIndex.getTabAt(4)?.text = "福利"
+        binding.tabIndex.getTabAt(0)?.text = "福利"
+        binding.tabIndex.getTabAt(1)?.apply {
+            text = "今日推荐"
+            select()
+        }
+        binding.tabIndex.getTabAt(2)?.text = "Android"
+        binding.tabIndex.getTabAt(3)?.text = "iOS"
+        binding.tabIndex.getTabAt(4)?.text = "App"
     }
 
     override fun onResume() {

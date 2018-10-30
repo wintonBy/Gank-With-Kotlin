@@ -48,5 +48,4 @@ object RetrofitHolder {
         return gankInstance!!
     }
 
-
 }
