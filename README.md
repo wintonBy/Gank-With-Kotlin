@@ -18,15 +18,15 @@
 
 # 开源依赖
 [EasyStatueView](https://github.com/wintonBy/EasyStatueView)
-我自己开源的状态布局
+我自己开源的状态布局<br>
 [BottomNavigationView](https://github.com/wintonBy/BottomNavigationView)
-我自己开源的底部导航
+我自己开源的底部导航<br>
 [AppExecutor](https://github.com/wintonBy/AppExecutor)
-我自己开源的应用线程管理器
+我自己开源的应用线程管理器<br>
 [BigImageViewer](https://github.com/Piasy/BigImageViewer)
-大图查看器
+大图查看器<br>
 [Retrofit](https://github.com/square/retrofit)
-网络框架
+网络框架<br>
 
 
 
