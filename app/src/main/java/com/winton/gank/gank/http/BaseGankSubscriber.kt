@@ -1,6 +1,5 @@
 package com.winton.gank.gank.http
 
-import android.support.v4.content.ContextCompat
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.winton.gank.gank.App
@@ -12,7 +11,7 @@ import org.reactivestreams.Subscription
 /**
  * @author: winton
  * @time: 2018/10/9 下午8:53
- * @desc: 描述
+ * @desc: gank订阅者
  */
 abstract class BaseGankSubscriber<T:BaseGankResponse>:FlowableSubscriber<T> {
 

@@ -6,6 +6,7 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.winton.gank.gank.App
 import com.winton.gank.gank.constant.DeveloperConfig
 import com.winton.gank.gank.http.retrofit.GankRetrofitClient
+import com.winton.gank.gank.http.retrofit.JDRetrofitClient
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -23,6 +24,8 @@ object RetrofitHolder {
     private val mOkHttpClient:OkHttpClient
 
     private var gankInstance:GankRetrofitClient? = null
+    private var jdInstance:JDRetrofitClient? = null
+
 
     init {
         val cookieJar = PersistentCookieJar(SetCookieCache(),SharedPrefsCookiePersistor(App.INSTANCE))
@@ -46,6 +49,16 @@ object RetrofitHolder {
             gankInstance = GankRetrofitClient(mOkHttpClient)
         }
         return gankInstance!!
+    }
+
+    /**
+     * 获取煎蛋 Server
+     */
+    fun jdInstance():JDRetrofitClient{
+        if(jdInstance == null){
+            jdInstance = JDRetrofitClient(mOkHttpClient)
+        }
+        return jdInstance!!
     }
 
 }

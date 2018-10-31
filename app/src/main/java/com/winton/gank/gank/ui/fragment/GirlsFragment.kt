@@ -7,17 +7,13 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.GirlsAdapter
-import com.winton.gank.gank.adapter.mulitype.GankListAdapter
 import com.winton.gank.gank.databinding.FragGirlsBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.ImageActivity
 import com.winton.gank.gank.utils.UiTools
-import com.winton.gank.gank.utils.diffutils.GankGirlsDiff
 import com.winton.gank.gank.viewmodel.GankListViewModel
-import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * @author: winton

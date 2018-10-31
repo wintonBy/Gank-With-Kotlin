@@ -1,10 +1,13 @@
 package com.winton.gank.gank.ui.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import com.blankj.utilcode.util.LogUtils
+import com.githang.statusbar.StatusBarCompat
 import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.ItemTouchHelperCallBack
@@ -75,4 +78,5 @@ class MyFragment: BaseFragment<FragMeBinding>() {
         itemTouchHelper.attachToRecyclerView(binding.rv)
         binding.rv.adapter = adapter
     }
+
 }

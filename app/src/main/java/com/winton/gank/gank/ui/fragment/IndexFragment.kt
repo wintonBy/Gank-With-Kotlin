@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.blankj.utilcode.util.LogUtils
 import com.githang.statusbar.StatusBarCompat
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.IndexVPAdapter
@@ -65,8 +66,4 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
         binding.tabIndex.getTabAt(4)?.text = "App"
     }
 
-    override fun onResume() {
-        super.onResume()
-        StatusBarCompat.setStatusBarColor(activity, Color.WHITE,true)
-    }
 }

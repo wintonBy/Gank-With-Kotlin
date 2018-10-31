@@ -2,17 +2,16 @@ package com.winton.gank.gank.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import com.githang.statusbar.StatusBarCompat
 import com.winton.bottomnavigationview.NavigationView
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ActMainBinding
 import com.winton.gank.gank.ui.BaseActivity
-import com.winton.gank.gank.ui.fragment.GirlsFragment
-import com.winton.gank.gank.ui.fragment.IndexFragment
-import com.winton.gank.gank.ui.fragment.MyFragment
-import com.winton.gank.gank.ui.fragment.NewsFragment
+import com.winton.gank.gank.ui.fragment.*
 
 
 class MainActivity : BaseActivity<ActMainBinding>() {
@@ -51,7 +50,7 @@ class MainActivity : BaseActivity<ActMainBinding>() {
         fragments.apply {
             this.add(Model("index", IndexFragment.newInstance(null)))
             this.add(Model("news", NewsFragment.newInstance(null)))
-            this.add(Model("girls", GirlsFragment.newInstance(null)))
+            this.add(Model("girls", JDGirlsFragment.newInstance(null)))
             this.add(Model("me", MyFragment.newInstance(null)))
         }
     }
@@ -73,10 +72,19 @@ class MainActivity : BaseActivity<ActMainBinding>() {
 
             override fun selected(index: Int, model: NavigationView.Model?) {
                 changeFragment(index)
+                when(index) {
+                    3 -> {
+                        StatusBarCompat.setStatusBarColor(this@MainActivity, Color.BLACK, false)
+                    }
+                    else -> {
+                        StatusBarCompat.setStatusBarColor(this@MainActivity, Color.WHITE,true)
+                    }
+                }
             }
         })
         mNV.check(0)
         changeFragment(0)
+        StatusBarCompat.setStatusBarColor(this, Color.WHITE,true)
     }
 
     /**

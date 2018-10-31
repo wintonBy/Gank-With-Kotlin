@@ -14,10 +14,10 @@
 </div>
 
 # UI亮点
-### 沉浸式状态栏
-### 可拖拽的RecyclerView
-### 瀑布流照片墙
-### 多类型Item RecyclerView
+<li>沉浸式状态栏</li>
+<li>可拖拽的RecyclerView</li>
+<li>瀑布流照片墙</li>
+<li>多类型Item RecyclerView</li>
 
 # 项目架构
 
