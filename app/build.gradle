@@ -70,7 +70,11 @@ dependencies {
 
     implementation deps.bigImage.bigImage
     implementation deps.bigImage.glide
+    implementation deps.bigImage.factory
+
     implementation deps.status_bar_compat
+
+    implementation deps.circleindicator
 
 
 }

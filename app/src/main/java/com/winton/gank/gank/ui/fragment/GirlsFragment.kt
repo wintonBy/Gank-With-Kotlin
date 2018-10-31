@@ -14,6 +14,7 @@ import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.ImageActivity
 import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.GankListViewModel
+import java.util.ArrayList
 
 /**
  * @author: winton
@@ -87,7 +88,7 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
         adapter = GirlsAdapter(context!!)
         adapter.setOnItemClickListener(object :GirlsAdapter.OnItemClick{
             override fun onItemClick(item: TitleBean) {
-                ImageActivity.start(activity!!,item.url)
+                ImageActivity.start(activity!!,ArrayList<String>().apply { add(item.url) })
             }
         })
         binding.rv.adapter = adapter

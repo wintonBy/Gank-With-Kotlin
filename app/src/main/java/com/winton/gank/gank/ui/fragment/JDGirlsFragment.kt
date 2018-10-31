@@ -12,6 +12,7 @@ import com.winton.gank.gank.http.api.JDApi
 import com.winton.gank.gank.http.response.Comment
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
+import com.winton.gank.gank.ui.activity.ImageActivity
 import com.winton.gank.gank.viewmodel.JDViewModel
 
 /**
@@ -50,7 +51,7 @@ class JDGirlsFragment:BaseFragment<FragGirlsBinding>() {
         adapter = JDGirlsAdapter(context!!)
         adapter.setOnItemClickListener(object :JDGirlsAdapter.OnItemClick{
             override fun onItemClick(item: Comment) {
-
+                ImageActivity.start(activity!!, ArrayList(item.pics))
             }
         })
         binding.rv.layoutManager = GridLayoutManager(context!!,2)

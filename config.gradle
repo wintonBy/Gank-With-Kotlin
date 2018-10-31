@@ -28,6 +28,7 @@ versions.flexbox                = "1.0.0"
 versions.BigImageViewer         = "1.5.6"
 versions.StatusBarCompat        = "2.1.4"
 versions.status_bar_compat      = "0.7"
+versions.circleindicator        = "1.2.2"
 
 
 def build_version = [:]
@@ -70,10 +71,12 @@ deps.utilcode               = "com.blankj:utilcode:$versions.utilcode"
 deps.flexbox                = "com.google.android:flexbox:$versions.flexbox"
 deps.StatusBarCompat        = "com.github.niorgai:StatusBarCompat:$versions.StatusBarCompat"
 deps.status_bar_compat      = "com.githang:status-bar-compat:$versions.status_bar_compat"
+deps.circleindicator            = "me.relex:circleindicator:$versions.circleindicator"
 
 def bigImage = [:]
 bigImage.bigImage           = "com.github.piasy:BigImageViewer:$versions.BigImageViewer"
 bigImage.glide              = "com.github.piasy:GlideImageLoader:$versions.BigImageViewer"
+bigImage.factory            = "com.github.piasy:GlideImageViewFactory:$versions.BigImageViewer"
 deps.bigImage               = bigImage
 
 def atsl = [:]
@@ -121,6 +124,7 @@ dagger.compiler                 = "com.google.dagger:dagger-compiler:$versions.d
 dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
 
 deps.dagger = dagger
+
 
 ext.deps = deps
 

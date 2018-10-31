@@ -18,6 +18,7 @@ import com.winton.gank.gank.ui.activity.WebActivity
 import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.TodayViewModel
 import com.winton.gank.gank.widget.CommItemDecoration
+import java.util.ArrayList
 
 /**
  * @author: winton
@@ -59,7 +60,7 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
                     IndexAdapter.T_IMAGE ->{
                         val url = item.item?.url
                         if(url != null){
-                            ImageActivity.start(context!!,url)
+                            ImageActivity.start(context!!, ArrayList<String>().apply { add(url) })
                         }else{
                             ToastUtils.showLong("连接为空")
                         }
