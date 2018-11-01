@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.blankj.utilcode.util.SnackbarUtils
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.JDGirlsAdapter
 import com.winton.gank.gank.databinding.FragGirlsBinding
@@ -111,5 +112,6 @@ class JDGirlsFragment:BaseFragment<FragGirlsBinding>() {
     private fun loadMore(){
         pageIndex++
         viewModel.loadData(JDApi.TYPE_GIRL,pageIndex)
+
     }
 }
