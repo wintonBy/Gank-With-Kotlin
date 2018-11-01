@@ -14,6 +14,17 @@
 
         </android.support.v4.view.ViewPager>
 
+        <com.rd.PageIndicatorView
+            app:piv_viewPager="@id/vp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:piv_animationType="worm"
+            app:piv_selectedColor="@android:color/white"
+            app:piv_unselectedColor="@android:color/darker_gray"
+            />
+
     </FrameLayout>
 
 

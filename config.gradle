@@ -28,7 +28,7 @@ versions.flexbox                = "1.0.0"
 versions.BigImageViewer         = "1.5.6"
 versions.StatusBarCompat        = "2.1.4"
 versions.status_bar_compat      = "0.7"
-versions.circleindicator        = "1.2.2"
+versions.circleindicator        = "1.0.2"
 
 
 def build_version = [:]
@@ -71,7 +71,7 @@ deps.utilcode               = "com.blankj:utilcode:$versions.utilcode"
 deps.flexbox                = "com.google.android:flexbox:$versions.flexbox"
 deps.StatusBarCompat        = "com.github.niorgai:StatusBarCompat:$versions.StatusBarCompat"
 deps.status_bar_compat      = "com.githang:status-bar-compat:$versions.status_bar_compat"
-deps.circleindicator            = "me.relex:circleindicator:$versions.circleindicator"
+deps.circleindicator            = "com.romandanylyk:pageindicatorview:$versions.circleindicator"
 
 def bigImage = [:]
 bigImage.bigImage           = "com.github.piasy:BigImageViewer:$versions.BigImageViewer"
