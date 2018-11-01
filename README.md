@@ -1,5 +1,8 @@
 # 项目简介
 这是一个自己练手的Android小项目，主要内容包含了Gank内容的接入，用到了我自己开源等
+
+# APK 下载
+<img src="screen/download.png" width="120" />
 # UI效果展示
 <div align="left">
   <img src="screen/start.png" width="200"/>
