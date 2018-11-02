@@ -7,6 +7,7 @@ import com.winton.gank.gank.App
 import com.winton.gank.gank.constant.DeveloperConfig
 import com.winton.gank.gank.http.retrofit.GankRetrofitClient
 import com.winton.gank.gank.http.retrofit.JDRetrofitClient
+import com.winton.gank.gank.http.retrofit.WeixunRetrofitClient
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -25,6 +26,7 @@ object RetrofitHolder {
 
     private var gankInstance:GankRetrofitClient? = null
     private var jdInstance:JDRetrofitClient? = null
+    private var wInstance:WeixunRetrofitClient? = null
 
 
     init {
@@ -61,4 +63,13 @@ object RetrofitHolder {
         return jdInstance!!
     }
 
+    /**
+     * 获取weixun 客户端
+     */
+    fun wInstance():WeixunRetrofitClient{
+        if(wInstance == null){
+            wInstance = WeixunRetrofitClient(mOkHttpClient)
+        }
+        return wInstance!!;
+    }
 }

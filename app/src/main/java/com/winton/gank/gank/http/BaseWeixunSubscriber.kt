@@ -17,7 +17,6 @@ abstract class BaseWeixunSubscriber:FlowableSubscriber<WeixunResponse>{
     lateinit var mSub:Subscription
 
     override fun onComplete() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onSubscribe(s: Subscription) {

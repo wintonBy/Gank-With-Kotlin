@@ -1,6 +1,7 @@
 package com.winton.gank.gank.ui.activity
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import com.winton.gank.gank.BuildConfig
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ActSplashBinding
@@ -19,7 +20,10 @@ class SplashActivity:BaseActivity<ActSplashBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         binding.version.text = "v"+BuildConfig.VERSION_NAME
+
+        binding.logo.startAnimation(AnimationUtils.loadAnimation(this@SplashActivity,R.anim.splash_logo_anim))
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -28,4 +32,6 @@ class SplashActivity:BaseActivity<ActSplashBinding>() {
             this@SplashActivity.finish()
         },2000)
     }
+
+
 }

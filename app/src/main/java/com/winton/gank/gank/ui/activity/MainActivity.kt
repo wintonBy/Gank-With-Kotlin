@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import com.blankj.utilcode.util.ToastUtils
 import com.githang.statusbar.StatusBarCompat
 import com.winton.bottomnavigationview.NavigationView
 import com.winton.gank.gank.R
@@ -19,6 +20,11 @@ class MainActivity : BaseActivity<ActMainBinding>() {
     private lateinit var mNV: NavigationView
     private lateinit var nvItems: ArrayList<NavigationView.Model>
     private lateinit var fragments: ArrayList<Model>
+
+    /**
+     * 上次按下返回键的时间
+     */
+    private var lastDownBackKeyTime = 0L
 
     private var currentIndex = -1
     private val fm: FragmentManager by lazy { supportFragmentManager }
@@ -111,5 +117,16 @@ class MainActivity : BaseActivity<ActMainBinding>() {
     private class Model(tag: String, fragment: Fragment) {
         val tag = tag
         val fragment = fragment
+    }
+
+
+    override fun onBackPressed() {
+        val currentBackTime = System.currentTimeMillis()
+        if(currentBackTime - lastDownBackKeyTime > 2000){
+            ToastUtils.showShort("再按一次返回键退出")
+            lastDownBackKeyTime = currentBackTime
+        }else{
+            finish()
+        }
     }
 }
