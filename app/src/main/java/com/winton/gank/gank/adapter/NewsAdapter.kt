@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemNewsListVideoBinding
 import com.winton.gank.gank.http.bean.NewsContent
@@ -60,4 +61,6 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             }
         }
     }
+
+
 }

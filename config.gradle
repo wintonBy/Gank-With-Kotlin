@@ -29,6 +29,7 @@ versions.BigImageViewer         = "1.5.6"
 versions.StatusBarCompat        = "2.1.4"
 versions.status_bar_compat      = "0.7"
 versions.circleindicator        = "1.0.2"
+versions.gsyplayer              = "6.0.1"
 
 
 def build_version = [:]
@@ -71,7 +72,17 @@ deps.utilcode               = "com.blankj:utilcode:$versions.utilcode"
 deps.flexbox                = "com.google.android:flexbox:$versions.flexbox"
 deps.StatusBarCompat        = "com.github.niorgai:StatusBarCompat:$versions.StatusBarCompat"
 deps.status_bar_compat      = "com.githang:status-bar-compat:$versions.status_bar_compat"
-deps.circleindicator            = "com.romandanylyk:pageindicatorview:$versions.circleindicator"
+deps.circleindicator        = "com.romandanylyk:pageindicatorview:$versions.circleindicator"
+
+
+def gsy = [:]
+gsy.java              = "com.shuyu:gsyVideoPlayer-java:$versions.gsyplayer"
+gsy.armv5             = "com.shuyu:gsyVideoPlayer-armv5:$versions.gsyplayer"
+gsy.armv7             = "com.shuyu:gsyVideoPlayer-armv7a:$versions.gsyplayer"
+gsy.arm64             = "com.shuyu:gsyVideoPlayer-arm64:$versions.gsyplayer"
+gsy.arm64             = "com.shuyu:gsyVideoPlayer-x64:$versions.gsyplayer"
+gsy.arm64             = "com.shuyu:gsyVideoPlayer-x86:$versions.gsyplayer"
+deps.gsy              = gsy
 
 def bigImage = [:]
 bigImage.bigImage           = "com.github.piasy:BigImageViewer:$versions.BigImageViewer"

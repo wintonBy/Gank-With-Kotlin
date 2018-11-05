@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import com.blankj.utilcode.util.ToastUtils
 import com.githang.statusbar.StatusBarCompat
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
+import com.shuyu.gsyvideoplayer.utils.GSYVideoHelper
 import com.winton.bottomnavigationview.NavigationView
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ActMainBinding
@@ -20,6 +22,7 @@ class MainActivity : BaseActivity<ActMainBinding>() {
     private lateinit var mNV: NavigationView
     private lateinit var nvItems: ArrayList<NavigationView.Model>
     private lateinit var fragments: ArrayList<Model>
+
 
     /**
      * 上次按下返回键的时间
@@ -46,6 +49,7 @@ class MainActivity : BaseActivity<ActMainBinding>() {
         mNV = binding.nv
         initFragments()
         initNavigation()
+
     }
 
     /**
