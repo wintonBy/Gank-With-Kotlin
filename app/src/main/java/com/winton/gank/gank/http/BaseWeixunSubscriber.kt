@@ -3,6 +3,7 @@ package com.winton.gank.gank.http
 import com.blankj.utilcode.util.NetworkUtils
 import com.winton.gank.gank.App
 import com.winton.gank.gank.R
+import com.winton.gank.gank.http.response.NewsResponse
 import com.winton.gank.gank.http.response.WeixunResponse
 import io.reactivex.FlowableSubscriber
 import org.reactivestreams.Subscription
@@ -12,7 +13,7 @@ import org.reactivestreams.Subscription
  * @time: 2018/11/1 3:58 PM
  * @desc: weixun 订阅者基类
  */
-abstract class BaseWeixunSubscriber:FlowableSubscriber<WeixunResponse>{
+abstract class BaseWeixunSubscriber:FlowableSubscriber<NewsResponse>{
 
     lateinit var mSub:Subscription
 
@@ -29,7 +30,7 @@ abstract class BaseWeixunSubscriber:FlowableSubscriber<WeixunResponse>{
         }
     }
 
-    override fun onNext(t: WeixunResponse) {
+    override fun onNext(t: NewsResponse) {
         if("success"==t.message){
             onSuccess(t)
         }else{
@@ -44,7 +45,7 @@ abstract class BaseWeixunSubscriber:FlowableSubscriber<WeixunResponse>{
     open fun start(){
 
     }
-    abstract fun onSuccess(t: WeixunResponse)
+    abstract fun onSuccess(t: NewsResponse)
 
     abstract fun onFail(code:ErrorCode,msg:String)
 }

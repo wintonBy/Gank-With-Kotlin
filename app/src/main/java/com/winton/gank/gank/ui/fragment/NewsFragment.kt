@@ -49,7 +49,9 @@ class NewsFragment: BaseFragment<FragNewsBinding>() {
 
                 }
                 Resource.SUCCESS ->{
-
+                    it.data?.data?.let {
+                        adapter.refresh(it)
+                    }
                 }
                 Resource.ERROR ->{
 

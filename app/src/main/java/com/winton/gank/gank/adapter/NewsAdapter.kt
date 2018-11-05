@@ -25,6 +25,16 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         this.mContext = mContext
     }
 
+    fun refresh(data:ArrayList<NewsContent>){
+        mData.addAll(0,data)
+        notifyDataSetChanged()
+    }
+
+    fun more(data:ArrayList<NewsContent>){
+        val oldSize = mData.size
+        mData.addAll(data)
+        notifyItemRangeInserted(oldSize,data.size)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ItemNewsListVideoBinding>(LayoutInflater.from(mContext), R.layout.item_news_list_video,parent,false)
