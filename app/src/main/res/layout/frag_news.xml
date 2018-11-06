@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.winton.librarystatue.StatueView
-        android:id="@+id/sv"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/srl"
+        <com.winton.librarystatue.StatueView
+            android:id="@+id/sv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/srl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            </android.support.v7.widget.RecyclerView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+                </android.support.v7.widget.RecyclerView>
+            </android.support.v4.widget.SwipeRefreshLayout>
 
-    </com.winton.librarystatue.StatueView>
+        </com.winton.librarystatue.StatueView>
+        <FrameLayout
+            android:id="@+id/video_full_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+    </RelativeLayout>
+
 </layout>

@@ -15,6 +15,10 @@ import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ActMainBinding
 import com.winton.gank.gank.ui.BaseActivity
 import com.winton.gank.gank.ui.fragment.*
+import android.view.Window.FEATURE_CONTENT_TRANSITIONS
+import android.os.Build
+import android.transition.Explode
+import android.view.Window
 
 
 class MainActivity : BaseActivity<ActMainBinding>() {
@@ -36,6 +40,16 @@ class MainActivity : BaseActivity<ActMainBinding>() {
         fun start(context: Context){
             var intent = Intent(context,MainActivity::class.java)
             context.startActivity(intent)
+        }
+
+    }
+
+    override fun initPreLayout(savedInstanceState: Bundle?) {
+        super.initPreLayout(savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            window.enterTransition = Explode()
+            window.exitTransition = Explode()
         }
 
     }

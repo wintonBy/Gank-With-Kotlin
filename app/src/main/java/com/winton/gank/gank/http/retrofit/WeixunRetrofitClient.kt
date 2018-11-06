@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.winton.gank.gank.http.BaseJDSubscriber
 import com.winton.gank.gank.http.BaseWeixunSubscriber
 import com.winton.gank.gank.http.ScHelper
+import com.winton.gank.gank.http.VideoDetailSubscriber
 import com.winton.gank.gank.http.api.JDApi
 import com.winton.gank.gank.http.api.WeixunApi
 import com.winton.gank.gank.http.bean.NewsContent
@@ -49,6 +50,15 @@ class WeixunRetrofitClient(private val okHttpClient: OkHttpClient) {
                     }
                      NewsResponse(list,it.has_more,it.has_more_to_refresh,it.tips.display_info,it.total_number,it.message)
                 }
+                .compose(ScHelper.compose())
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 获取视频详情
+     */
+    fun getVideoDetail(link:String,r:String,s:String,subscriber: VideoDetailSubscriber){
+        server.getVideoDetail(link,r,s)
                 .compose(ScHelper.compose())
                 .subscribe(subscriber)
     }

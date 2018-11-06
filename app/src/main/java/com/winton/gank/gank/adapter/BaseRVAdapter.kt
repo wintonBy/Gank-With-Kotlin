@@ -9,7 +9,7 @@ import android.support.v7.util.DiffUtil
  * @desc: RecyclerView adapter 基类
  */
 
-open abstract class BaseRVAdapter<T,V:BaseRVHolder>:ListAdapter<T,V>{
+abstract class BaseRVAdapter<T,V:BaseRVHolder>:ListAdapter<T,V>{
 
     constructor(diffCallback: DiffUtil.ItemCallback<T>) : super(diffCallback)
 

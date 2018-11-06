@@ -13,6 +13,10 @@ android {
         versionCode build_version.versionCode
         versionName build_version.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk{
+            abiFilters 'armeabi','armeabi-v7a'
+        }
     }
     buildTypes {
         release {
@@ -23,6 +27,13 @@ android {
     dataBinding {
         enabled true
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
 
 //    android.applicationVariants.all {
 //        variant ->
@@ -35,10 +46,14 @@ android {
 //            }
 //    }
 
+
 }
+
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/jsoup-1.11.3.jar')
     implementation deps.kotlin.stdlib
     testImplementation deps.junit
     androidTestImplementation deps.atsl.runner

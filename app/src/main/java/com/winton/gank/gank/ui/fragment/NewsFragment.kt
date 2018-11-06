@@ -2,11 +2,15 @@ package com.winton.gank.gank.ui.fragment
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Point
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.blankj.utilcode.util.LogUtils
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
+import com.shuyu.gsyvideoplayer.utils.CommonUtil
 import com.shuyu.gsyvideoplayer.utils.GSYVideoHelper
+import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.NewsAdapter
 import com.winton.gank.gank.databinding.FragNewsBinding
@@ -34,7 +38,7 @@ class NewsFragment: BaseFragment<FragNewsBinding>() {
     private var lastVisibleItem = 1
 
     private val smallVideoHelper: GSYVideoHelper by lazy {
-        GSYVideoHelper(activity!!)
+        GSYVideoHelper(activity,NormalGSYVideoPlayer(activity))
     }
     private val smallGSYVideoHelperBuilder: GSYVideoHelper.GSYVideoHelperBuilder by lazy {
         GSYVideoHelper.GSYVideoHelperBuilder().apply {
@@ -47,13 +51,19 @@ class NewsFragment: BaseFragment<FragNewsBinding>() {
             this.videoAllCallBack = object : GSYSampleCallBack(){
                 override fun onQuitSmallWidget(url: String?, vararg objects: Any?) {
                     super.onQuitSmallWidget(url, *objects)
-                    if(smallVideoHelper.playPosition >= 0 && smallVideoHelper.playTAG.equals("")){
+                    if(smallVideoHelper.playPosition >= 0 && smallVideoHelper.playTAG == NewsAdapter.TAG){
                         val pos = smallVideoHelper.playPosition
-                        if(pos in firstVisibleItem .. lastVisibleItem){
+                        if(pos !in firstVisibleItem .. lastVisibleItem){
                             smallVideoHelper.releaseVideoPlayer()
                             adapter.notifyDataSetChanged()
                         }
                     }
+
+                }
+
+                override fun onPrepared(url: String?, vararg objects: Any?) {
+                    super.onPrepared(url, *objects)
+                        LogUtils.d(url)
                 }
             }
 
@@ -76,11 +86,19 @@ class NewsFragment: BaseFragment<FragNewsBinding>() {
                 super.onScrolled(recyclerView, dx, dy)
                 firstVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                 lastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+                if(smallVideoHelper.playPosition >=0 && smallVideoHelper.playTAG == NewsAdapter.TAG){
+                    var currentPos = smallVideoHelper.playPosition
+                    if(currentPos !in firstVisibleItem .. lastVisibleItem){
+                        if(!smallVideoHelper.isSmall && !smallVideoHelper.isFull){
+                            val size = CommonUtil.dip2px(context!!,150F)
+                            smallVideoHelper.showSmallVideo(Point(size,size),true,true)
+                        }
+                    }else{
+                        if(smallVideoHelper.isSmall){
+                            smallVideoHelper.smallVideoToNormal()
+                        }
+                    }
+                }
             }
         })
     }
@@ -88,6 +106,7 @@ class NewsFragment: BaseFragment<FragNewsBinding>() {
     override fun initData() {
         super.initData()
         adapter = NewsAdapter(context!!)
+        adapter.setVideoPlayerHelper(smallVideoHelper,smallGSYVideoHelperBuilder)
         binding.rv.adapter = adapter
         viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
         viewModel.getList().observe(this, Observer {

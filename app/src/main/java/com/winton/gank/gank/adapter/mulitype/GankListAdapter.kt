@@ -63,7 +63,7 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
     private fun fixData(mData: ArrayList<TitleBean>): ArrayList<IndexItem> {
         val result = ArrayList<IndexItem>()
         for(bean in mData){
-            if(bean.images == null || bean.images.isEmpty() ){
+            if(bean.images == null|| bean.images.isEmpty() ){
                 result.add(IndexItem(T_NO_IMG,bean))
             }else if( bean.images.size == 1){
                 result.add(IndexItem(T_ONE_IMG,bean))
