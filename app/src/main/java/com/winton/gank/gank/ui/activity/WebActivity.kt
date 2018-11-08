@@ -14,6 +14,7 @@ import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ActWebBinding
 import com.winton.gank.gank.ui.BaseActivity
+import kotlinx.android.synthetic.main.act_web.view.*
 
 /**
  * @author: winton
@@ -125,9 +126,8 @@ class WebActivity:BaseActivity<ActWebBinding>() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
 
                 if(newProgress == 100){
-                    binding.progress.visibility = View.GONE
+                    binding.fl.loading.visibility = View.GONE
                 }
-                binding.progress.text = "正在加载$newProgress%"
             }
 
         }

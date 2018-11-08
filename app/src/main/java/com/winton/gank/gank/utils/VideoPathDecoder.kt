@@ -22,48 +22,46 @@ import org.jsoup.Jsoup
 abstract class VideoPathDecoder {
 
     companion object {
-        const val NICK = "chaychan"
+        const val NICK = "winton"
     }
-
-    fun decodePath(url:String){
-        App.appExcuter.execute(PriorityRunnable(Priority.HIGH, Runnable {
-            val doc  = Jsoup.connect("http:www.baidu.com").timeout(5000).get()
-            val videos = doc.getElementsByTag("video")
-            if(videos.size >0){
-                val playUrl = videos[0].attr("src")
-                LogUtils.dTag("decode",playUrl)
-                onDecodeSuccess(playUrl)
-            }
-        }))
-
-
-    }
-
 
 //    fun decodePath(url:String){
-//        val webView = WebView(App.INSTANCE)
-//        webView.settings.javaScriptEnabled = true
-//        webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
-//
-//        val parseFunc = ParseFunc(object :ParseListener{
-//            override fun onGetParams(r: String, s: String) {
-//                sendRequest(url,r,s)
+//        App.appExcuter.execute(PriorityRunnable(Priority.HIGH, Runnable {
+//            val doc  = Jsoup.connect(url).userAgent("Mozilla").timeout(5000).get()
+//            val videos = doc.getElementsByTag("video")
+//            if(videos.size >0){
+//                val playUrl = videos[0].attr("src")
+//                LogUtils.dTag("decode",playUrl)
+//                onDecodeSuccess(playUrl)
 //            }
-//
-//            override fun onGetPath(path: String) {
-//                LogUtils.dTag("decoder",path)
-//                onDecodeSuccess(path)
-//            }
-//        })
-//        webView.addJavascriptInterface(parseFunc, NICK)
-//        webView.loadUrl(url)
-//        webView.webViewClient = object :WebViewClient(){
-//            override fun onPageFinished(view: WebView, url: String) {
-//                    App.mUIHandler.postDelayed({addJs(view)},5000)
-//            }
-//        }
-//
+//        }))
 //    }
+
+
+    fun decodePath(url:String){
+        val webView = WebView(App.INSTANCE)
+        webView.settings.javaScriptEnabled = true
+        webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+
+        val parseFunc = ParseFunc(object :ParseListener{
+            override fun onGetParams(r: String, s: String) {
+                sendRequest(url,r,s)
+            }
+
+            override fun onGetPath(path: String) {
+                LogUtils.dTag("decoder",path)
+                onDecodeSuccess(path)
+            }
+        })
+        webView.addJavascriptInterface(parseFunc, NICK)
+        webView.loadUrl(url)
+        webView.webViewClient = object :WebViewClient(){
+            override fun onPageFinished(view: WebView, url: String) {
+                    App.mUIHandler.postDelayed({addJs(view)},5000)
+            }
+        }
+
+    }
 
     private fun sendRequest(url:String,r:String,s:String){
 
@@ -92,11 +90,14 @@ abstract class VideoPathDecoder {
     }
 
     private fun addJs(webView: WebView) {
-        webView.loadUrl("javascript:(function  getVideoPath(){" +
-                "var videos = document.getElementsByTagName(\"video\");" +
+        val js = "javascript:(function getVideoPath(){" +
+                "var videos = window.document.getElementsByTagName(\"video\");" +
+                "window.winton.onGetPath(document.title);" +
                 "var path = videos[0].src;" +
-                "window.chaychan.onGetPath(path);" +
-                "})()")
+                "window.winton.onGetPath(path);" +
+                "})();"
+
+        webView.loadUrl(js)
 
     }
 

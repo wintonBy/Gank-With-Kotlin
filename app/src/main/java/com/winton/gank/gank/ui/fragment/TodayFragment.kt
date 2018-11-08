@@ -93,7 +93,6 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
                             binding.status.showLoading()
                             isFirstLoad = false
                         }
-
                     }
                 }
             }

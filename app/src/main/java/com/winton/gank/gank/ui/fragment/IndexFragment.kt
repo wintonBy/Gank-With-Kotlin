@@ -1,16 +1,24 @@
 package com.winton.gank.gank.ui.fragment
 
+import android.animation.ValueAnimator
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.util.TypedValue
+import android.view.LayoutInflater
+import android.widget.TextView
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.githang.statusbar.StatusBarCompat
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.IndexVPAdapter
 import com.winton.gank.gank.databinding.FragIndexBinding
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.viewmodel.IndexViewModel
+import java.time.format.TextStyle
 
 /**
  * @author: winton
@@ -56,14 +64,47 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
     }
 
     private fun initTab(){
-        binding.tabIndex.getTabAt(0)?.text = "福利"
-        binding.tabIndex.getTabAt(1)?.apply {
-            text = "今日推荐"
-            select()
+        binding.tabIndex.isTabIndicatorFullWidth
+        binding.tabIndex.run {
+            getTabAt(0)?.customView = getTab(0).apply { findViewById<TextView>(R.id.tab_title).text="福利" }
+            getTabAt(1)?.customView = getTab(1).apply { findViewById<TextView>(R.id.tab_title).text="今日推荐" }
+            getTabAt(2)?.customView = getTab(2).apply { findViewById<TextView>(R.id.tab_title).text="Android" }
+            getTabAt(3)?.customView = getTab(3).apply { findViewById<TextView>(R.id.tab_title).text="iOS" }
+            getTabAt(4)?.customView = getTab(4).apply { findViewById<TextView>(R.id.tab_title).text="App" }
         }
-        binding.tabIndex.getTabAt(2)?.text = "Android"
-        binding.tabIndex.getTabAt(3)?.text = "iOS"
-        binding.tabIndex.getTabAt(4)?.text = "App"
+        binding.tabIndex.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                tab.customView!!.findViewById<TextView>(R.id.tab_title).run {
+                    setTextColor(resources.getColor(android.R.color.black))
+                    ValueAnimator.ofFloat(18F,14F).apply {
+                        duration = 200
+                        addUpdateListener {
+                            setTextSize(TypedValue.COMPLEX_UNIT_DIP,(it.animatedValue as Float));
+                        }
+                    }.start()
+                }
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                tab.customView!!.findViewById<TextView>(R.id.tab_title).run {
+                    setTextColor(resources.getColor(R.color.tab_selected_text_color))
+                    ValueAnimator.ofFloat(14F,18F).apply {
+                        duration = 200
+                        addUpdateListener {
+                            setTextSize(TypedValue.COMPLEX_UNIT_DIP,(it.animatedValue as Float));
+                        }
+                    }.start()
+                }
+            }
+        })
+        binding.tabIndex.getTabAt(1)!!.select()
+
     }
+
+    private fun getTab(pos:Int) = LayoutInflater.from(context!!).inflate(R.layout.layout_tab,null)
+
 
 }

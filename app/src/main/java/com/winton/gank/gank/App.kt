@@ -8,6 +8,8 @@ import com.github.piasy.biv.BigImageViewer
 import com.github.piasy.biv.loader.glide.GlideImageLoader
 import com.winton.gank.gank.di.AppInjector
 import com.winton.library.PriorityExecutor
+import com.winton.librarystatue.StatueView
+import com.winton.librarystatue.StatusViewFactory
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
@@ -45,6 +47,7 @@ class App:Application(),HasActivityInjector {
         AppInjector.init(this)
         Utils.init(this)
         BigImageViewer.initialize(GlideImageLoader.with(this))
+        StatusViewFactory.appConfig().loadingView(R.layout.layout_page_loading)
 
     }
 

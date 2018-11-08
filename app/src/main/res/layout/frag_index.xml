@@ -7,10 +7,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
             <android.support.design.widget.TabLayout
+                android:background="@android:color/white"
                 android:id="@+id/tab_index"
                 app:tabMode="scrollable"
-                app:tabBackground="@android:color/white"
-                app:tabIndicatorColor="@color/tab_selected_text_color"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabMinWidth="0dp"
                 app:tabSelectedTextColor="@color/tab_selected_text_color"
                 app:tabTextColor="@android:color/black"
                 android:layout_width="match_parent"
