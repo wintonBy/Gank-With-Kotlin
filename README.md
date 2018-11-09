@@ -22,6 +22,7 @@
 <li>可拖拽的RecyclerView</li>
 <li>瀑布流照片墙</li>
 <li>多类型Item RecyclerView</li>
+<li>自定义View</li>
 
 # 项目架构
 
