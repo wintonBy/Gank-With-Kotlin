@@ -18,6 +18,8 @@ import com.winton.gank.gank.ui.activity.WebActivity
 import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.TodayViewModel
 import com.winton.gank.gank.widget.CommItemDecoration
+import com.winton.librarystatue.IStatueListener
+import com.winton.librarystatue.StatueView
 import java.util.ArrayList
 
 /**
@@ -43,10 +45,14 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
     override fun initView() {
         super.initView()
         binding.rvIndex.layoutManager = LinearLayoutManager(context)
-        binding.rvIndex.addItemDecoration(CommItemDecoration.createVertical(context!!, App.INSTANCE.resources.getColor(R.color.divider_line),2))
         UiTools.initSwipRefresh(binding.srl)
         binding.srl.setOnRefreshListener {
             viewModel.start()
+        }
+        binding.status.mRetryListener = object:IStatueListener{
+            override fun onRetry() {
+                viewModel.start()
+            }
         }
     }
 

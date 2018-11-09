@@ -195,6 +195,9 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
                 is ItemIndexArticleBinding -> {
                     BindingUtils.bindArticleImg((binding as ItemIndexArticleBinding).ivImg, imgUrl)
                 }
+                is ItemIndexArticleEndBinding -> {
+                    BindingUtils.bindArticleImg((binding as ItemIndexArticleEndBinding).ivImg, imgUrl)
+                }
                 is ItemIndexGiftBinding ->{
                     BindingUtils.bindGift((binding as ItemIndexGiftBinding).ivGift,bean.url)
                 }

@@ -12,6 +12,8 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -31,12 +33,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <View
-            app:layout_constraintTop_toBottomOf="@+id/tv_group_title"
-            android:id="@+id/line"
-            android:background="@color/divider_line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
 
 
         <TextView
@@ -59,7 +55,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line"
+            app:layout_constraintTop_toBottomOf="@+id/tv_group_title "
             app:srcCompat="@mipmap/iv_default_android" />
 
 
