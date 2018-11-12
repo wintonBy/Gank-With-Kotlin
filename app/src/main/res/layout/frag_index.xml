@@ -6,6 +6,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+            <RelativeLayout
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_rc_search"
+                    android:text="搜索"
+                    android:textSize="@dimen/ts_content"
+                    android:drawableRight="@mipmap/ic_search"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/search_bg"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="80dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp" />
+                <ImageButton
+                    android:id="@+id/ib_scan"
+                    android:layout_alignParentRight="true"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/ic_scan"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
             <android.support.design.widget.TabLayout
                 android:background="@android:color/white"
                 android:id="@+id/tab_index"

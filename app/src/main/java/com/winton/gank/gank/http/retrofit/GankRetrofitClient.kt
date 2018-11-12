@@ -49,5 +49,14 @@ class GankRetrofitClient(private val okHttpClient: OkHttpClient) {
                 .subscribe(subscriber)
     }
 
+    /**
+     * Gank 查询接口
+     */
+    fun search(key:String,category: String,pageIndex:Int,subscriber: BaseGankSubscriber<CategoryResponse>){
+        server.search(key,category,15,pageIndex)
+                .compose(ScHelper.compose())
+                .subscribe(subscriber)
+    }
+
 
 }

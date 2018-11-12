@@ -1,5 +1,6 @@
 package com.winton.gank.gank.ui.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -42,6 +43,7 @@ class MainActivity : BaseActivity<ActMainBinding>() {
             context.startActivity(intent)
         }
 
+        const val REQ_SCAN = 1
     }
 
     override fun initPreLayout(savedInstanceState: Bundle?) {
@@ -145,6 +147,18 @@ class MainActivity : BaseActivity<ActMainBinding>() {
             lastDownBackKeyTime = currentBackTime
         }else{
             finish()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode != Activity.RESULT_OK){
+            return
+        }
+        when(requestCode){
+            REQ_SCAN ->{
+
+            }
         }
     }
 }

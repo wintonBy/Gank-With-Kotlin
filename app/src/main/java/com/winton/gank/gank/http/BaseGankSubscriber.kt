@@ -15,7 +15,7 @@ import org.reactivestreams.Subscription
  */
 abstract class BaseGankSubscriber<T:BaseGankResponse>:FlowableSubscriber<T> {
 
-    lateinit var mSub:Subscription
+    var mSub:Subscription? = null
 
     override fun onComplete() {
     }
@@ -26,7 +26,7 @@ abstract class BaseGankSubscriber<T:BaseGankResponse>:FlowableSubscriber<T> {
         if(!NetworkUtils.isConnected()){
             onFail(ErrorCode.NETWORK_ERROR, App.INSTANCE.getString(R.string.network_error))
         }else{
-            mSub.request(Long.MAX_VALUE)
+            s.request(Long.MAX_VALUE)
         }
     }
 

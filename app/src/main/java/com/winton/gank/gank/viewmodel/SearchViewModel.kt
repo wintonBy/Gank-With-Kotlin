@@ -9,15 +9,15 @@ import com.winton.gank.gank.repository.Resource
 
 /**
  * @author: winton
- * @time: 2018/10/23 上午11:43
- * @desc: 描述
+ * @time: 2018/11/12 8:32 PM
+ * @desc: 搜索ViewModel
  */
-class GankListViewModel:BaseViewModel() {
+class SearchViewModel:BaseViewModel() {
 
     private var listData: MutableLiveData<Resource<CategoryResponse>> = MutableLiveData()
 
 
-    fun getListData():MutableLiveData<Resource<CategoryResponse>> = listData
+    fun getListData(): MutableLiveData<Resource<CategoryResponse>> = listData
 
 
     override fun stop() {
@@ -26,11 +26,11 @@ class GankListViewModel:BaseViewModel() {
     }
 
 
-    fun loadData(category:String,pageIndex:Int){
-        RetrofitHolder.gankInstance().category(category,pageIndex,listRequest)
+    fun loadData(key:String,pageIndex:Int){
+        RetrofitHolder.gankInstance().search(key,"all",pageIndex,listRequest)
     }
 
-    private val listRequest = object :BaseGankSubscriber<CategoryResponse>(){
+    private val listRequest = object : BaseGankSubscriber<CategoryResponse>(){
         override fun start() {
             super.start()
             listData.value = Resource.loading(null)

@@ -3,6 +3,7 @@ package com.winton.gank.gank
 import android.app.Activity
 import android.app.Application
 import android.os.Handler
+import android.support.multidex.MultiDex
 import com.blankj.utilcode.util.Utils
 import com.github.piasy.biv.BigImageViewer
 import com.github.piasy.biv.loader.glide.GlideImageLoader
@@ -42,6 +43,7 @@ class App:Application(),HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+        MultiDex.install(this)
         INSTANCE = this
         mUIHandler = Handler()
         AppInjector.init(this)

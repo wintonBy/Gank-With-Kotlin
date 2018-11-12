@@ -29,6 +29,10 @@ interface GankApi {
     @GET("data/{category}/{pageNum}/{pageIndex}")
     fun category(@Path("category")category: String,@Path("pageNum")pageNum:Int,@Path("pageIndex")pageIndex:Int):Flowable<CategoryResponse>
 
-
+    /**
+     * 查询接口
+     */
+    @GET("search/query/{key}/category/{category}/count/{pageNum}/page/{pageIndex}")
+    fun search(@Path("key")key:String,@Path("category")category:String,@Path("pageNum")pageNum:Int,@Path("pageIndex")pageIndex:Int):Flowable<CategoryResponse>
 
 }

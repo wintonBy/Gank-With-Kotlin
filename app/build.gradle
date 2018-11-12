@@ -13,7 +13,7 @@ android {
         versionCode build_version.versionCode
         versionName build_version.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
         ndk{
             abiFilters 'armeabi','armeabi-v7a'
         }
@@ -68,6 +68,7 @@ dependencies {
     implementation deps.dagger.runtime
     implementation deps.dagger.android
     implementation deps.dagger.android_support
+    implementation deps.multidex
 
     implementation deps.support.appcompatV7
     implementation deps.support.recyclerviewV7
@@ -79,6 +80,7 @@ dependencies {
     implementation deps.constraint
     implementation deps.BottomNavigationView
     implementation deps.EasyStatueView
+    implementation deps.ScanLib
     implementation deps.AppExecutor
     implementation deps.okHttp
     implementation deps.Cookie

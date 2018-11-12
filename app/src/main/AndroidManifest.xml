@@ -35,6 +35,9 @@
         <activity
             android:theme="@style/AppTheme.NoActionBar"
             android:name=".ui.activity.MainActivity" />
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".ui.activity.SearchActivity" />
     </application>
 
 </manifest>

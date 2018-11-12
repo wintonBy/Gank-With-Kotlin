@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageButton
+                android:src="@mipmap/ic_back"
+                android:background="@android:color/transparent"
+                android:layout_width="60dp"
+                android:layout_height="match_parent" />
+            <EditText
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:textSize="@dimen/ts_content"
+                android:textColor="@android:color/black"
+                android:hint="请输入搜索内容"
+                android:background="@android:color/transparent"
+                android:id="@+id/et_key"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/ib_delete"
+                android:padding="10dp"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="70dp"
+                android:src="@mipmap/ic_delete"
+                android:background="@android:color/transparent"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+
+            <ImageButton
+                android:id="@+id/ib_search"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/ic_search"
+                android:layout_width="60dp"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_marginTop="60dp"
+            android:id="@+id/fl_his_key"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="50dp"
+            android:visibility="gone"
+            android:id="@+id/rv_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </FrameLayout>
+
+</layout>

@@ -17,7 +17,10 @@ import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.IndexVPAdapter
 import com.winton.gank.gank.databinding.FragIndexBinding
 import com.winton.gank.gank.ui.BaseFragment
+import com.winton.gank.gank.ui.activity.MainActivity
+import com.winton.gank.gank.ui.activity.SearchActivity
 import com.winton.gank.gank.viewmodel.IndexViewModel
+import com.zxing.activity.ScanActivity
 import java.time.format.TextStyle
 
 /**
@@ -50,6 +53,19 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
 
     override fun getLayoutId(): Int {
         return R.layout.frag_index
+    }
+
+    override fun initListener() {
+        super.initListener()
+        //点击扫码
+        binding.ibScan.setOnClickListener {
+            ScanActivity.start(activity,MainActivity.REQ_SCAN,true)
+        }
+        //点击搜索
+        binding.tvRcSearch.setOnClickListener {
+            SearchActivity.start(context!!)
+        }
+
     }
 
     override fun initData() {
