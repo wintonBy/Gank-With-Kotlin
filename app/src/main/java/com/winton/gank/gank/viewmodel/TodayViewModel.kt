@@ -27,7 +27,7 @@ class TodayViewModel :BaseViewModel(){
 
     override fun stop() {
         super.stop()
-        indexRequest.mSub.cancel()
+        indexRequest.mSub?.cancel()
     }
 
     private fun loadToday(){

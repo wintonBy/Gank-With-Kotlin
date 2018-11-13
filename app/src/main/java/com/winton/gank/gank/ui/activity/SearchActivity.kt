@@ -6,15 +6,20 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.internal.FlowLayout
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.blankj.utilcode.util.ToastUtils
 import com.githang.statusbar.StatusBarCompat
+import com.google.android.flexbox.FlexboxLayout
 import com.winton.gank.gank.R
+import com.winton.gank.gank.adapter.SearchAdapter
 import com.winton.gank.gank.databinding.ActSearchBinding
+import com.winton.gank.gank.http.bean.TitleBean
+import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseActivity
 import com.winton.gank.gank.viewmodel.SearchViewModel
 
@@ -27,9 +32,13 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
 
     private lateinit var viewModel:SearchViewModel
 
+    private lateinit var adapter:SearchAdapter
+
     override fun getLayoutId() = R.layout.act_search
 
     private var pageIndex = 1
+
+    private var hasNext = true
 
     companion object {
         fun start(context: Context){
@@ -74,7 +83,12 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
             if(binding.etKey.text.trim().isNotEmpty()){
                 pageIndex = 1
                 viewModel.loadData(binding.etKey.text.toString(),pageIndex)
+                binding.flHisKey.visibility = View.GONE
+                binding.status.visibility = View.VISIBLE
             }
+        }
+        binding.ibBack.setOnClickListener{
+            finish()
         }
     }
 
@@ -85,50 +99,50 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
+        adapter = SearchAdapter(this)
+        adapter.setOnItemClickListener(object :SearchAdapter.OnItemClickListener{
+            override fun clickItem(item: TitleBean) {
+                val url = item?.url
+                if(url != null){
+                    WebActivity.start(this@SearchActivity,url)
+                }else{
+                    ToastUtils.showLong("链接为空")
+                }
+            }
+        })
+        binding.rvResult.layoutManager = LinearLayoutManager(this)
+        binding.rvResult.adapter = adapter
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
         viewModel.getListData().observe(this, Observer {
-
+            when(it?.status){
+                Resource.LOADING ->{
+                    if(pageIndex == 1){
+                        binding.status.showLoading()
+                    }
+                }
+                Resource.SUCCESS->{
+                    binding.status.showContent()
+                    it.data?.results?.run {
+                        if(pageIndex >1){
+                            adapter.add(this)
+                        }else{
+                            adapter.update(this)
+                        }
+                        //默认每页加载15条数据
+                        if(this.size < 15){
+                            hasNext = false
+                        }
+                    }
+                }
+                Resource.ERROR->{
+                    if(pageIndex == 1){
+                        binding.status.showError()
+                    }else{
+                        ToastUtils.showShort("加载出错")
+                    }
+                }
+            }
         })
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
-        addKeys()
 
     }
 
@@ -139,8 +153,11 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
 
     private fun addKeys(){
         val key = TextView(this)
+        key.setSingleLine(true)
         key.setText("搜索")
-        val parms = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        val parms = FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        parms.width = 120
         binding.flHisKey.addView(key,parms)
+
     }
 }

@@ -123,14 +123,14 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
                     (binding as ItemGankListNoImageBinding).let {
                         it.title.text = item.desc
                         it.tvAuthor.text = item.who
-                        it.tvPubTime.text = StringUtils.getGankReadTime(item.createdAt)
+                        it.tvPubTime.text = StringUtils.getGankReadTime(item.publishedAt)
                     }
                 }
                 is ItemGankListOneImageBinding ->{
                     (binding as ItemGankListOneImageBinding).let {
                         it.tvTitle.text = item.desc
                         it.tvAuthor.text = item.who
-                        it.tvPubTime.text = StringUtils.getGankReadTime(item.createdAt)
+                        it.tvPubTime.text = StringUtils.getGankReadTime(item.publishedAt)
                         BindingUtils.bindArticleImg(it.ivImg,item.images[0])
                     }
 
@@ -139,7 +139,7 @@ class GankListAdapter:RecyclerView.Adapter<GankListAdapter.ViewHolder> {
                     (binding as ItemGankListManyImageBinding).let {
                         it.title.text = item.desc
                         it.tvAuthor.text = item.who
-                        it.tvPubTime.text = StringUtils.getGankReadTime(item.createdAt)
+                        it.tvPubTime.text = StringUtils.getGankReadTime(item.publishedAt)
                         BindingUtils.bindArticleImg(it.img1,item.images[0])
                         BindingUtils.bindArticleImg(it.img2,item.images[1])
                         if(item.images.size >= 3){

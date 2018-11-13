@@ -8,6 +8,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <ImageButton
+                android:id="@+id/ib_back"
                 android:src="@mipmap/ic_back"
                 android:background="@android:color/transparent"
                 android:layout_width="60dp"
@@ -53,15 +54,20 @@
             android:layout_height="match_parent">
 
         </com.google.android.flexbox.FlexboxLayout>
-
-        <android.support.v7.widget.RecyclerView
+        <com.winton.librarystatue.StatueView
             android:layout_marginTop="50dp"
+            android:id="@+id/status"
             android:visibility="gone"
-            android:id="@+id/rv_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
+        </com.winton.librarystatue.StatueView>
+
     </FrameLayout>
 
 </layout>
