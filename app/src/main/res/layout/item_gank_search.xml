@@ -29,7 +29,7 @@
             android:id="@+id/type"
             android:layout_gravity="bottom"
             android:textSize="@dimen/ts_tip"
-            android:padding="5dp"
+            android:background="@drawable/tag_bg"
             android:text="@{gankBean.type}"
             android:layout_width="60dp"
             android:layout_height="wrap_content" />
@@ -39,7 +39,7 @@
             android:id="@+id/user"
             android:layout_gravity="bottom"
             android:textSize="@dimen/ts_tip"
-            android:padding="5dp"
+            android:background="@drawable/tag_bg"
             android:text="@{gankBean.who}"
             android:layout_marginLeft="70dp"
             android:layout_width="100dp"
@@ -47,10 +47,10 @@
         <TextView
             android:singleLine="true"
             android:id="@+id/time"
+            android:background="@drawable/tag_bg"
             android:layout_marginLeft="180dp"
             android:layout_gravity="bottom"
             android:textSize="@dimen/ts_tip"
-            android:padding="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

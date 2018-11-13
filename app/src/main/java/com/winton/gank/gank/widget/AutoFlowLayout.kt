@@ -22,6 +22,20 @@ class AutoFlowLayout:ViewGroup {
 /**
  * 流式布局适配器
  */
-class FlowAdapter{
+abstract class FlowAdapter<T>{
+
+    private var data:ArrayList<T>
+
+    constructor(data: ArrayList<T>) {
+        this.data = data
+    }
+
+    fun getItem(position:Int):T{
+        return data[position]
+    }
+
+
+
+
 
 }
