@@ -32,6 +32,8 @@ versions.circleindicator        = "1.0.2"
 versions.gsyplayer              = "6.0.1"
 versions.ScanLib                = "1.0"
 versions.multidex               = "1.0.3"
+versions.flowlayout             = "1.1.2"
+versions.room                   = "1.0.0"
 
 
 def build_version = [:]
@@ -77,6 +79,9 @@ deps.StatusBarCompat        = "com.github.niorgai:StatusBarCompat:$versions.Stat
 deps.status_bar_compat      = "com.githang:status-bar-compat:$versions.status_bar_compat"
 deps.circleindicator        = "com.romandanylyk:pageindicatorview:$versions.circleindicator"
 deps.multidex               = "com.android.support:multidex:$versions.multidex"
+deps.flowlayout             = "com.hyman:flowlayout-lib:$versions.flowlayout"
+deps.room                   = "android.arch.persistence.room:runtime:$versions.room"
+deps.roomCompiler           = "android.arch.persistence.room:compiler:$versions.room"
 
 
 def gsy = [:]

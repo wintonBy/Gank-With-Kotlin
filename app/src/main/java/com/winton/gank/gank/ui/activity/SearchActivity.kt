@@ -10,11 +10,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
 import com.githang.statusbar.StatusBarCompat
-import com.google.android.flexbox.FlexboxLayout
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.SearchAdapter
 import com.winton.gank.gank.databinding.ActSearchBinding
@@ -22,6 +20,8 @@ import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseActivity
 import com.winton.gank.gank.viewmodel.SearchViewModel
+import com.zhy.view.flowlayout.FlowLayout
+import com.zhy.view.flowlayout.TagAdapter
 
 /**
  * @author: winton
@@ -35,6 +35,8 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
     private lateinit var adapter:SearchAdapter
 
     override fun getLayoutId() = R.layout.act_search
+
+    private var mhisKey:ArrayList<String> = ArrayList()
 
     private var pageIndex = 1
 
@@ -99,6 +101,7 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
+        initKey()
         adapter = SearchAdapter(this)
         adapter.setOnItemClickListener(object :SearchAdapter.OnItemClickListener{
             override fun clickItem(item: TitleBean) {
@@ -151,13 +154,28 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
         viewModel.stop()
     }
 
-    private fun addKeys(){
-        val key = TextView(this)
-        key.setSingleLine(true)
-        key.setText("搜索")
-        val parms = FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
-        parms.width = 120
-        binding.flHisKey.addView(key,parms)
+    private fun initKey(){
+        mhisKey.add("测试")
+        mhisKey.add("测试")
+        mhisKey.add("测试")
+        mhisKey.add("测试")
+        mhisKey.add("测试")
+        mhisKey.add("测试")
+        mhisKey.add("测试")
+        mhisKey.add("测试测试测试测试测试测试测试")
+        mhisKey.add("测试测试测试测试")
+        mhisKey.add("测试")
+        mhisKey.add("测试测试测试测试")
+        mhisKey.add("测试")
 
+
+        binding.flHisKey.adapter = object :TagAdapter<String>(mhisKey){
+            override fun getView(parent: FlowLayout, position: Int, t: String): View {
+                val key = TextView(this@SearchActivity)
+                key.setSingleLine(true)
+                key.text = t
+                return key
+            }
+        }
     }
 }

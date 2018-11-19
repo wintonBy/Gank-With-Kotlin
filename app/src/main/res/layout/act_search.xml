@@ -47,13 +47,13 @@
                 android:layout_height="match_parent" />
 
         </RelativeLayout>
-        <com.google.android.flexbox.FlexboxLayout
+        <com.zhy.view.flowlayout.TagFlowLayout
             android:layout_marginTop="60dp"
             android:id="@+id/fl_his_key"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-        </com.google.android.flexbox.FlexboxLayout>
+        </com.zhy.view.flowlayout.TagFlowLayout>
         <com.winton.librarystatue.StatueView
             android:layout_marginTop="50dp"
             android:id="@+id/status"

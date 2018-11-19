@@ -76,6 +76,8 @@ dependencies {
     implementation deps.support.V4
     implementation deps.support.design
     implementation deps.lifecycle.extensions
+    implementation deps.room
+    kapt deps.roomCompiler
 
     implementation deps.constraint
     implementation deps.BottomNavigationView
@@ -107,6 +109,7 @@ dependencies {
 
     implementation deps.gsy.java
     implementation deps.gsy.armv7
+    implementation deps.flowlayout
 
 
 }

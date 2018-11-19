@@ -13,6 +13,9 @@ import android.R.attr.paddingRight
 import android.R.attr.paddingLeft
 import android.R.attr.maxWidth
 import android.text.method.TextKeyListener.clear
+import android.text.method.TextKeyListener.clear
+
+
 
 
 
@@ -75,7 +78,7 @@ class AutoFlowLayout<T>:ViewGroup {
     /**
      * 记录选中的View
      */
-    private var mCheckedViews = ArrayList()
+    private var mCheckedViews:ArrayList<View> = ArrayList()
     /**
      * 记录展示的数量
      */
@@ -134,7 +137,98 @@ class AutoFlowLayout<T>:ViewGroup {
     }
 
     private fun flowLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        mCurrentItemIndex = -1
+        mCount = 0
+        mAllViews.clear()
+        mLineHeight.clear()
+        mWidthList.clear()
+        mCheckedViews.clear()
+        val width = width
+        var lineWidth = paddingLeft
+        var lineHeight = paddingTop
+        // 存储每一行所有的childView
+        var lineViews:ArrayList<View> = ArrayList()
+        val cCount = childCount
+        // 遍历所有的孩子
+        for (i in 0 until cCount) {
+            val child = getChildAt(i)
+            val lp = child.layoutParams as ViewGroup.MarginLayoutParams
+            val childWidth = child.measuredWidth
+            val childHeight = child.measuredHeight
 
+            // 如果已经需要换行
+            if (childWidth + lp.leftMargin + lp.rightMargin + paddingRight + lineWidth > width) {
+                // 记录这一行所有的View以及最大高度
+                mLineHeight.add(lineHeight)
+                // 将当前行的childView保存，然后开启新的ArrayList保存下一行的childView
+                mAllViews.add(lineViews)
+                mWidthList.add(lp.leftMargin + lp.rightMargin + paddingRight + lineWidth)
+                lineWidth = 0// 重置行宽
+                lineViews = ArrayList()
+                mCount++
+                if (mCount >= mMaxLineNumbers) {
+                    setHasMoreData(i + 1, cCount)
+                    break
+                }
+                if (mIsSingleLine) {
+                    setHasMoreData(i + 1, cCount)
+                    break
+                }
+            }
+            /**
+             * 如果不需要换行，则累加
+             */
+            lineWidth += childWidth + lp.leftMargin + lp.rightMargin
+            lineHeight = Math.max(lineHeight, childHeight + lp.topMargin + lp.bottomMargin)
+            lineViews.add(child)
+        }
+        // 记录最后一行
+        mLineHeight.add(lineHeight)
+        mAllViews.add(lineViews)
+        mWidthList.add(lineWidth)
+        var left = paddingLeft
+        var top = paddingTop
+        // 得到总行数
+        var lineNums = mAllViews.size
+        if (mAllViews[mAllViews.size - 1].size == 0) {
+            lineNums = mAllViews.size - 1
+        }
+        for (i in 0 until lineNums) {
+            // 每一行的所有的views
+            lineViews = mAllViews[i]
+            // 当前行的最大高度
+            lineHeight = mLineHeight[i]
+            if (mIsCenter) {
+                if (mWidthList[i] < getWidth()) {
+                    left += (getWidth() - mWidthList[i]) / 2
+                }
+            }
+            // 遍历当前行所有的View
+            for (j in 0 until lineViews.size) {
+                val child = lineViews[j]
+                mCurrentItemIndex++
+                if (child.visibility == View.GONE) {
+                    continue
+                }
+                setChildClickOperation(child, -1)
+                val lp = child
+                        .layoutParams as ViewGroup.MarginLayoutParams
+
+                //计算childView的left,top,right,bottom
+                val lc = left + lp.leftMargin
+                val tc = top + lp.topMargin
+                val rc = lc + child.measuredWidth
+                val bc = tc + child.measuredHeight
+
+
+                child.layout(lc, tc, rc, bc)
+
+                left += (child.measuredWidth + lp.rightMargin + lp.leftMargin)
+            }
+            val lp = getChildAt(0).layoutParams as ViewGroup.MarginLayoutParams
+            left = paddingLeft
+            top += lineHeight + lp.topMargin + lp.bottomMargin
+        }
     }
 
     private fun gridLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
@@ -159,6 +253,34 @@ class AutoFlowLayout<T>:ViewGroup {
                         val childTop = (paddingTop + i * (childAvHeight + mVerticalSpace)).toInt() + i * (lp.topMargin + lp.bottomMargin) + lp.topMargin
                         child.layout(childLeft, childTop, childLeft + childAvWidth, childAvHeight + childTop)
                     }
+                }
+            }
+        }
+    }
+
+    private fun setChildClickOperation(child: View, i: Int) {
+        if(child.tag == null){
+            child.tag = mCurrentItemIndex;
+        }
+        child.setOnClickListener {
+            if(mIsMultiChecked){
+                //多选模式
+                if(mCheckedViews.contains(it)){
+                    mCheckedViews.remove(it)
+                    it.isSelected = false
+                }else{
+                    it.isSelected = true
+                    mCheckedViews.add(it)
+                    mSelectedView = it
+                }
+            }else{
+                //单选模式
+                if(it.isSelected){
+                    it.isSelected = false
+                }else{
+                    mSelectedView?.apply { isSelected = false }
+                    it.isSelected = true
+                    mSelectedView = it
                 }
             }
         }
