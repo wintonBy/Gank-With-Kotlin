@@ -24,35 +24,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:singleLine="true"
-            android:id="@+id/type"
+        <LinearLayout
             android:layout_gravity="bottom"
-            android:textSize="@dimen/ts_tip"
-            android:background="@drawable/tag_bg"
-            android:text="@{gankBean.type}"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:singleLine="true"
-            android:id="@+id/user"
-            android:layout_gravity="bottom"
-            android:textSize="@dimen/ts_tip"
-            android:background="@drawable/tag_bg"
-            android:text="@{gankBean.who}"
-            android:layout_marginLeft="70dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:singleLine="true"
-            android:id="@+id/time"
-            android:background="@drawable/tag_bg"
-            android:layout_marginLeft="180dp"
-            android:layout_gravity="bottom"
-            android:textSize="@dimen/ts_tip"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:singleLine="true"
+                android:id="@+id/type"
+                android:textSize="@dimen/ts_tip"
+                android:background="@drawable/tag_bg"
+                android:text="@{gankBean.type}"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:singleLine="true"
+                android:id="@+id/user"
+                android:textSize="@dimen/ts_tip"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:gravity="center"
+                android:background="@drawable/tag_bg"
+                android:text="@{gankBean.who}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:singleLine="true"
+                android:id="@+id/time"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:gravity="center"
+                android:background="@drawable/tag_bg"
+                android:textSize="@dimen/ts_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

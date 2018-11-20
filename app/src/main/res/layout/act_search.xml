@@ -47,13 +47,33 @@
                 android:layout_height="match_parent" />
 
         </RelativeLayout>
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:layout_marginTop="60dp"
-            android:id="@+id/fl_his_key"
+        <RelativeLayout
+            android:layout_marginTop="50dp"
+            android:id="@+id/rl_his"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:text="搜索历史"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_clear"
+                android:layout_alignParentRight="true"
+                android:textColor="@android:color/holo_blue_light"
+                android:text="清空"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:layout_below="@+id/tv_clear"
+                android:layout_marginTop="10dp"
+                android:id="@+id/fl_his_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.zhy.view.flowlayout.TagFlowLayout>
+        </RelativeLayout>
 
-        </com.zhy.view.flowlayout.TagFlowLayout>
         <com.winton.librarystatue.StatueView
             android:layout_marginTop="50dp"
             android:id="@+id/status"

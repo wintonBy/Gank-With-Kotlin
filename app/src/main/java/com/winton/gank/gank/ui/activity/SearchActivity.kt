@@ -9,8 +9,10 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.githang.statusbar.StatusBarCompat
 import com.winton.gank.gank.R
@@ -23,6 +25,7 @@ import com.winton.gank.gank.ui.BaseActivity
 import com.winton.gank.gank.viewmodel.SearchViewModel
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
+import com.zhy.view.flowlayout.TagView
 import java.util.*
 
 /**
@@ -37,8 +40,6 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
     private lateinit var adapter:SearchAdapter
 
     override fun getLayoutId() = R.layout.act_search
-
-    private var mhisKey:List<SearchKey>? = null
 
     private var pageIndex = 1
 
@@ -85,15 +86,22 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
 
         binding.ibSearch.setOnClickListener {
             if(binding.etKey.text.trim().isNotEmpty()){
-                pageIndex = 1
-                viewModel.loadData(binding.etKey.text.toString(),pageIndex)
-                binding.flHisKey.visibility = View.GONE
-                binding.status.visibility = View.VISIBLE
-                saveKey(binding.etKey.text.toString())
+                KeyboardUtils.hideSoftInput(it)
+                doSearch()
             }
         }
         binding.ibBack.setOnClickListener{
             finish()
+        }
+        binding.flHisKey.setOnTagClickListener { view, position, parent ->
+            binding.etKey.text = Editable.Factory.getInstance().newEditable(((view as TagView).tagView as TextView).text)
+            binding.etKey.setSelection(binding.etKey.text.length)
+            KeyboardUtils.hideSoftInput(binding.etKey)
+            doSearch()
+            true
+        }
+        binding.tvClear.setOnClickListener {
+
         }
     }
 
@@ -163,9 +171,11 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
             it?.let {
                 binding.flHisKey.adapter = object :TagAdapter<SearchKey>(it){
                     override fun getView(parent: FlowLayout, position: Int, t: SearchKey): View {
-                        val key = TextView(this@SearchActivity)
-                        key.setSingleLine(true)
+                        val key = (LayoutInflater.from(this@SearchActivity).inflate(R.layout.layout_search_key,null) as TextView)
                         key.text = t.key
+                        key.setOnClickListener {
+                            binding.etKey.text = Editable.Factory.getInstance().newEditable(key.text)
+                        }
                         return key
                     }
                 }
@@ -174,8 +184,22 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
 
     }
 
+    /**
+     * 保存搜索关键词
+     */
     private fun saveKey(key:String){
         val searchKey = SearchKey(key, Date().time)
         viewModel.addKey(searchKey)
+    }
+
+    /**
+     * 执行搜索
+     */
+    private fun doSearch(){
+        pageIndex = 1
+        viewModel.loadData(binding.etKey.text.toString(),pageIndex)
+        binding.rlHis.visibility = View.GONE
+        binding.status.visibility = View.VISIBLE
+        saveKey(binding.etKey.text.toString())
     }
 }
