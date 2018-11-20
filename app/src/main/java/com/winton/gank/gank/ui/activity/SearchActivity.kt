@@ -18,10 +18,12 @@ import com.winton.gank.gank.adapter.SearchAdapter
 import com.winton.gank.gank.databinding.ActSearchBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.repository.Resource
+import com.winton.gank.gank.repository.entity.SearchKey
 import com.winton.gank.gank.ui.BaseActivity
 import com.winton.gank.gank.viewmodel.SearchViewModel
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
+import java.util.*
 
 /**
  * @author: winton
@@ -36,7 +38,7 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
 
     override fun getLayoutId() = R.layout.act_search
 
-    private var mhisKey:ArrayList<String> = ArrayList()
+    private var mhisKey:List<SearchKey>? = null
 
     private var pageIndex = 1
 
@@ -87,6 +89,7 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
                 viewModel.loadData(binding.etKey.text.toString(),pageIndex)
                 binding.flHisKey.visibility = View.GONE
                 binding.status.visibility = View.VISIBLE
+                saveKey(binding.etKey.text.toString())
             }
         }
         binding.ibBack.setOnClickListener{
@@ -101,7 +104,6 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        initKey()
         adapter = SearchAdapter(this)
         adapter.setOnItemClickListener(object :SearchAdapter.OnItemClickListener{
             override fun clickItem(item: TitleBean) {
@@ -116,6 +118,8 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
         binding.rvResult.layoutManager = LinearLayoutManager(this)
         binding.rvResult.adapter = adapter
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        viewModel.start()
+        initKey()
         viewModel.getListData().observe(this, Observer {
             when(it?.status){
                 Resource.LOADING ->{
@@ -155,27 +159,23 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
     }
 
     private fun initKey(){
-        mhisKey.add("测试")
-        mhisKey.add("测试")
-        mhisKey.add("测试")
-        mhisKey.add("测试")
-        mhisKey.add("测试")
-        mhisKey.add("测试")
-        mhisKey.add("测试")
-        mhisKey.add("测试测试测试测试测试测试测试")
-        mhisKey.add("测试测试测试测试")
-        mhisKey.add("测试")
-        mhisKey.add("测试测试测试测试")
-        mhisKey.add("测试")
-
-
-        binding.flHisKey.adapter = object :TagAdapter<String>(mhisKey){
-            override fun getView(parent: FlowLayout, position: Int, t: String): View {
-                val key = TextView(this@SearchActivity)
-                key.setSingleLine(true)
-                key.text = t
-                return key
+        viewModel.getKeyData().observe(this, Observer {
+            it?.let {
+                binding.flHisKey.adapter = object :TagAdapter<SearchKey>(it){
+                    override fun getView(parent: FlowLayout, position: Int, t: SearchKey): View {
+                        val key = TextView(this@SearchActivity)
+                        key.setSingleLine(true)
+                        key.text = t.key
+                        return key
+                    }
+                }
             }
-        }
+        })
+
+    }
+
+    private fun saveKey(key:String){
+        val searchKey = SearchKey(key, Date().time)
+        viewModel.addKey(searchKey)
     }
 }

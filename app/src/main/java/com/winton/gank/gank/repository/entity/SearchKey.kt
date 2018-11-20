@@ -2,7 +2,7 @@ package com.winton.gank.gank.repository.entity
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.TypeConverter
+import android.arch.persistence.room.PrimaryKey
 import java.util.*
 
 /**
@@ -12,11 +12,11 @@ import java.util.*
  */
 @Entity(tableName = "search_key_tb")
 data class SearchKey(
-
+        @PrimaryKey
         @ColumnInfo(name = "key")
         val key:String,
         @ColumnInfo(name = "time")
-        val time: Date)
+        val time: Long)
 
 
 

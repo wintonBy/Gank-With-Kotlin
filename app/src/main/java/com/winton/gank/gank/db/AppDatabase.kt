@@ -1,29 +1,36 @@
 package com.winton.gank.gank.db
 
 import android.arch.persistence.room.Database
-import android.arch.persistence.room.TypeConverter
+import android.arch.persistence.room.Room
+import android.arch.persistence.room.RoomDatabase
+import android.content.Context
+import com.winton.gank.gank.db.dao.SearchKeyDao
 import com.winton.gank.gank.repository.entity.SearchKey
-import java.util.*
 
 /**
  * @author: winton
  * @time: 2018/11/19 6:30 PM
  * @desc: 应用数据库
  */
-@Database(entities ={SearchKey::}, version = 1)
-class AppDatabase {
+@Database(entities =[SearchKey::class], version = 1,exportSchema = false)
+abstract class AppDatabase :RoomDatabase() {
 
-}
-
-object ConversionFactory {
-
-    @TypeConverter
-    fun fromDateToLong(date:Date):Long {
-        return date.time
+    companion object {
+        @Volatile private var INSTANCE:AppDatabase? = null
+        /**
+         * 获取数据库实例
+         */
+        fun getInstance(context: Context):AppDatabase =
+                INSTANCE?: synchronized(this){
+                    INSTANCE?:buildDatabase(context).also{ INSTANCE = it}
+                }
+        private fun buildDatabase(context: Context) =
+                Room.databaseBuilder(context.applicationContext,
+                        AppDatabase::class.java,
+                        "gank.db")
+                        .build()
     }
 
-    @TypeConverter
-    fun fromLongToDate(value:Long ): Date {
-        return Date(value)
-    }
+    abstract fun getSearchDao():SearchKeyDao
+
 }

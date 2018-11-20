@@ -3,6 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+//使用生成文件
+kapt {
+    generateStubs = true
+}
 
 android {
     compileSdkVersion build_version.compileSdkVersion
@@ -61,7 +65,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
-//    kapt deps.databinding.kapt
+
     kapt deps.dagger.android_support_compiler
     kapt deps.dagger.compiler
 
@@ -76,8 +80,6 @@ dependencies {
     implementation deps.support.V4
     implementation deps.support.design
     implementation deps.lifecycle.extensions
-    implementation deps.room
-    kapt deps.roomCompiler
 
     implementation deps.constraint
     implementation deps.BottomNavigationView
@@ -110,6 +112,11 @@ dependencies {
     implementation deps.gsy.java
     implementation deps.gsy.armv7
     implementation deps.flowlayout
+
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+    implementation deps.room.rxjava2
+
 
 
 }
