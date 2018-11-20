@@ -4,27 +4,24 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.transition.Explode
+import android.view.Window
+import android.widget.Toast
 import com.blankj.utilcode.util.ToastUtils
 import com.githang.statusbar.StatusBarCompat
-import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
-import com.shuyu.gsyvideoplayer.utils.GSYVideoHelper
 import com.winton.bottomnavigationview.NavigationView
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ActMainBinding
 import com.winton.gank.gank.ui.BaseActivity
-import com.winton.gank.gank.ui.fragment.*
-import android.view.Window.FEATURE_CONTENT_TRANSITIONS
-import android.os.Build
-import android.transition.Explode
-import android.view.Window
-import android.widget.Toast
+import com.winton.gank.gank.ui.fragment.IndexFragment
+import com.winton.gank.gank.ui.fragment.JDGirlsFragment
+import com.winton.gank.gank.ui.fragment.MyFragment
+import com.winton.gank.gank.ui.fragment.NewsFragment
 import com.zxing.activity.CodeUtils
-import android.R.attr.data
-
-
 
 
 class MainActivity : BaseActivity<ActMainBinding>() {
@@ -106,6 +103,9 @@ class MainActivity : BaseActivity<ActMainBinding>() {
                 when(index) {
                     3 -> {
                         StatusBarCompat.setStatusBarColor(this@MainActivity, Color.BLACK, false)
+                    }
+                    1,2 ->{
+                        StatusBarCompat.setStatusBarColor(this@MainActivity, getColor(android.R.color.holo_blue_light), false)
                     }
                     else -> {
                         StatusBarCompat.setStatusBarColor(this@MainActivity, Color.WHITE,true)
