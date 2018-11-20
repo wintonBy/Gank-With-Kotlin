@@ -101,7 +101,7 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
             true
         }
         binding.tvClear.setOnClickListener {
-
+            viewModel.clearKey()
         }
     }
 

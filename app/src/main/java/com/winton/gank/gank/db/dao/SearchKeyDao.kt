@@ -19,4 +19,7 @@ interface SearchKeyDao {
 
     @Delete
     fun delete(key:SearchKey)
+
+    @Query("DELETE FROM SEARCH_KEY_TB")
+    fun deleteAll()
 }

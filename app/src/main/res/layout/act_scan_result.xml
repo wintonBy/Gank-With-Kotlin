@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:maxEms="10"
+                android:layout_width="wrap_content"
+                android:ellipsize="end"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:textSize="@dimen/ts_subtitle" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/iv_more"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_more" />
+
+        </RelativeLayout>
+        <TextView
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/ts_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:id="@+id/tv_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </TextView>
+    </LinearLayout>
+
+
+</layout>

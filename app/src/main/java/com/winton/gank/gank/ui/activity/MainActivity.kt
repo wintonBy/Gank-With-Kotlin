@@ -20,6 +20,11 @@ import android.view.Window.FEATURE_CONTENT_TRANSITIONS
 import android.os.Build
 import android.transition.Explode
 import android.view.Window
+import android.widget.Toast
+import com.zxing.activity.CodeUtils
+import android.R.attr.data
+
+
 
 
 class MainActivity : BaseActivity<ActMainBinding>() {
@@ -157,7 +162,13 @@ class MainActivity : BaseActivity<ActMainBinding>() {
         }
         when(requestCode){
             REQ_SCAN ->{
-
+                val type = data!!.getIntExtra(CodeUtils.RESULT_TYPE,-1)
+                val result = data!!.getStringExtra(CodeUtils.RESULT_STRING)
+                if (type == CodeUtils.RESULT_SUCCESS) {
+                    ScanResultActivity.start(this@MainActivity,result)
+                } else {
+                    Toast.makeText(this, "扫描失败", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

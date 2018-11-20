@@ -38,6 +38,9 @@
         <activity
             android:theme="@style/AppTheme.NoActionBar"
             android:name=".ui.activity.SearchActivity" />
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".ui.activity.ScanResultActivity" />
     </application>
 
 </manifest>

@@ -44,11 +44,15 @@ class SearchViewModel:BaseViewModel() {
 
     override fun start() {
         super.start()
+        loadKey()
+
+    }
+
+    private fun loadKey(){
         disposable.add(AppDatabase.getInstance(App.INSTANCE).getSearchDao().getKeys()
-                    .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { keyData.value = it})
-
     }
 
     fun addKey(key:SearchKey){
@@ -56,6 +60,21 @@ class SearchViewModel:BaseViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe())
+    }
+
+    fun clearKey(){
+        disposable.add(deleteKey()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe{
+                    loadKey()
+                })
+    }
+
+    private fun deleteKey():Completable{
+        return Completable.fromAction {
+            AppDatabase.getInstance(App.INSTANCE).getSearchDao().deleteAll()
+        }
     }
 
     private fun saveKey(key: SearchKey):Completable{
