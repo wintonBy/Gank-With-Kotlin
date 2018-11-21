@@ -2,7 +2,7 @@
 这是一个自己练手的Android小项目，主要内容包含了Gank内容的接入，煎蛋内容的接入，以及头条视频爬去，用到了我自己开源的多个库以及多个三方开源库。项目中还用到ViewModel LiveData Room DataBing等多个
 google新组件。可以学习等东西还挺多！！
 # APK 下载
-<img src="screen/download.png" width="120" />
+<img src="screen/download.png" width="120"/>
 # UI效果展示
 <div align="left">
   <img src="screen/start.png" width="200"/>
@@ -21,7 +21,6 @@ google新组件。可以学习等东西还挺多！！
   <img src="screen/scan.jpg" width="200" />
   <img src="screen/news.png" width="200" />
 </div>
-
 # UI亮点
 <li>沉浸式状态栏</li>
 <li>可拖拽的RecyclerView</li>
@@ -32,7 +31,7 @@ google新组件。可以学习等东西还挺多！！
 
 # 基本架构
 <div align="left">
- <img src="screen/demo.png" width="400" />
+ <img src="screen/demo.png" width="600" />
 </div>
 
 # 开源依赖
