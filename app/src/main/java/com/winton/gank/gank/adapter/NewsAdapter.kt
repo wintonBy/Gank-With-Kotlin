@@ -84,6 +84,7 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         constructor(adapter: NewsAdapter,binding: ItemNewsListVideoBinding) : super(binding.root){
             this.binding = binding
             imageView = ImageView(binding.root.context)
+            imageView.scaleType = ImageView.ScaleType.FIT_XY
             this.adapter = adapter
         }
 
@@ -91,27 +92,33 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             (binding as ItemNewsListVideoBinding).run {
                 BindingUtils.bindArticleImg(imageView,news.video_detail_info.detail_video_large_image.url)
                 smallVideoHelper.addVideoPlayer(position,imageView,TAG,itemContainer,playBtn)
-
+                this.title.text = news.title
                 playBtn.setOnClickListener {
                     adapter.notifyDataSetChanged()
                     smallVideoHelper.setPlayPositionAndTag(position, TAG)
                     gsySmallVideoHelperBuilder.videoTitle = news.title
-                    val decoder = object :VideoPathDecoder(){
-                        override fun onDecodeSuccess(url: String?) {
-                            App.mUIHandler.post {
-                                url?.let {
-                                    LogUtils.dTag("winton","playurl:$it")
-                                    gsySmallVideoHelperBuilder.url = it
-                                    smallVideoHelper.startPlay()
-                                }
-                            }
-                        }
-
-                        override fun onDecodeFailure(code: ErrorCode) {
-                            ToastUtils.showShort("解析数据失败")
-                        }
+                    {
+                        //暂时爬不到数据
+//                    val decoder = object :VideoPathDecoder(){
+//                        override fun onDecodeSuccess(url: String?) {
+//                            App.mUIHandler.post {
+//                                url?.let {
+//                                    LogUtils.dTag("winton","playurl:$it")
+//                                    gsySmallVideoHelperBuilder.url = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4"
+//                                    smallVideoHelper.startPlay()
+//                                }
+//                            }
+//                        }
+//
+//
+//                        override fun onDecodeFailure(code: ErrorCode) {
+//                            ToastUtils.showShort("解析数据失败")
+//                        }
+//                    }
+//                    decoder.decodePath(news.url)
                     }
-                    decoder.decodePath(news.url)
+                    gsySmallVideoHelperBuilder.url = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4"
+                    smallVideoHelper.startPlay()
                 }
             }
 

@@ -40,8 +40,8 @@ class WeixunRetrofitClient(private val okHttpClient: OkHttpClient) {
     /**
      * 获取新闻列表
      */
-    fun getNewsList(category:String,lastTime:Long,subscriber: BaseWeixunSubscriber){
-        server.getNewsList(category,lastTime,System.currentTimeMillis()/1000)
+    fun getNewsList(category:String,lastTime:Long,currentTime:Long,subscriber: BaseWeixunSubscriber){
+        server.getNewsList(category,lastTime,currentTime)
                 .map {
                     val list:ArrayList<NewsContent> = ArrayList()
                     for(data in it.data){

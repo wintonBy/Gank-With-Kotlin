@@ -103,6 +103,13 @@ class NewsFragment: BaseFragment<FragNewsBinding>() {
         })
     }
 
+    override fun initListener() {
+        super.initListener()
+        binding.srl.setOnRefreshListener {
+            viewModel.loadRefreshData()
+        }
+    }
+
     override fun initData() {
         super.initData()
         adapter = NewsAdapter(context!!)
@@ -116,14 +123,18 @@ class NewsFragment: BaseFragment<FragNewsBinding>() {
                 }
                 Resource.SUCCESS ->{
                     it.data?.data?.let {
+                        binding.sv.showContent()
+                        binding.srl.isRefreshing = false
                         adapter.refresh(it)
                     }
                 }
                 Resource.ERROR ->{
-
+                    binding.sv.showContent()
+                    binding.srl.isRefreshing = false
                 }
             }
         })
-        viewModel.loadData()
+        viewModel.loadRefreshData()
+        binding.sv.showLoading()
     }
 }
