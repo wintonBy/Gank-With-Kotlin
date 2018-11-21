@@ -30,8 +30,10 @@ google新组件。可以学习等东西还挺多！！
 <li>自定义View</li>
 <li>视频小窗口播放</li>
 
-
-# 项目架构
+# 基本架构
+<div align="left">
+ <img src="screen/demo.png" width="400" />
+</div>
 
 # 开源依赖
 [EasyStatueView](https://github.com/wintonBy/EasyStatueView)
