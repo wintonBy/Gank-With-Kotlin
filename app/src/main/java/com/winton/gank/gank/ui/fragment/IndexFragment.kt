@@ -42,7 +42,10 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
     private lateinit var adapter: IndexVPAdapter
     private val framents by lazy {
         ArrayList<Fragment>().apply {
-            this.add(GirlsFragment.newInstance(Bundle().apply { this.putString(GirlsFragment.CATEGORY,"福利") }))
+            this.add(GirlsFragment.newInstance(Bundle().apply {
+                this.putString(GirlsFragment.CATEGORY, "福利")
+                this.putBoolean(GirlsFragment.SHOW_TITLE, false)
+            }))
             this.add(TodayFragment.newInstance(null))
             this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"Android") }))
             this.add(GankListFragment.newInstance(Bundle().apply { this.putString(GankListFragment.CATEGORY,"iOS") }))
@@ -63,7 +66,9 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
         }
         //点击搜索
         binding.tvRcSearch.setOnClickListener {
+            binding.tvRcSearch.isClickable  = false
             SearchActivity.start(context!!)
+            binding.tvRcSearch.isClickable  = true
         }
 
     }

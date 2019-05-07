@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.view.View
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.GirlsAdapter
 import com.winton.gank.gank.databinding.FragGirlsBinding
@@ -14,7 +15,7 @@ import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.ImageActivity
 import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.GankListViewModel
-import java.util.ArrayList
+import java.util.*
 
 /**
  * @author: winton
@@ -27,10 +28,12 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
     private var pageIndex = 1
     private var hasNext = true
     private val spanCount = 2
+    private var showTitle = false
     private lateinit var adapter: GirlsAdapter
     private lateinit var viewModel: GankListViewModel
     companion object {
         const val CATEGORY = "category"
+        const val SHOW_TITLE = "show_title"
         fun newInstance(params: Bundle?):GirlsFragment{
 
             var frag = GirlsFragment()
@@ -52,10 +55,6 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
         super.initListener()
         binding.rv.addOnScrollListener(object :RecyclerView.OnScrollListener(){
             var visibleItems:IntArray = IntArray(spanCount)
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-            }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -83,8 +82,8 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
         }
     }
 
-
     override fun initData() {
+
         adapter = GirlsAdapter(context!!)
         adapter.setOnItemClickListener(object :GirlsAdapter.OnItemClick{
             override fun onItemClick(item: TitleBean) {
@@ -92,12 +91,16 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
             }
         })
         binding.rv.adapter = adapter
-        category = arguments?.getString(GankListFragment.CATEGORY)
+        category = arguments?.getString(CATEGORY)
+        showTitle = arguments?.getBoolean(SHOW_TITLE, true)?:true
+        if (!showTitle){
+            binding.tvTitle.visibility = View.GONE
+        }
         viewModel = ViewModelProviders.of(this).get(GankListViewModel::class.java)
         viewModel.getListData().observe(this, Observer {
             when(it?.status){
                 Resource.LOADING ->{
-                    if(pageIndex == 1){
+                    if (pageIndex == 1) {
                         binding.sv.showLoading()
                     }
                 }

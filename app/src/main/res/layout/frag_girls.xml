@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
+            android:id="@+id/tv_title"
             android:textColor="@android:color/white"
             android:background="@android:color/holo_blue_light"
             android:gravity="center"
@@ -11,7 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="50dp" />
         <com.winton.librarystatue.StatueView
-            android:layout_marginTop="50dp"
             android:id="@+id/sv"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -28,6 +29,6 @@
             </android.support.v4.widget.SwipeRefreshLayout>
 
         </com.winton.librarystatue.StatueView>
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>
