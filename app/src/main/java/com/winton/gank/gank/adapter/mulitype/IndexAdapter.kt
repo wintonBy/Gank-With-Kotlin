@@ -4,6 +4,7 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
+import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -30,7 +31,7 @@ import java.util.*
  * @desc: 首页Adapter
  */
 
-class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
+class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAdapter.ViewHolder>() {
 
     companion object {
         const val T_TITLE = 1
@@ -39,31 +40,22 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
         const val T_IMAGE = 4
     }
 
-
-    private var mContext: Context
-
-    private var  onItemClickListener:OnItemClick? = null
-
-    private val bindIdMap: HashMap<Int, Int> = HashMap()
-
-    private var mData: ArrayList<IndexItem> = ArrayList()
-
-    constructor(mContext: Context) : super() {
-        this.mContext = mContext
-    }
+    private var onItemClickListener:OnItemClick? = null
+    private val bindIdMap = SparseIntArray()
+    private val mData = ArrayList<IndexItem>()
 
     fun updateData(orgData: ResultBean) {
         fixData(orgData)
         this.notifyDataSetChanged()
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override
+    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(mContext)
         when (viewType) {
             T_IMAGE -> {
                 val binding = DataBindingUtil.inflate<ItemIndexGiftBinding>(layoutInflater, R.layout.item_index_gift, parent, false)
-                bindIdMap.put(T_IMAGE, BR.gankBean)
+                bindIdMap[T_IMAGE, BR.gankBean]
                 binding.root.setOnClickListener {
                     onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
                 }
@@ -101,11 +93,13 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
         this.onItemClickListener = listener
     }
 
-    override fun getItemCount(): Int {
+    override
+    fun getItemCount(): Int {
         return mData.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override
+    fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var variableId = bindIdMap[getItemViewType(position)]
         var item = mData[position].item
         if (item != null && variableId != null) {
@@ -114,7 +108,8 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
+    override
+    fun getItemViewType(position: Int): Int {
         return mData[position].getType()
     }
 
@@ -169,10 +164,7 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.ViewHolder> {
         }
     }
 
-    class ViewHolder : BaseRVHolder {
-        constructor(binding: ViewDataBinding) : super(binding.root) {
-            this.binding = binding
-        }
+    class ViewHolder(var binding: ViewDataBinding) : BaseRVHolder(binding.root) {
 
         override fun bind(variableId: Int, value: Any) {
             super.bind(variableId, value)
