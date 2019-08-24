@@ -14,7 +14,7 @@ import com.winton.gank.gank.repository.Resource
  */
 class TodayViewModel :BaseViewModel(){
 
-    private var todayData: MutableLiveData<Resource<TodayResponse>> = MutableLiveData()
+    private val todayData : MutableLiveData<Resource<TodayResponse>> = MutableLiveData()
 
     fun getTodayData():MutableLiveData<Resource<TodayResponse>>{
         return todayData

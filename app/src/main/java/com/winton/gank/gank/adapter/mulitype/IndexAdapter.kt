@@ -40,7 +40,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         const val T_IMAGE = 4
     }
 
-    private var onItemClickListener:OnItemClick? = null
+    private var onItemClickListener:((IndexItem) -> Unit) ? = null
     private val bindIdMap = SparseIntArray()
     private val mData = ArrayList<IndexItem>()
 
@@ -57,7 +57,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 val binding = DataBindingUtil.inflate<ItemIndexGiftBinding>(layoutInflater, R.layout.item_index_gift, parent, false)
                 bindIdMap[T_IMAGE, BR.gankBean]
                 binding.root.setOnClickListener {
-                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                    onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
                 return ViewHolder(binding)
             }
@@ -65,7 +65,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 val binding = DataBindingUtil.inflate<ItemIndexArticleTitleBinding>(layoutInflater, R.layout.item_index_article_title, parent, false)
                 bindIdMap.put(T_TITLE, BR.gankBean)
                 binding.root.setOnClickListener {
-                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                    onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
                 return ViewHolder(binding)
             }
@@ -73,7 +73,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 val binding = DataBindingUtil.inflate<ItemIndexArticleEndBinding>(layoutInflater, R.layout.item_index_article_end, parent, false)
                 bindIdMap.put(T_END, BR.gankBean)
                 binding.root.setOnClickListener {
-                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                    onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
                 return ViewHolder(binding)
             }
@@ -81,7 +81,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 val binding = DataBindingUtil.inflate<ItemIndexArticleBinding>(layoutInflater, R.layout.item_index_article, parent, false)
                 bindIdMap.put(T_CONTENT, BR.gankBean)
                 binding.root.setOnClickListener {
-                    onItemClickListener?.onItemClick(binding.root.tag as IndexItem)
+                    onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
                 return ViewHolder(binding)
             }
@@ -89,8 +89,8 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
 
     }
 
-    fun registerOnItemClickListener(listener:OnItemClick){
-        this.onItemClickListener = listener
+    fun registerOnItemClickListener(action : (IndexItem) -> Unit){
+        this.onItemClickListener = action
     }
 
     override
