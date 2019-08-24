@@ -6,16 +6,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.shuyu.gsyvideoplayer.utils.GSYVideoHelper
-import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemNewsListVideoBinding
-import com.winton.gank.gank.http.ErrorCode
 import com.winton.gank.gank.http.bean.NewsContent
 import com.winton.gank.gank.utils.BindingUtils
-import com.winton.gank.gank.utils.VideoPathDecoder
 
 /**
  * @author: winton

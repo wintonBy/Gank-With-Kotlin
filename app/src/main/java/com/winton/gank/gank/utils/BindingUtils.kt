@@ -2,7 +2,6 @@ package com.winton.gank.gank.utils
 
 import android.widget.ImageView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.bumptech.glide.request.RequestOptions
 import com.winton.gank.gank.R
 import com.winton.gank.gank.utils.glide.GlideApp
 

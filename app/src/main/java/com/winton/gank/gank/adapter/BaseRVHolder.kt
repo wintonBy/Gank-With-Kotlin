@@ -11,8 +11,6 @@ import android.view.View
  */
 open class BaseRVHolder :RecyclerView.ViewHolder {
 
-    lateinit var binding:ViewDataBinding
-
     constructor(itemView: View) : super(itemView)
 
     open fun bind(variableId:Int,value:Any){
