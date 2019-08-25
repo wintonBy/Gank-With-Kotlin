@@ -17,29 +17,20 @@ import com.winton.gank.gank.utils.BindingUtils
  * @time: 2018/11/2 5:44 PM
  * @desc: 新闻适配器
  */
-class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
+class NewsAdapter constructor(private val mContext: Context) :RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     companion object {
         const val TAG = "NewsAdapter"
     }
 
-    private var mData:ArrayList<NewsContent> = ArrayList()
-
-    private var mContext: Context
-
+    private val mData:ArrayList<NewsContent> = ArrayList()
     private lateinit var smallVideoHelper: GSYVideoHelper
-
     private lateinit var gsySmallVideoHelperBuilder: GSYVideoHelper.GSYVideoHelperBuilder
-
-
-    constructor(mContext: Context) : super() {
-        this.mContext = mContext
-    }
 
     /**
      * 添加下拉刷新的数据
      */
-    fun refresh(data:ArrayList<NewsContent>){
+    fun refresh(data:ArrayList<NewsContent>) {
         mData.addAll(0,data)
         notifyDataSetChanged()
     }
@@ -47,7 +38,7 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     /**
      * 添加上拉加载更多的数据
      */
-    fun more(data:ArrayList<NewsContent>){
+    fun more(data:ArrayList<NewsContent>) {
         val oldSize = mData.size
         mData.addAll(data)
         notifyItemRangeInserted(oldSize,data.size)
@@ -56,7 +47,7 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ItemNewsListVideoBinding>(LayoutInflater.from(mContext), R.layout.item_news_list_video,parent,false)
         val holder = ViewHolder(this,binding)
-        holder.setVideoPlayerHelper(smallVideoHelper!!,gsySmallVideoHelperBuilder!!)
+        holder.setVideoPlayerHelper(smallVideoHelper!!, gsySmallVideoHelperBuilder!!)
         return holder
     }
 
@@ -67,21 +58,11 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.itemView.tag = mData[position]
     }
 
-    class ViewHolder:BaseRVHolder{
+    class ViewHolder constructor(private val adapter: NewsAdapter, viewBinding : ItemNewsListVideoBinding):BaseRVHolder(viewBinding.root, viewBinding){
+
         private lateinit var smallVideoHelper: GSYVideoHelper
-
         private lateinit var gsySmallVideoHelperBuilder: GSYVideoHelper.GSYVideoHelperBuilder
-
-        private var imageView:ImageView
-
-        private var adapter:NewsAdapter
-
-        constructor(adapter: NewsAdapter,binding: ItemNewsListVideoBinding) : super(binding.root){
-            this.binding = binding
-            imageView = ImageView(binding.root.context)
-            imageView.scaleType = ImageView.ScaleType.FIT_XY
-            this.adapter = adapter
-        }
+        private var imageView:ImageView = ImageView(viewBinding.root.context).apply { scaleType = ImageView.ScaleType.FIT_XY }
 
         fun bindData(news:NewsContent,position: Int){
             (binding as ItemNewsListVideoBinding).run {
@@ -119,16 +100,14 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
 
         }
-        fun setVideoPlayerHelper(videoHelper:GSYVideoHelper,videoHelperBuilder:GSYVideoHelper.GSYVideoHelperBuilder){
+        fun setVideoPlayerHelper(videoHelper:GSYVideoHelper,videoHelperBuilder:GSYVideoHelper.GSYVideoHelperBuilder) {
             smallVideoHelper = videoHelper
             gsySmallVideoHelperBuilder = videoHelperBuilder
         }
     }
 
-    fun setVideoPlayerHelper(videoHelper:GSYVideoHelper,videoHelperBuilder:GSYVideoHelper.GSYVideoHelperBuilder){
+    fun setVideoPlayerHelper(videoHelper:GSYVideoHelper,videoHelperBuilder:GSYVideoHelper.GSYVideoHelperBuilder) {
         smallVideoHelper = videoHelper
         gsySmallVideoHelperBuilder = videoHelperBuilder
     }
-
-
 }

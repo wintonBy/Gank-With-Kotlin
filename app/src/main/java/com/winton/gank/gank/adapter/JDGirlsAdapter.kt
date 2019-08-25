@@ -16,41 +16,29 @@ import com.winton.gank.gank.utils.BindingUtils
  * @time: 2018/10/31 3:41 PM
  * @desc: 煎蛋图片适配器
  */
-class JDGirlsAdapter:RecyclerView.Adapter<JDGirlsAdapter.ViewHolder> {
+class JDGirlsAdapter constructor(private val mContext: Context): RecyclerView.Adapter<JDGirlsAdapter.ViewHolder>() {
 
-    private val mContext:Context
-    private var mData:ArrayList<Comment>
+    private val mData = ArrayList<Comment>()
 
-    private var onItemClickListener:OnItemClick? = null
+    private var onItemClickListener : ((Comment) -> Unit)?  = null
 
-    constructor(mContext: Context) : super() {
-        this.mContext = mContext
-        mData = ArrayList()
-    }
-
-    fun setOnItemClickListener(listener:OnItemClick){
-        onItemClickListener = listener
-    }
-
-    fun update(data:ArrayList<Comment>){
+    fun update(data:ArrayList<Comment>) {
         mData.clear()
         mData.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun add(data:ArrayList<Comment>){
-        var oldSize = mData.size
+    fun add(data:ArrayList<Comment>) {
+        val oldSize = mData.size
         mData.addAll(data)
         notifyItemRangeInserted(oldSize,data.size)
     }
 
-    override fun onCreateViewHolder(parent:  ViewGroup, viewType: Int): ViewHolder {
-        val binding = DataBindingUtil.inflate<ItemJdGirlBinding>(LayoutInflater.from(mContext), R.layout.item_jd_girl,parent,false)
-        val holder = ViewHolder(binding)
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.onItemClick((holder.itemView.tag as Comment))
-        }
-        return holder
+    override fun onCreateViewHolder(parent:  ViewGroup, viewType: Int): ViewHolder =
+        DataBindingUtil.inflate<ItemJdGirlBinding>(LayoutInflater.from(mContext), R.layout.item_jd_girl, parent,false).run {
+            return ViewHolder(this).apply {
+                itemView.setOnClickListener { onItemClickListener ?. invoke((itemView.tag as Comment)) }
+            }
     }
 
     override fun getItemCount(): Int = mData.size
@@ -60,21 +48,12 @@ class JDGirlsAdapter:RecyclerView.Adapter<JDGirlsAdapter.ViewHolder> {
         viewHolder.itemView.tag = mData[position]
     }
 
-    class ViewHolder:BaseRVHolder{
-        constructor(binding: ViewDataBinding) : super(binding.root){
-            this.binding = binding
-        }
+    class ViewHolder constructor(viewBinding : ViewDataBinding) : BaseRVHolder(viewBinding.root, viewBinding){
 
-        fun bindData(item:Comment){
-            (binding as ItemJdGirlBinding).apply {
-                this.author.text = "作者：${item.comment_author}"
-                this.picNum.text = "含${item.pics.size}图"
-                BindingUtils.bindArticleImg(this.img,item.pics[0])
+        fun bindData(item : Comment) = (binding as ItemJdGirlBinding).run {
+                author.text = "作者：${item.comment_author}"
+                picNum.text = "含${item.pics.size}图"
+                BindingUtils.bindArticleImg(img, item.pics[0])
             }
-        }
-    }
-
-    interface OnItemClick{
-        fun onItemClick(item:Comment)
     }
 }
