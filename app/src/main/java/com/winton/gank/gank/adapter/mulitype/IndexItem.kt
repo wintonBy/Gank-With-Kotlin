@@ -7,7 +7,7 @@ import com.winton.gank.gank.http.bean.TitleBean
  * @time: 2018/10/18 上午10:52
  * @desc: 描述
  */
-class IndexItem :MutilItemType{
+class IndexItem :MutilItemType {
 
     private val itemType:Int
 
@@ -22,8 +22,5 @@ class IndexItem :MutilItemType{
         this.itemType = itemType
     }
 
-
-    override fun getType(): Int {
-        return itemType
-    }
+    override fun getType() = itemType
 }
