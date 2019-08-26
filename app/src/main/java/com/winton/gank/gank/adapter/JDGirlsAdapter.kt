@@ -20,7 +20,11 @@ class JDGirlsAdapter constructor(private val mContext: Context): RecyclerView.Ad
 
     private val mData = ArrayList<Comment>()
 
-    private var onItemClickListener : ((Comment) -> Unit)?  = null
+    private var onItemClickListener : ((Comment) -> Unit)? = null
+
+    fun setOnItemClickListener(action : (Comment) -> Unit) {
+        onItemClickListener = action
+    }
 
     fun update(data:ArrayList<Comment>) {
         mData.clear()

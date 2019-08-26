@@ -70,11 +70,9 @@ class JDGirlsFragment:BaseFragment<FragGirlsBinding>() {
     override fun initData() {
         super.initData()
         adapter = JDGirlsAdapter(context!!)
-        adapter.setOnItemClickListener(object :JDGirlsAdapter.OnItemClick{
-            override fun onItemClick(item: Comment) {
-                ImageActivity.start(activity!!, ArrayList(item.pics))
-            }
-        })
+        adapter.setOnItemClickListener{
+            ImageActivity.start(activity!!, ArrayList(it.pics))
+        }
         binding.rv.layoutManager = GridLayoutManager(context!!,spanCount)
         binding.rv.adapter = adapter
         viewModel = ViewModelProviders.of(this).get(JDViewModel::class.java)

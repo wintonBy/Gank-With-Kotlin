@@ -27,6 +27,9 @@ class GirlsAdapter constructor(private val mContext: Context) : RecyclerView.Ada
         notifyDataSetChanged()
     }
 
+    fun setOnItemClickListener(action : (TitleBean) -> Unit) {
+        onItemClickListener = action
+    }
     fun add(data:ArrayList<TitleBean>) {
         val oldSize = mData.size
         mData.addAll(data)

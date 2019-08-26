@@ -74,29 +74,27 @@ class MyFragment: BaseFragment<FragMeBinding>() {
     override fun initData() {
         super.initData()
         adapter = MeAdapter(context!!)
-        adapter.setOnItemClickListener(object :MeAdapter.OnItemClick{
-            override fun onItemClick(item: PersonCenterBean) {
-                when(item.type){
-                    BeanType.URL ->{
-                        WebActivity.start(context!!,item.url)
-                    }
-                    BeanType.ACTIVITY ->{
-                        startActivity(item.intent)
-                    }
+        adapter.setOnItemClickListener{
+            when(it.type){
+                BeanType.URL ->{
+                    WebActivity.start(context!!,it.url)
+                }
+                BeanType.ACTIVITY ->{
+                    startActivity(it.intent)
                 }
             }
-        })
-        adapter.setOnItemLongClickListener(object :MeAdapter.OnItemLongClick{
-            override fun onItemLongClick(viewHolder: RecyclerView.ViewHolder): Boolean {
-                itemTouchHelper.startDrag(viewHolder)
-                return true
-            }
-        })
+        }
+        adapter.setOnItemLongClickListener { doItemLongClick(it) }
         fixDataOrderByAcache()
         adapter.update(mData)
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallBack(adapter))
         itemTouchHelper.attachToRecyclerView(binding.rv)
         binding.rv.adapter = adapter
+    }
+
+    fun doItemLongClick(holder : RecyclerView.ViewHolder) : Boolean {
+        itemTouchHelper.startDrag(holder)
+        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

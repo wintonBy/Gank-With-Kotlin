@@ -26,6 +26,14 @@ class MeAdapter constructor(private val mContext: Context) : RecyclerView.Adapte
     private var onItemClickListener : ((PersonCenterBean) -> Unit)? = null
     private var onItemLongClickListener : ((RecyclerView.ViewHolder) -> Boolean)?= null
 
+    fun setOnItemClickListener(action : (PersonCenterBean) -> Unit) {
+        onItemClickListener = action
+    }
+
+    fun setOnItemLongClickListener(action : (RecyclerView.ViewHolder) -> Boolean) {
+        onItemLongClickListener = action
+    }
+
     private var mData:ArrayList<PersonCenterBean> = ArrayList()
 
     fun update(data:ArrayList<PersonCenterBean>) {

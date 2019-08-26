@@ -85,11 +85,9 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
     override fun initData() {
 
         adapter = GirlsAdapter(context!!)
-        adapter.setOnItemClickListener(object :GirlsAdapter.OnItemClick{
-            override fun onItemClick(item: TitleBean) {
-                ImageActivity.start(activity!!,ArrayList<String>().apply { add(item.url) })
-            }
-        })
+        adapter.setOnItemClickListener{
+                ImageActivity.start(activity!!,ArrayList<String>().apply { add(it.url) })
+        }
         binding.rv.adapter = adapter
         category = arguments?.getString(CATEGORY)
         showTitle = arguments?.getBoolean(SHOW_TITLE, true)?:true

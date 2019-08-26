@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.winton.gank.gank.BR
 import com.winton.gank.gank.R
+import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.databinding.ItemGankSearchBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.StringUtils
@@ -37,6 +38,10 @@ class SearchAdapter constructor(private var mContext : Context) : RecyclerView.A
         mData.clear()
         mData.addAll(data)
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(action : (TitleBean) -> Unit) {
+        listener = action
     }
 
 
