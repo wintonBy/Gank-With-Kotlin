@@ -113,16 +113,7 @@ class SearchActivity:BaseActivity<ActSearchBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         adapter = SearchAdapter(this)
-        adapter.setOnItemClickListener(object :SearchAdapter.OnItemClickListener{
-            override fun clickItem(item: TitleBean) {
-                val url = item?.url
-                if(url != null){
-                    WebActivity.start(this@SearchActivity,url)
-                }else{
-                    ToastUtils.showLong("链接为空")
-                }
-            }
-        })
+        adapter.setOnItemClickListener { WebActivity.start(this@SearchActivity,it.url) }
         binding.rvResult.layoutManager = LinearLayoutManager(this)
         binding.rvResult.adapter = adapter
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)

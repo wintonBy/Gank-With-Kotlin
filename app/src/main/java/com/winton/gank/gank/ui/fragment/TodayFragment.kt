@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ToastUtils
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.mulitype.IndexAdapter
-import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.databinding.FragListCommonBinding
 import com.winton.gank.gank.http.response.gank.ResultBean
 import com.winton.gank.gank.repository.Resource
@@ -45,11 +44,10 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
         }
     }
 
-
     override fun initData() {
         viewModel = ViewModelProviders.of(this).get(TodayViewModel::class.java)
         adapter = IndexAdapter(context!!).apply {
-            registerOnItemClickListener{ item ->
+            registerOnItemClickListener { item ->
                 when(item.getType()) {
                     IndexAdapter.T_IMAGE -> item.item ?. url ?. let { value ->
                              ImageActivity.start(context!!, ArrayList<String>().apply { add(value) })
@@ -58,9 +56,9 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
                         item.item ?. url ?. let { value ->
                              WebActivity.start(context!!,value)
                         } ?: ToastUtils.showLong("链接异常")
-                    }
                 }
             }
+        }
         binding.rvIndex.adapter = adapter
         viewModel.getTodayData().observe(this, Observer {
             when(it?.status) {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.winton.gank.gank.BR
 import com.winton.gank.gank.R
+import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.databinding.ItemGankSearchBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.StringUtils
@@ -16,15 +17,10 @@ import com.winton.gank.gank.utils.StringUtils
  * @time: 2018/11/13 8:19 PM
  * @desc: 搜索适配器
  */
-class SearchAdapter:RecyclerView.Adapter<BaseRVHolder> {
+class SearchAdapter constructor(private var mContext : Context) : RecyclerView.Adapter<BaseRVHolder>() {
 
     private var mData:ArrayList<TitleBean> = ArrayList()
-    private var mContext:Context
-    private var listener:SearchAdapter.OnItemClickListener? = null
-
-    constructor(mContext: Context) : super() {
-        this.mContext = mContext
-    }
+    private var listener : ((TitleBean) -> Unit)? = null
 
     /**
      * 增加数据
@@ -44,19 +40,18 @@ class SearchAdapter:RecyclerView.Adapter<BaseRVHolder> {
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(listener: OnItemClickListener){
-        this.listener = listener
+    fun setOnItemClickListener(action : (TitleBean) -> Unit) {
+        listener = action
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseRVHolder {
-        val binding = DataBindingUtil.inflate<ItemGankSearchBinding>(LayoutInflater.from(mContext), R.layout.item_gank_search,parent,false)
-        val holder = BaseRVHolder(binding.root)
-        holder.binding = binding
-        holder.binding.root.setOnClickListener {
-            listener?.clickItem((holder.itemView.tag as TitleBean))
+        DataBindingUtil.inflate<ItemGankSearchBinding>(LayoutInflater.from(mContext), R.layout.item_gank_search,parent,false).run {
+            val holder = BaseRVHolder(root, this)
+            holder.binding = this
+            holder.binding.root.setOnClickListener { listener ?. invoke((holder.itemView.tag as TitleBean)) }
+            return holder
         }
-        return holder
     }
 
     override fun getItemCount() = mData.size

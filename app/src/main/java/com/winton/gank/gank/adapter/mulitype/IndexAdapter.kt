@@ -7,11 +7,8 @@ import android.support.v7.widget.RecyclerView
 import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.blankj.utilcode.util.LogUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.BR
@@ -40,7 +37,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         const val T_IMAGE = 4
     }
 
-    private var onItemClickListener:((IndexItem) -> Unit) ? = null
+    private var onItemClickListener : ((IndexItem) -> Unit) ? = null
     private val bindIdMap = SparseIntArray()
     private val mData = ArrayList<IndexItem>()
 
@@ -52,10 +49,11 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
     override
     fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(mContext)
+
         when (viewType) {
             T_IMAGE -> {
                 val binding = DataBindingUtil.inflate<ItemIndexGiftBinding>(layoutInflater, R.layout.item_index_gift, parent, false)
-                bindIdMap[T_IMAGE, BR.gankBean]
+                bindIdMap.put(T_IMAGE, BR.gankBean)
                 binding.root.setOnClickListener {
                     onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
@@ -93,47 +91,30 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         this.onItemClickListener = action
     }
 
-    override
-    fun getItemCount(): Int {
-        return mData.size
-    }
+    override fun getItemCount() = mData.size
 
     override
     fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var variableId = bindIdMap[getItemViewType(position)]
-        var item = mData[position].item
-        if (item != null && variableId != null) {
+        val variableId = bindIdMap.get(getItemViewType(position))
+        val item = mData[position].item
+        if (item != null && variableId != 0) {
             holder.bind(variableId, item)
             holder.binding.root.tag =mData[position]
         }
     }
 
-    override
-    fun getItemViewType(position: Int): Int {
-        return mData[position].getType()
-    }
+    override fun getItemViewType(position: Int) = mData[position].getType()
 
     /**
      * 数据转换
      */
-    private fun fixData(orgData: ResultBean) {
+    private fun fixData(orgData: ResultBean) = with(orgData) {
         mData.clear()
-        orgData.gift?.let {
-            addGift(it)
-        }
-        orgData.android?.let {
-            addItems(it)
-        }
-        orgData.iOS?.let {
-            addItems(it)
-        }
-        orgData.app?.let {
-            addItems(it)
-        }
-        orgData.recommond?.let {
-            addItems(it)
-        }
-
+        gift      ?. let { addGift(it) }
+        android   ?. let { addItems(it) }
+        iOS       ?. let { addItems(it) }
+        app       ?. let { addItems(it) }
+        recommond ?. let { addItems(it) }
     }
 
     /**
@@ -142,15 +123,9 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
     private fun addItems(items: List<TitleBean>) {
         for (i in items.indices) {
             when (i) {
-                0 -> {
-                    mData.add(IndexItem(T_TITLE, items[i]))
-                }
-                items.size - 1 -> {
-                    mData.add(IndexItem(T_END, items[i]))
-                }
-                else -> {
-                    mData.add(IndexItem(T_CONTENT, items[i]))
-                }
+                0               -> mData.add(IndexItem(T_TITLE, items[i]))
+                items.size - 1  -> mData.add(IndexItem(T_END, items[i]))
+                else            -> mData.add(IndexItem(T_CONTENT, items[i]))
             }
         }
     }
@@ -164,7 +139,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         }
     }
 
-    class ViewHolder(var binding: ViewDataBinding) : BaseRVHolder(binding.root) {
+    class ViewHolder(viewBinding: ViewDataBinding) : BaseRVHolder(viewBinding.root, viewBinding) {
 
         override fun bind(variableId: Int, value: Any) {
             super.bind(variableId, value)
@@ -174,6 +149,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         private fun bindArticleImg(bean: TitleBean) {
             val images = bean.images
             var imgUrl  = ""
+            //may null
             images?.let {
                 if(it.isNotEmpty()){
                     imgUrl = it[0]
@@ -199,29 +175,16 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         /**
          * 设置分组的icon
          */
-        private fun setTitleIcon(tvGroupTitless: TextView, type: String) {
-            LogUtils.dTag("winton",type);
+        private fun setTitleIcon(tvGroupTitles: TextView, type: String) {
             var drId = R.mipmap.ic_default_group
             when (type) {
-                "Android" -> {
-                    drId = R.mipmap.ic_android
-                }
-                "iOS" -> {
-                    drId = R.mipmap.ic_ios
-                }
-                "App" -> {
-                    drId = R.mipmap.ic_app
-                }
+                "Android"  -> drId = R.mipmap.ic_android
+                "iOS"      -> drId = R.mipmap.ic_ios
+                "App"      -> drId = R.mipmap.ic_app
             }
-            var dr = App.INSTANCE.resources.getDrawable(drId)
+            val dr = App.INSTANCE.resources.getDrawable(drId)
             dr.setBounds(0, 0, dr.minimumWidth+10, dr.minimumHeight+10)
-            tvGroupTitless.setCompoundDrawables(dr, null, null, null)
+            tvGroupTitles.setCompoundDrawables(dr, null, null, null)
         }
-
     }
-
-    interface OnItemClick{
-        fun onItemClick(item:IndexItem)
-    }
-
 }

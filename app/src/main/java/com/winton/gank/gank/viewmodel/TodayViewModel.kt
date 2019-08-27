@@ -12,32 +12,22 @@ import com.winton.gank.gank.repository.Resource
  * @time: 2018/10/22 下午8:54
  * @desc: 今日数据
  */
-class TodayViewModel :BaseViewModel(){
+class TodayViewModel : BaseViewModel() {
 
     private val todayData : MutableLiveData<Resource<TodayResponse>> = MutableLiveData()
 
-    fun getTodayData():MutableLiveData<Resource<TodayResponse>>{
-        return todayData
-    }
-
-    override fun start() {
-        super.start()
-        loadToday()
-    }
+    fun getTodayData() = todayData
+    private fun loadToday() = RetrofitHolder.gankInstance().today(indexRequest)
+    override fun start() = loadToday()
 
     override fun stop() {
-        super.stop()
         indexRequest.mSub?.cancel()
-    }
-
-    private fun loadToday(){
-        RetrofitHolder.gankInstance().today(indexRequest)
     }
 
     /**
      * 请求今日数据
      */
-    private val indexRequest = object: BaseGankSubscriber<TodayResponse>(){
+    private val indexRequest = object: BaseGankSubscriber<TodayResponse>() {
 
         override fun start() {
             super.start()
