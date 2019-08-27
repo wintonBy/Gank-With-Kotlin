@@ -11,7 +11,7 @@ import android.view.View
  */
 open class BaseRVHolder(itemView: View, var binding:ViewDataBinding) : RecyclerView.ViewHolder(itemView) {
 
-    open fun bind(variableId:Int,value:Any) {
+    open fun bind(variableId:Int, value:Any) {
         binding.setVariable(variableId,value)
         binding.executePendingBindings()
     }

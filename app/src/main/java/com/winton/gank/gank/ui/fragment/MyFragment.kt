@@ -92,7 +92,7 @@ class MyFragment: BaseFragment<FragMeBinding>() {
         binding.rv.adapter = adapter
     }
 
-    fun doItemLongClick(holder : RecyclerView.ViewHolder) : Boolean {
+    private fun doItemLongClick(holder : RecyclerView.ViewHolder) : Boolean {
         itemTouchHelper.startDrag(holder)
         return true
     }

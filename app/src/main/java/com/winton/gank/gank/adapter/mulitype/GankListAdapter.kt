@@ -7,9 +7,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.BaseRVHolder
 import com.winton.gank.gank.databinding.ItemGankListManyImageBinding
@@ -56,10 +53,12 @@ class GankListAdapter(private var mContext: Context) : RecyclerView.Adapter<Gank
      */
     private fun fixData(mData: ArrayList<TitleBean>) = ArrayList<IndexItem>().apply {
         for(bean in mData) {
-            when (bean.images.size) {
-                0 -> add(IndexItem(T_NO_IMG, bean))
-                1 -> add(IndexItem(T_ONE_IMG, bean))
-                else -> add(IndexItem(T_MANY_IMG, bean))
+            if(bean.images == null|| bean.images.isEmpty() ){
+                add(IndexItem(T_NO_IMG,bean))
+            }else if( bean.images.size == 1){
+                add(IndexItem(T_ONE_IMG,bean))
+            }else{
+                add(IndexItem(T_MANY_IMG,bean))
             }
         }
     }

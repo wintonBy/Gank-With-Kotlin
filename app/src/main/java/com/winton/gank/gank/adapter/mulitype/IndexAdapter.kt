@@ -53,7 +53,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         when (viewType) {
             T_IMAGE -> {
                 val binding = DataBindingUtil.inflate<ItemIndexGiftBinding>(layoutInflater, R.layout.item_index_gift, parent, false)
-                bindIdMap[T_IMAGE, BR.gankBean]
+                bindIdMap.put(T_IMAGE, BR.gankBean)
                 binding.root.setOnClickListener {
                     onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
@@ -61,7 +61,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
             }
             T_TITLE -> {
                 val binding = DataBindingUtil.inflate<ItemIndexArticleTitleBinding>(layoutInflater, R.layout.item_index_article_title, parent, false)
-                bindIdMap[T_TITLE, BR.gankBean]
+                bindIdMap.put(T_TITLE, BR.gankBean)
                 binding.root.setOnClickListener {
                     onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
@@ -69,7 +69,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
             }
             T_END -> {
                 val binding = DataBindingUtil.inflate<ItemIndexArticleEndBinding>(layoutInflater, R.layout.item_index_article_end, parent, false)
-                bindIdMap[T_END, BR.gankBean]
+                bindIdMap.put(T_END, BR.gankBean)
                 binding.root.setOnClickListener {
                     onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
@@ -77,7 +77,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
             }
             else -> {
                 val binding = DataBindingUtil.inflate<ItemIndexArticleBinding>(layoutInflater, R.layout.item_index_article, parent, false)
-                bindIdMap[T_CONTENT, BR.gankBean]
+                bindIdMap.put(T_CONTENT, BR.gankBean)
                 binding.root.setOnClickListener {
                     onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
@@ -95,7 +95,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
 
     override
     fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val variableId = bindIdMap[getItemViewType(position)]
+        val variableId = bindIdMap.get(getItemViewType(position))
         val item = mData[position].item
         if (item != null && variableId != 0) {
             holder.bind(variableId, item)
@@ -149,7 +149,8 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         private fun bindArticleImg(bean: TitleBean) {
             val images = bean.images
             var imgUrl  = ""
-            images.let {
+            //may null
+            images?.let {
                 if(it.isNotEmpty()){
                     imgUrl = it[0]
                 }
