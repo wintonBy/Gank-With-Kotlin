@@ -13,6 +13,8 @@ class IndexItem :MutilItemType {
 
     var item:TitleBean? = null
 
+    var head:List<TitleBean>? = null
+
     constructor(itemType: Int) {
         this.itemType = itemType
     }
@@ -20,6 +22,11 @@ class IndexItem :MutilItemType {
     constructor(itemType: Int,item: TitleBean) {
         this.item = item
         this.itemType = itemType
+    }
+
+    constructor(itemType: Int, head: List<TitleBean>) {
+        this.itemType = itemType
+        this.head = head
     }
 
     override fun getType() = itemType

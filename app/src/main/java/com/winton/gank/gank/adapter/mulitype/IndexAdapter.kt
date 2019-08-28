@@ -134,9 +134,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
      * 添加福利
      */
     private fun addGift(items: List<TitleBean>) {
-        for (item in items) {
-            mData.add(IndexItem(T_IMAGE, item))
-        }
+        mData.add(IndexItem(T_IMAGE, items))
     }
 
     class ViewHolder(viewBinding: ViewDataBinding) : BaseRVHolder(viewBinding.root, viewBinding) {
