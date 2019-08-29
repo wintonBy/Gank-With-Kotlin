@@ -8,19 +8,16 @@ import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import com.blankj.utilcode.util.LogUtils
 import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.BR
 import com.winton.gank.gank.adapter.BaseRVHolder
-import com.winton.gank.gank.databinding.ItemIndexArticleBinding
-import com.winton.gank.gank.databinding.ItemIndexArticleEndBinding
-import com.winton.gank.gank.databinding.ItemIndexArticleTitleBinding
-import com.winton.gank.gank.databinding.ItemIndexGiftBinding
+import com.winton.gank.gank.adapter.HeadImageAdapter
+import com.winton.gank.gank.databinding.*
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.http.response.gank.ResultBean
 import com.winton.gank.gank.utils.BindingUtils
-import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author: winton
@@ -52,10 +49,9 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
 
         when (viewType) {
             T_IMAGE -> {
-                val binding = DataBindingUtil.inflate<ItemIndexGiftBinding>(layoutInflater, R.layout.item_index_gift, parent, false)
-                bindIdMap.put(T_IMAGE, BR.gankBean)
+                val binding = DataBindingUtil.inflate<ItemImageHeaderGiftBinding>(layoutInflater, R.layout.item_image_header_gift, parent, false)
                 binding.root.setOnClickListener {
-                    onItemClickListener?.invoke(binding.root.tag as IndexItem)
+//                    onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
                 return ViewHolder(binding)
             }
@@ -95,12 +91,20 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
 
     override
     fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val variableId = bindIdMap.get(getItemViewType(position))
-        val item = mData[position].item
-        if (item != null && variableId != 0) {
-            holder.bind(variableId, item)
-            holder.binding.root.tag =mData[position]
+        mData[position].run {
+            if (this.getType() == T_IMAGE) {
+                holder.bindIndexHeaderGift(this)
+            } else {
+                val variableId = bindIdMap.get(getItemViewType(position))
+                if (item != null && variableId != 0) {
+                    holder.bind(variableId, item!!)
+                    holder.binding.root.tag =this
+                }
+            }
         }
+
+
+
     }
 
     override fun getItemViewType(position: Int) = mData[position].getType()
@@ -110,7 +114,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
      */
     private fun fixData(orgData: ResultBean) = with(orgData) {
         mData.clear()
-        gift      ?. let { addGift(it) }
+        gift      ?. let { addGift(it as ArrayList<TitleBean>) }
         android   ?. let { addItems(it) }
         iOS       ?. let { addItems(it) }
         app       ?. let { addItems(it) }
@@ -133,9 +137,8 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
     /**
      * 添加福利
      */
-    private fun addGift(items: List<TitleBean>) {
-        mData.add(IndexItem(T_IMAGE, items))
-    }
+    private fun addGift(items: ArrayList<TitleBean>)  = mData.add(IndexItem(T_IMAGE, items))
+
 
     class ViewHolder(viewBinding: ViewDataBinding) : BaseRVHolder(viewBinding.root, viewBinding) {
 
@@ -164,10 +167,11 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 is ItemIndexArticleEndBinding -> {
                     BindingUtils.bindArticleImg((binding as ItemIndexArticleEndBinding).ivImg, imgUrl)
                 }
-                is ItemIndexGiftBinding ->{
-                    BindingUtils.bindGift((binding as ItemIndexGiftBinding).ivGift,bean.url)
-                }
             }
+        }
+
+        fun bindIndexHeaderGift(item : IndexItem) {
+            (binding as ItemImageHeaderGiftBinding).viewPager.adapter = HeadImageAdapter(binding.root.context , item.head!!)
         }
 
         /**

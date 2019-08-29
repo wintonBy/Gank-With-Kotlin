@@ -13,7 +13,7 @@ class IndexItem :MutilItemType {
 
     var item:TitleBean? = null
 
-    var head:List<TitleBean>? = null
+    var head:ArrayList<TitleBean>? = null
 
     constructor(itemType: Int) {
         this.itemType = itemType
@@ -24,7 +24,7 @@ class IndexItem :MutilItemType {
         this.itemType = itemType
     }
 
-    constructor(itemType: Int, head: List<TitleBean>) {
+    constructor(itemType: Int, head: ArrayList<TitleBean>) {
         this.itemType = itemType
         this.head = head
     }
