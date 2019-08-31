@@ -12,10 +12,12 @@ class AutoViewPager :ViewPager {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
+
     interface AutoAdapter {
         fun needSwapPosition(): Boolean
 
         fun getAdapter(): PagerAdapter
     }
+
 
 }

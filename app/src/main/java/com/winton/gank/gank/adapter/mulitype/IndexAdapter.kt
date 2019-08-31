@@ -171,7 +171,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
         }
 
         fun bindIndexHeaderGift(item : IndexItem) {
-            (binding as ItemImageHeaderGiftBinding).viewPager.adapter = HeadImageAdapter(binding.root.context , item.head!!)
+            (binding as ItemImageHeaderGiftBinding).avpContainer.setAdapter(HeadImageAdapter(binding.root.context , item.head!!))
         }
 
         /**

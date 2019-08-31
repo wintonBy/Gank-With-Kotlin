@@ -25,7 +25,14 @@ class HeadImageAdapter constructor(val context: Context, private val urls: Array
                 false)
         var fakePosition = position
         if (needSwapPosition()) {
-            fakePosition = (position + 1) % count
+            if (position == 0) {
+                fakePosition = urls.size - 1
+            } else if (position == count - 1) {
+                fakePosition = 0
+            } else {
+                fakePosition = position - 1
+            }
+
         }
 
         BindingUtils.bindArticleImg(binding.ivImg, urls[fakePosition].url)

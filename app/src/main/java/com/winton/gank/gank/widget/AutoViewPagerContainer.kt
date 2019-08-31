@@ -16,10 +16,12 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
 
     private lateinit var mViewPager: AutoViewPager
     private lateinit var mLLPointContainer: LinearLayout
-    private lateinit var mAdapter: PagerAdapter
+    private lateinit var mAdapter: AutoViewPager.AutoAdapter
 
     private var mPointSize = 20
     private var mPointMargin = 5
+
+    private var mPendingPosition = -1
 
     private val pointDrawable = let {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
@@ -41,23 +43,26 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
         mLLPointContainer.setVerticalGravity(LinearLayout.VERTICAL)
 
         val layoutParam = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-        layoutParam.gravity = Gravity.BOTTOM and Gravity.CENTER_HORIZONTAL
         this.addView(mLLPointContainer, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
 
         mViewPager.addOnPageChangeListener(this)
     }
 
-    fun setAdapter(adapter: PagerAdapter) {
+    fun setAdapter(adapter: AutoViewPager.AutoAdapter) {
         mAdapter = adapter
         notifyDataSet()
     }
 
     fun setCurrentPositon(position: Int) {
-
+        if (mAdapter.needSwapPosition()) {
+            mViewPager.currentItem = position + 1
+        } else {
+            mViewPager.currentItem = position
+        }
     }
 
     private fun notifyDataSet() {
-        val count = mAdapter.count
+        val count = let { if (mAdapter.needSwapPosition()) mAdapter.getAdapter().count - 2 else mAdapter.getAdapter().count }
         mLLPointContainer.removeAllViews()
         val params = LinearLayout.LayoutParams(mPointSize, mPointSize)
         params.setMargins(mPointMargin, mPointMargin, mPointMargin, mPointMargin)
@@ -66,19 +71,24 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
             view.background = pointDrawable
             mLLPointContainer.addView(view, params)
         }
-        mViewPager.adapter = mAdapter
+        mViewPager.adapter = mAdapter.getAdapter()
     }
 
     override fun onPageScrollStateChanged(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onPageSelected(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (mAdapter.needSwapPosition()) {
+            if (position == 0) {
+                mViewPager.setCurrentItem(mAdapter.getAdapter().count - 2, false)
+            }
+            if (position == mAdapter.getAdapter().count - 1) {
+                mViewPager.setCurrentItem(1, false)
+            }
+        }
     }
 
 
