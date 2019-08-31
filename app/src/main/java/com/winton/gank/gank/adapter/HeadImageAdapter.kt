@@ -10,8 +10,10 @@ import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemVpImageGiftBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.BindingUtils
+import com.winton.gank.gank.widget.AutoViewPager
+import com.winton.gank.gank.widget.AutoViewPagerContainer
 
-class HeadImageAdapter constructor(val context:Context, private val urls : ArrayList<TitleBean>) : PagerAdapter() {
+class HeadImageAdapter constructor(val context: Context, private val urls: ArrayList<TitleBean>): PagerAdapter(), AutoViewPager.AutoAdapter {
 
 
     override fun isViewFromObject(view: View, `object`: Any) = view == `object`
@@ -21,7 +23,12 @@ class HeadImageAdapter constructor(val context:Context, private val urls : Array
                 R.layout.item_vp_image_gift,
                 container,
                 false)
-        BindingUtils.bindArticleImg(binding.ivImg, urls[position].url)
+        var fakePosition = position
+        if (needSwapPosition()) {
+            fakePosition = (position + 1) % count
+        }
+
+        BindingUtils.bindArticleImg(binding.ivImg, urls[fakePosition].url)
         container.addView(binding.root)
         return binding.root
     }
@@ -30,5 +37,13 @@ class HeadImageAdapter constructor(val context:Context, private val urls : Array
         container.removeView(`object` as View)
     }
 
-    override fun getCount() = urls.size
+    override fun getCount() : Int {
+        if (urls.size <= 1) return urls.size
+        //if has more than one item, it can loop
+        return urls.size + 2
+    }
+
+    override fun needSwapPosition() = urls.size > 1
+
+    override fun getAdapter() = this
 }
