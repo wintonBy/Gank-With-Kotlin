@@ -4,7 +4,7 @@
     <com.winton.gank.gank.widget.AutoViewPagerContainer
         android:id="@+id/avp_container"
         android:layout_width="match_parent"
-        android:layout_height="240dp">
+        android:layout_height="200dp">
     </com.winton.gank.gank.widget.AutoViewPagerContainer>
 
 </layout>
