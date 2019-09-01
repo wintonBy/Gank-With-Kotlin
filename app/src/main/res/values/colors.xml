@@ -15,4 +15,8 @@
     <color name="swip_color_2">#0f0fff</color>
     <color name="swip_color_3">#5f7fa0</color>
     <color name="img_tag_bg">#66000000</color>
+
+
+    <color name="point_active">#5965fb</color>
+    <color name="point_inactive">#888888</color>
 </resources>

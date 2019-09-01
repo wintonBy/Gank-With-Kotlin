@@ -10,20 +10,9 @@ import com.winton.gank.gank.ui.BaseFragment
  * @time: 2018/10/22 下午8:58
  * @desc: 描述
  */
-class IndexVPAdapter :FragmentPagerAdapter{
+class IndexVPAdapter(fm: FragmentManager?, private var fragments: ArrayList<Fragment>) : FragmentPagerAdapter(fm) {
 
-    private var fragments = ArrayList<Fragment>()
+    override fun getItem(p0: Int) = fragments[p0]
 
-    constructor(fm: FragmentManager?, fragments: ArrayList<Fragment>) : super(fm) {
-        this.fragments = fragments
-    }
-
-
-    override fun getItem(p0: Int): Fragment {
-        return fragments[p0]
-    }
-
-    override fun getCount(): Int {
-        return fragments.size
-    }
+    override fun getCount() = fragments.size
 }
