@@ -6,11 +6,12 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import com.winton.gank.gank.R
 
-class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
+class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
 
     private lateinit var mViewPager: AutoViewPager
     private lateinit var mLLPointContainer: LinearLayout
@@ -43,10 +44,11 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
 
         mLLPointContainer = LinearLayout(context)
         mLLPointContainer.setVerticalGravity(LinearLayout.VERTICAL)
+        mLLPointContainer.gravity = Gravity.CENTER
 
-        val layoutParam = LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT,
-                Gravity.BOTTOM and Gravity.CENTER_HORIZONTAL)
+        val layoutParam = LayoutParams(LayoutParams.MATCH_PARENT, mPointSize * 2)
+        layoutParam.addRule(CENTER_HORIZONTAL)
+        layoutParam.addRule(ALIGN_PARENT_BOTTOM)
         this.addView(mLLPointContainer, layoutParam)
 
     }
@@ -81,8 +83,8 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
         val params = LinearLayout.LayoutParams(mPointSize, mPointSize)
         params.setMargins(mPointMargin, mPointMargin, mPointMargin, mPointMargin)
         for (i in 0 until count) {
-            val view = View(context)
-            view.background = pointDrawable
+            val view = ImageView(context)
+            view.setImageDrawable(pointDrawable)
             mLLPointContainer.addView(view, params)
         }
         mViewPager.adapter = mAdapter.getAdapter()
