@@ -4,13 +4,15 @@ import android.content.Context
 import android.os.Build
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import com.winton.gank.gank.R
 
-class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
+class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
 
     private lateinit var mViewPager: AutoViewPager
     private lateinit var mLLPointContainer: LinearLayout
@@ -23,7 +25,7 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
 
     private var mOnPageChangeListeners: ArrayList<ViewPager.OnPageChangeListener>? = null
 
-    private val pointDrawable = let {
+    private fun getPointDrawable() = let {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             resources.getDrawable(R.drawable.point_selecter,null)
         } else {
@@ -43,10 +45,11 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
 
         mLLPointContainer = LinearLayout(context)
         mLLPointContainer.setVerticalGravity(LinearLayout.VERTICAL)
+        mLLPointContainer.gravity = Gravity.CENTER
 
-        val layoutParam = LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT,
-                Gravity.BOTTOM and Gravity.CENTER_HORIZONTAL)
+        val layoutParam = LayoutParams(LayoutParams.MATCH_PARENT, mPointSize * 2)
+        layoutParam.addRule(CENTER_HORIZONTAL)
+        layoutParam.addRule(ALIGN_PARENT_BOTTOM)
         this.addView(mLLPointContainer, layoutParam)
 
     }
@@ -82,7 +85,7 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
         params.setMargins(mPointMargin, mPointMargin, mPointMargin, mPointMargin)
         for (i in 0 until count) {
             val view = View(context)
-            view.background = pointDrawable
+            view.background = getPointDrawable()
             mLLPointContainer.addView(view, params)
         }
         mViewPager.adapter = mAdapter.getAdapter()
@@ -129,6 +132,7 @@ class AutoViewPagerContainer : FrameLayout, ViewPager.OnPageChangeListener{
                 listener.onPageSelected(realPos(position))
             }
         }
+
         mLLPointContainer.getChildAt(lastRealPos).isActivated = false
         mLLPointContainer.getChildAt(realPos(position)).isActivated = true
         lastRealPos = realPos(position)
