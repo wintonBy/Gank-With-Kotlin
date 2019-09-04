@@ -50,6 +50,15 @@ class GankRetrofitClient(private val okHttpClient: OkHttpClient) {
     }
 
     /**
+     * 分类
+     */
+    fun category(category: String,pageIndex: Int, pageNum: Int ,subscriber: BaseGankSubscriber<CategoryResponse>){
+        server.category(category, pageNum, pageIndex)
+                .compose(ScHelper.compose())
+                .subscribe(subscriber)
+    }
+
+    /**
      * Gank 查询接口
      */
     fun search(key:String,category: String,pageIndex:Int,subscriber: BaseGankSubscriber<CategoryResponse>){

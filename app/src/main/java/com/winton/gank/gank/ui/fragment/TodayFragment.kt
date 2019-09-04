@@ -60,6 +60,8 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
             }
         }
         binding.rvIndex.adapter = adapter
+
+
         viewModel.getTodayData().observe(this, Observer {
             when(it?.status) {
                 Resource.ERROR   -> binding.status.showError()
