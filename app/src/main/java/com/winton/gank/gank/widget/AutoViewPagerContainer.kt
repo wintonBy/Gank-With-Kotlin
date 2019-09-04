@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
@@ -24,7 +25,7 @@ class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
 
     private var mOnPageChangeListeners: ArrayList<ViewPager.OnPageChangeListener>? = null
 
-    private val pointDrawable = let {
+    private fun getPointDrawable() = let {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             resources.getDrawable(R.drawable.point_selecter,null)
         } else {
@@ -83,8 +84,8 @@ class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
         val params = LinearLayout.LayoutParams(mPointSize, mPointSize)
         params.setMargins(mPointMargin, mPointMargin, mPointMargin, mPointMargin)
         for (i in 0 until count) {
-            val view = ImageView(context)
-            view.setImageDrawable(pointDrawable)
+            val view = View(context)
+            view.background = getPointDrawable()
             mLLPointContainer.addView(view, params)
         }
         mViewPager.adapter = mAdapter.getAdapter()
@@ -131,6 +132,7 @@ class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
                 listener.onPageSelected(realPos(position))
             }
         }
+
         mLLPointContainer.getChildAt(lastRealPos).isActivated = false
         mLLPointContainer.getChildAt(realPos(position)).isActivated = true
         lastRealPos = realPos(position)
