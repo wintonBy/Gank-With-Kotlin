@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ToastUtils
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.mulitype.IndexAdapter
+import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.databinding.FragListCommonBinding
 import com.winton.gank.gank.http.response.gank.ResultBean
 import com.winton.gank.gank.repository.Resource
@@ -17,6 +18,7 @@ import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.TodayViewModel
 import com.winton.librarystatue.IStatueListener
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author: winton
@@ -61,12 +63,11 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
         }
         binding.rvIndex.adapter = adapter
 
-
-        viewModel.getTodayData().observe(this, Observer {
+        viewModel.todayDataModel.observe(this, Observer {
             when(it?.status) {
                 Resource.ERROR   -> binding.status.showError()
                 Resource.SUCCESS -> {
-                    submitResult(it.data?.results)
+                    submitResult(it.data!!.data!!)
                     binding.status.showContent()
                     binding.srl.isRefreshing = false
                 }
@@ -77,10 +78,11 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
                     }
             }
         })
+
         viewModel.start()
     }
     override fun getLayoutId() = R.layout.frag_list_common
 
-    private fun submitResult(results: ResultBean?)  = results ?. let { adapter.updateData(it) }
+    private fun submitResult(items: ArrayList<IndexItem>) = adapter.updateData(items)
 
 }

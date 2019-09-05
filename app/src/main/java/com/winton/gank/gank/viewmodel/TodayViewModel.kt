@@ -40,21 +40,21 @@ class TodayViewModel : BaseViewModel() {
         }
     }
 
-    private val giftModel: MutableLiveData<Resource<CategoryResponse>> = MutableLiveData()
-    private val androidModel: MutableLiveData<Resource<CategoryResponse>> = MutableLiveData()
-    private val iosModel: MutableLiveData<Resource<CategoryResponse>> = MutableLiveData()
-    private val appModel: MutableLiveData<Resource<CategoryResponse>> = MutableLiveData()
-    private val recommendModel: MutableLiveData<Resource<CategoryResponse>> = MutableLiveData()
+    private var isError = false
 
     val todayDataModel: MutableLiveData<Resource<TodayData>> = MutableLiveData()
 
-    val todayValue = TodayData()
+    private val todayValue = TodayData()
 
     @Volatile
     private var mStatus = ST_NONE
 
     @Synchronized
     private fun checkStatue() {
+        if (isError) {
+            todayDataModel.value = Resource.error(null, "请求出错")
+            return
+        }
         if (mStatus.and(ST_GIFT) == 0) return
         if (mStatus.and(ST_ANDROID) == 0) return
         if (mStatus.and(ST_IOS) == 0) return
@@ -85,64 +85,88 @@ class TodayViewModel : BaseViewModel() {
         recommendRequest.mSub?.cancel()
     }
 
+    private fun dealResponse(type: String, response: CategoryResponse) {
+        if (response.results == null) {
+            isError = true
+            checkStatue()
+            return
+        }
+
+        when(type) {
+            GIFT -> todayValue.data.add(0,IndexItem(IndexAdapter.T_IMAGE, response.results!!))
+            else ->
+                for (i in response.results!!.indices) {
+                    when(i) {
+                        0 -> todayValue.data.add(IndexItem(IndexAdapter.T_TITLE, response.results!![i]))
+                        response.results!!.size-1 -> todayValue.data.add(IndexItem(IndexAdapter.T_END, response.results!![i]))
+                        else -> todayValue.data.add(IndexItem(IndexAdapter.T_CONTENT, response.results!![i]))
+                    }
+                }
+
+        }
+        checkStatue()
+    }
+
     private val giftRequest = object: BaseGankSubscriber<CategoryResponse>() {
         override fun onSuccess(t: CategoryResponse) {
             mStatus = mStatus.or(ST_GIFT)
-            t.results?.let {
-                todayValue.data.add(0,IndexItem(IndexAdapter.T_IMAGE, it))
-            }
+            dealResponse(GIFT, t)
         }
 
         override fun onFail(code: ErrorCode, errorMsg: String) {
-            giftModel.value = Resource.error(null, errorMsg)
+            mStatus = mStatus.or(ST_GIFT)
+            isError = true
+            checkStatue()
         }
     }
 
     private val androidRequest = object: BaseGankSubscriber<CategoryResponse>() {
         override fun onSuccess(t: CategoryResponse) {
-            t.results?.let {
-                for (i in it.indices) {
-                    when(i) {
-                        0 -> todayValue.data.add( IndexItem(IndexAdapter.T_TITLE, it[i]))
-                        it.size-1 -> todayValue.data.add( IndexItem(IndexAdapter.T_END, it[i]))
-                        else -> todayValue.data.add( IndexItem(IndexAdapter.T_CONTENT, it[i]))
-                    }
-                }
-            }
+            mStatus = mStatus.or(ST_ANDROID)
+            dealResponse(ANDROID, t)
         }
 
         override fun onFail(code: ErrorCode, errorMsg: String) {
-            androidModel.value = Resource.error(null, errorMsg)
+            mStatus = mStatus.or(ST_ANDROID)
+            isError = true
+            checkStatue()
         }
     }
 
     private val iOSRequest = object: BaseGankSubscriber<CategoryResponse>() {
         override fun onSuccess(t: CategoryResponse) {
-            iosModel.value = Resource.success(t)
+            mStatus = mStatus.or(ST_IOS)
+            dealResponse(IOS, t)
         }
 
         override fun onFail(code: ErrorCode, errorMsg: String) {
-            iosModel.value = Resource.error(null, errorMsg)
+            mStatus = mStatus.or(ST_IOS)
+            isError = true
+            checkStatue()
         }
     }
 
     private val appRequest = object: BaseGankSubscriber<CategoryResponse>() {
         override fun onSuccess(t: CategoryResponse) {
-            appModel.value = Resource.success(t)
-        }
+            mStatus = mStatus.or(ST_APP)
+            dealResponse(APP, t)        }
 
         override fun onFail(code: ErrorCode, errorMsg: String) {
-            appModel.value = Resource.error(null, errorMsg)
+            mStatus = mStatus.or(ST_APP)
+            isError = true
+            checkStatue()
         }
     }
 
     private val recommendRequest = object: BaseGankSubscriber<CategoryResponse>() {
         override fun onSuccess(t: CategoryResponse) {
-            recommendModel.value = Resource.success(t)
-        }
+            mStatus = mStatus.or(ST_RECOMMEND)
+            dealResponse(RECOMMEND, t)        }
 
         override fun onFail(code: ErrorCode, errorMsg: String) {
-            recommendModel.value = Resource.error(null, errorMsg)
+            mStatus = mStatus.or(ST_RECOMMEND)
+            isError = true
+            checkStatue()
         }
     }
 }
