@@ -9,15 +9,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import com.winton.gank.gank.App
-import com.winton.gank.gank.R
 import com.winton.gank.gank.BR
+import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.BaseRVHolder
 import com.winton.gank.gank.adapter.HeadImageAdapter
-import com.winton.gank.gank.databinding.*
+import com.winton.gank.gank.databinding.ItemImageHeaderGiftBinding
+import com.winton.gank.gank.databinding.ItemIndexArticleBinding
+import com.winton.gank.gank.databinding.ItemIndexArticleEndBinding
+import com.winton.gank.gank.databinding.ItemIndexArticleTitleBinding
 import com.winton.gank.gank.http.bean.TitleBean
-import com.winton.gank.gank.http.response.gank.ResultBean
 import com.winton.gank.gank.utils.BindingUtils
-import kotlin.collections.ArrayList
 
 /**
  * @author: winton
@@ -38,8 +39,9 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
     private val bindIdMap = SparseIntArray()
     private val mData = ArrayList<IndexItem>()
 
-    fun updateData(orgData: ResultBean) {
-        fixData(orgData)
+    fun updateData(items: ArrayList<IndexItem>) {
+        mData.clear()
+        mData.addAll(items)
         this.notifyDataSetChanged()
     }
 
@@ -102,42 +104,9 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 }
             }
         }
-
-
-
     }
 
     override fun getItemViewType(position: Int) = mData[position].getType()
-
-    /**
-     * 数据转换
-     */
-    private fun fixData(orgData: ResultBean) = with(orgData) {
-        mData.clear()
-        gift      ?. let { addGift(it as ArrayList<TitleBean>) }
-        android   ?. let { addItems(it) }
-        iOS       ?. let { addItems(it) }
-        app       ?. let { addItems(it) }
-        recommond ?. let { addItems(it) }
-    }
-
-    /**
-     * 添加普通的资讯
-     */
-    private fun addItems(items: List<TitleBean>) {
-        for (i in items.indices) {
-            when (i) {
-                0               -> mData.add(IndexItem(T_TITLE, items[i]))
-                items.size - 1  -> mData.add(IndexItem(T_END, items[i]))
-                else            -> mData.add(IndexItem(T_CONTENT, items[i]))
-            }
-        }
-    }
-
-    /**
-     * 添加福利
-     */
-    private fun addGift(items: ArrayList<TitleBean>)  = mData.add(IndexItem(T_IMAGE, items))
 
 
     class ViewHolder(viewBinding: ViewDataBinding) : BaseRVHolder(viewBinding.root, viewBinding) {
