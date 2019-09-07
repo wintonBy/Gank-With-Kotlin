@@ -8,6 +8,7 @@ import com.winton.gank.gank.http.ErrorCode
 import com.winton.gank.gank.http.RetrofitHolder
 import com.winton.gank.gank.http.response.gank.CategoryResponse
 import com.winton.gank.gank.repository.Resource
+import kotlin.random.Random
 
 /**
  * @author: winton
@@ -96,6 +97,7 @@ class TodayViewModel : BaseViewModel() {
             GIFT -> todayValue.data.add(0,IndexItem(IndexAdapter.T_IMAGE, response.results!!))
             else ->
                 for (i in response.results!!.indices) {
+                    response.results!![i].views = Random.nextInt(10, 10000)
                     when(i) {
                         0 -> todayValue.data.add(IndexItem(IndexAdapter.T_TITLE, response.results!![i]))
                         response.results!!.size-1 -> todayValue.data.add(IndexItem(IndexAdapter.T_END, response.results!![i]))

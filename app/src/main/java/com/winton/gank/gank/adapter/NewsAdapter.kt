@@ -47,7 +47,7 @@ class NewsAdapter constructor(private val mContext: Context) :RecyclerView.Adapt
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ItemNewsListVideoBinding>(LayoutInflater.from(mContext), R.layout.item_news_list_video,parent,false)
         val holder = ViewHolder(this,binding)
-        holder.setVideoPlayerHelper(smallVideoHelper!!, gsySmallVideoHelperBuilder!!)
+        holder.setVideoPlayerHelper(smallVideoHelper, gsySmallVideoHelperBuilder)
         return holder
     }
 

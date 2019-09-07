@@ -12,10 +12,9 @@ import com.winton.gank.gank.utils.glide.GlideApp
  */
 object BindingUtils {
 
-    fun bindGift(imageView: ImageView, url:String){
+    fun bindCircleImage(imageView: ImageView, url:String){
         GlideApp.with(imageView.context)
                 .load(url)
-                .error(R.mipmap.default_img)
                 .circleCrop()
                 .transition(withCrossFade())
                 .into(imageView)

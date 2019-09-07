@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <android.support.design.card.MaterialCardView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                style="@style/ItemSubTitle"
+                android:id="@+id/tv_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                tools:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_header"
+                app:layout_constraintStart_toEndOf="@+id/iv_header"
+                app:layout_constraintTop_toTopOf="@+id/iv_header"
+                app:layout_constraintVertical_bias="0.38" />
+
+            <TextView
+                style="@style/ItemContent"
+                android:id="@+id/tv_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                tools:text="TextView"
+                android:ellipsize="end"
+                android:maxLines="3"
+                app:layout_constraintBottom_toTopOf="@+id/tv_publish_time"
+                app:layout_constraintEnd_toStartOf="@+id/fl_images_content"
+                app:layout_constraintStart_toStartOf="@+id/iv_header"
+                app:layout_constraintTop_toBottomOf="@+id/iv_header" />
+
+            <TextView
+                android:id="@+id/tv_publish_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="@dimen/ts_tip"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_view_num"
+                tools:text="TextView" />
+
+            <FrameLayout
+                android:id="@+id/fl_images_content"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toTopOf="@+id/tv_publish_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_header"
+                >
+                <ImageView
+                    android:elevation="4dp"
+                    android:src="@mipmap/ic_hot"
+                    android:background="@drawable/article_img_bg"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_view_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:drawableLeft="@mipmap/ic_hot"
+                android:text="686"
+                android:textSize="@dimen/ts_tip"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_publish_time"
+                app:layout_constraintStart_toEndOf="@+id/tv_source"
+                app:layout_constraintTop_toTopOf="@+id/tv_publish_time"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:background="@color/tag_bg"
+                android:textSize="@dimen/ts_tip"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:id="@+id/tv_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Web"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_view_num"
+                app:layout_constraintStart_toStartOf="@+id/iv_header"
+                app:layout_constraintTop_toTopOf="@+id/tv_view_num" />
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/article_type_bg"
+                android:text="TextView"
+                android:textSize="@dimen/ts_tip"
+                android:textColor="@color/type_text_color"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_publisher"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_publisher" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.design.card.MaterialCardView>
+
+</layout>

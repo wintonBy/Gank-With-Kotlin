@@ -10,7 +10,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import com.blankj.utilcode.util.Utils
 import com.winton.gank.gank.R
+import com.winton.gank.gank.utils.UiTools
 
 class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
 
@@ -40,6 +42,7 @@ class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
 
     private fun initView(context: Context) {
         mViewPager = AutoViewPager(context)
+        mViewPager.id = R.id.auto_viewpager
         this.addView(mViewPager, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
         mViewPager.addOnPageChangeListener(this)
 
@@ -50,6 +53,8 @@ class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
         val layoutParam = LayoutParams(LayoutParams.MATCH_PARENT, mPointSize * 2)
         layoutParam.addRule(CENTER_HORIZONTAL)
         layoutParam.addRule(ALIGN_PARENT_BOTTOM)
+        // align with item bottom. equals with item bottom margin
+        layoutParam.bottomMargin = UiTools.dpToPx(context, 5f)
         this.addView(mLLPointContainer, layoutParam)
 
     }
@@ -66,6 +71,16 @@ class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
         } else {
             mViewPager.currentItem = position
         }
+    }
+
+    /**
+     * set padding in dp
+     */
+    fun setViewPagerPadding(left: Int, top: Int, right: Int, bottom: Int) {
+        mViewPager.setPadding(UiTools.dpToPx(context!!, left.toFloat()),
+                UiTools.dpToPx(context!!, top.toFloat()),
+                UiTools.dpToPx(context!!, right.toFloat()),
+                UiTools.dpToPx(context!!, bottom.toFloat()))
     }
 
     fun addOnPageChangeListener(listener: ViewPager.OnPageChangeListener) {

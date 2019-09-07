@@ -12,12 +12,6 @@ class AutoViewPager :ViewPager {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-
-    override fun onPageScrolled(position: Int, offset: Float, offsetPixels: Int) {
-        super.onPageScrolled(position, offset, offsetPixels)
-    }
-
-
     interface AutoAdapter {
         fun needSwapPosition(): Boolean
 

@@ -21,5 +21,5 @@ abstract class BaseDiffCallBack<T>(var oldList:List<T>, var newList:List<T>):Dif
         return  newList.size
     }
 
-    open abstract override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean
+    abstract override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean
 }

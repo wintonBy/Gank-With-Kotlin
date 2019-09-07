@@ -7,6 +7,7 @@
     <color name="page_color">#FFFFFF</color>
 
     <color name="divider_line">#d0d0d0</color>
+    <color name="article_img_broder">#ffffff</color>
 
     <color name="tab_selected_text_color">#596efb</color>
 
@@ -15,6 +16,11 @@
     <color name="swip_color_2">#0f0fff</color>
     <color name="swip_color_3">#5f7fa0</color>
     <color name="img_tag_bg">#66000000</color>
+
+    <color name="img_bg">#200f21</color>
+    <color name="tag_bg">#DDDDDD</color>
+    <color name="type_bg_color">#52437b</color>
+    <color name="type_text_color">#fcf594</color>
 
 
     <color name="point_active">#5965fb</color>

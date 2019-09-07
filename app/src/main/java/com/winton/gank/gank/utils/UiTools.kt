@@ -1,7 +1,8 @@
 package com.winton.gank.gank.utils
 
-import android.graphics.Color
+import android.content.Context
 import android.os.Build
+import android.support.annotation.NonNull
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.View
 import android.view.Window
@@ -28,5 +29,15 @@ object UiTools {
 
     fun initSwipRefresh(view:SwipeRefreshLayout){
         view.setColorSchemeColors(App.INSTANCE.getColor(R.color.swip_color_1),App.INSTANCE.getColor(R.color.swip_color_2),App.INSTANCE.getColor(R.color.swip_color_3))
+    }
+
+    fun pxToDp(@NonNull context: Context, px: Float): Int {
+        val scale = context.resources.displayMetrics.density
+        return (px / scale + 0.5).toInt()
+    }
+
+    fun dpToPx(@NonNull context: Context, dp: Float): Int {
+        val scale = context.resources.displayMetrics.density
+        return (dp * scale + 0.5).toInt()
     }
 }

@@ -113,14 +113,14 @@ class GankListAdapter(private var mContext: Context) : RecyclerView.Adapter<Gank
                     it.tvTitle.text = item.desc
                     it.tvAuthor.text = item.who
                     it.tvPubTime.text = StringUtils.getGankReadTime(item.publishedAt)
-                    BindingUtils.bindArticleImg(it.ivImg,item.images[0])
+                    BindingUtils.bindArticleImg(it.ivImg,item.images!![0])
                 }
                 is ItemGankListManyImageBinding -> (binding as ItemGankListManyImageBinding).let {
                     it.title.text = item.desc
                     it.tvAuthor.text = item.who
                     it.tvPubTime.text = StringUtils.getGankReadTime(item.publishedAt)
-                    BindingUtils.bindArticleImg(it.img1,item.images[0])
-                    BindingUtils.bindArticleImg(it.img2,item.images[1])
+                    BindingUtils.bindArticleImg(it.img1,item.images!![0])
+                    BindingUtils.bindArticleImg(it.img2,item.images!![1])
                     if(item.images.size >= 3){
                         it.img3.visibility = View.VISIBLE
                         BindingUtils.bindArticleImg(it.img3,item.images[2])
