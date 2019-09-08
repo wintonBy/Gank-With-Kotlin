@@ -98,7 +98,7 @@ class GankListFragment:BaseFragment<FragListCommonBinding>() {
         super.initData()
         adapter = GankListAdapter(context!!)
         adapter.setItemClickListener{
-            it.item?.url?.run { WebActivity.start(context!!,this) } ?: ToastUtils.showLong("链接为空")
+            it.url?.run { WebActivity.start(context!!,this) } ?: ToastUtils.showLong("链接为空")
         }
         binding.rvIndex.adapter = adapter
         category = arguments?.getString(CATEGORY)

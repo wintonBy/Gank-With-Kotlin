@@ -20,6 +20,13 @@ object BindingUtils {
                 .into(imageView)
     }
 
+    fun bindGirlsImage(imageView: ImageView, url: String) {
+        GlideApp.with(imageView.context)
+                .load(url)
+                .transition(withCrossFade())
+                .into(imageView)
+    }
+
     fun bindArticleImg(imageView: ImageView,url:String){
             GlideApp.with(imageView.context)
                     .load(url)

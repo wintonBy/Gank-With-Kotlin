@@ -44,9 +44,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
     private var onItemClickListener : ((IndexItem) -> Unit) ? = null
     private val bindIdMap = SparseIntArray()
     private val mData = ArrayList<IndexItem>()
-
     private val mDrawables = arrayOf( R.mipmap.icon_man, R.mipmap.icon_women).toIntArray()
-
     private val userHeaders = HashMap<String, Int>()
 
     fun updateData(items: ArrayList<IndexItem>) {
@@ -178,7 +176,6 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 headId = Random.nextInt(2)
                 userHeaders[bean.who] = headId
             }
-            Log.d("id", "${bean.who}:$headId@$head")
             head.setImageResource(mDrawables[headId])
         }
 
