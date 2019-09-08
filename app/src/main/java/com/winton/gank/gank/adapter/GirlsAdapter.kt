@@ -4,6 +4,7 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemGirlsListBinding
@@ -48,9 +49,11 @@ class GirlsAdapter constructor(private val mContext: Context) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder : ViewHolder, position: Int) {
+        (holder.binding as ItemGirlsListBinding).tvTip.visibility = View.GONE
         val layoutParams = holder.binding.root.layoutParams
         if (position == 0) {
             layoutParams.height = baseHeight
+            (holder.binding as ItemGirlsListBinding).tvTip.visibility = View.VISIBLE
         }
         if (position != 0) {
             layoutParams.height = (1.5 * baseHeight).toInt()
