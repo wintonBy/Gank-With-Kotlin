@@ -18,4 +18,14 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="ItemSubTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/ts_subtitle</item>
+    </style>
+
+    <style name="ItemContent">
+        <item name="android:textSize">@dimen/ts_content</item>
+        <item name="android:textColor">@color/contents_text</item>
+    </style>
+
 </resources>

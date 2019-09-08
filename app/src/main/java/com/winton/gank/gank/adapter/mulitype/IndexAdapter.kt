@@ -4,21 +4,27 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.util.SparseIntArray
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import com.winton.gank.gank.App
 import com.winton.gank.gank.BR
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.BaseRVHolder
 import com.winton.gank.gank.adapter.HeadImageAdapter
+import com.winton.gank.gank.databinding.ItemGankArticleBinding
 import com.winton.gank.gank.databinding.ItemImageHeaderGiftBinding
-import com.winton.gank.gank.databinding.ItemIndexArticleBinding
-import com.winton.gank.gank.databinding.ItemIndexArticleEndBinding
-import com.winton.gank.gank.databinding.ItemIndexArticleTitleBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.BindingUtils
+import com.winton.gank.gank.utils.StringUtils
+import com.winton.gank.gank.utils.UiTools
+import kotlin.random.Random
 
 /**
  * @author: winton
@@ -38,6 +44,8 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
     private var onItemClickListener : ((IndexItem) -> Unit) ? = null
     private val bindIdMap = SparseIntArray()
     private val mData = ArrayList<IndexItem>()
+    private val mDrawables = arrayOf( R.mipmap.icon_man, R.mipmap.icon_women).toIntArray()
+    private val userHeaders = HashMap<String, Int>()
 
     fun updateData(items: ArrayList<IndexItem>) {
         mData.clear()
@@ -55,31 +63,31 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 binding.root.setOnClickListener {
 //                    onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
-                return ViewHolder(binding)
+                return ViewHolder(binding, mDrawables, userHeaders)
             }
             T_TITLE -> {
-                val binding = DataBindingUtil.inflate<ItemIndexArticleTitleBinding>(layoutInflater, R.layout.item_index_article_title, parent, false)
+                val binding = DataBindingUtil.inflate<ItemGankArticleBinding>(layoutInflater, R.layout.item_gank_article, parent, false)
                 bindIdMap.put(T_TITLE, BR.gankBean)
                 binding.root.setOnClickListener {
                     onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
-                return ViewHolder(binding)
+                return ViewHolder(binding, mDrawables, userHeaders)
             }
             T_END -> {
-                val binding = DataBindingUtil.inflate<ItemIndexArticleEndBinding>(layoutInflater, R.layout.item_index_article_end, parent, false)
+                val binding = DataBindingUtil.inflate<ItemGankArticleBinding>(layoutInflater, R.layout.item_gank_article, parent, false)
                 bindIdMap.put(T_END, BR.gankBean)
                 binding.root.setOnClickListener {
                     onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
-                return ViewHolder(binding)
+                return ViewHolder(binding, mDrawables, userHeaders)
             }
             else -> {
-                val binding = DataBindingUtil.inflate<ItemIndexArticleBinding>(layoutInflater, R.layout.item_index_article, parent, false)
+                val binding = DataBindingUtil.inflate<ItemGankArticleBinding>(layoutInflater, R.layout.item_gank_article, parent, false)
                 bindIdMap.put(T_CONTENT, BR.gankBean)
                 binding.root.setOnClickListener {
                     onItemClickListener?.invoke(binding.root.tag as IndexItem)
                 }
-                return ViewHolder(binding)
+                return ViewHolder(binding, mDrawables, userHeaders)
             }
         }
 
@@ -97,11 +105,8 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
             if (this.getType() == T_IMAGE) {
                 holder.bindIndexHeaderGift(this)
             } else {
-                val variableId = bindIdMap.get(getItemViewType(position))
-                if (item != null && variableId != 0) {
-                    holder.bind(variableId, item!!)
-                    holder.binding.root.tag =this
-                }
+                holder.bindArticle(this.item!!, holder.binding as ItemGankArticleBinding)
+                holder.binding.root.tag = this
             }
         }
     }
@@ -109,34 +114,69 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
     override fun getItemViewType(position: Int) = mData[position].getType()
 
 
-    class ViewHolder(viewBinding: ViewDataBinding) : BaseRVHolder(viewBinding.root, viewBinding) {
+    class ViewHolder(viewBinding: ViewDataBinding,
+                     private val mDrawables:IntArray,
+                     private val userHeaders:HashMap<String, Int>) : BaseRVHolder(viewBinding.root, viewBinding) {
 
         override fun bind(variableId: Int, value: Any) {
             super.bind(variableId, value)
-            bindArticleImg(value as TitleBean)
         }
 
-        private fun bindArticleImg(bean: TitleBean) {
-            val images = bean.images
-            var imgUrl  = ""
-            //may null
-            images?.let {
-                if(it.isNotEmpty()){
-                    imgUrl = it[0]
-                }
+        fun bindArticle(bean: TitleBean, viewBinding: ItemGankArticleBinding) {
+            with(viewBinding) {
+                bindPublisher(bean, ivHeader, tvPublisher)
+                tvViewNum.text = bean.views.toString()
+                tvSource.text = bean.source
+                tvType.text = bean.type
+                tvPublishTime.text = "发布于：${StringUtils.getGankReadTime(bean.publishedAt)}"
+                bindArticleImg(bean, viewBinding.flImagesContent)
+                //need last set, avoid
+                tvContent.text = bean.desc
             }
-            when (binding) {
-                is ItemIndexArticleTitleBinding -> {
-                    BindingUtils.bindArticleImg((binding as ItemIndexArticleTitleBinding).ivImg, imgUrl)
-                    setTitleIcon((binding as ItemIndexArticleTitleBinding).tvGroupTitle, bean.type)
+        }
+
+        private fun bindArticleImg(bean: TitleBean, container: FrameLayout) {
+            container.visibility = View.VISIBLE
+            // images may null
+            bean.images?.let {
+                val imagesNum = it.size
+                if (imagesNum <= 0) {
+                    container.visibility = View.GONE
+                } else {
+                    val imageView = container.getChildAt(0) as ImageView
+                    val currentViewCount = container.childCount
+                    if (currentViewCount < imagesNum) {
+                        val padding = UiTools.dpToPx(container.context, 2f)
+                        for (i in 1 .. imagesNum - currentViewCount) {
+                            val params = FrameLayout.LayoutParams(imageView.layoutParams)
+                            params.leftMargin = (currentViewCount - 1 + i) * 40
+                            params.gravity = Gravity.CENTER_VERTICAL
+                            val view = ImageView(container.context)
+                            view.setBackgroundResource(R.drawable.article_image_bg)
+                            view.setPadding(padding, padding, padding, padding)
+                            container.addView(view, params)
+                        }
+                    } else if (currentViewCount > imagesNum) {
+                        val count = currentViewCount - imagesNum
+                        container.removeViews(imagesNum, count)
+                    }
+
+                    for (i in it.indices) {
+                        BindingUtils.bindCircleImage(container.getChildAt(i) as ImageView, it[i])
+                    }
                 }
-                is ItemIndexArticleBinding -> {
-                    BindingUtils.bindArticleImg((binding as ItemIndexArticleBinding).ivImg, imgUrl)
-                }
-                is ItemIndexArticleEndBinding -> {
-                    BindingUtils.bindArticleImg((binding as ItemIndexArticleEndBinding).ivImg, imgUrl)
-                }
+
+            } ?: kotlin.run { container.visibility = View.GONE }
+        }
+
+        private fun bindPublisher(bean: TitleBean, head: ImageView, name: TextView) {
+            name.text = bean.who
+            var headId = userHeaders[bean.who]
+            if (headId == null) {
+                headId = Random.nextInt(2)
+                userHeaders[bean.who] = headId
             }
+            head.setImageResource(mDrawables[headId])
         }
 
         fun bindIndexHeaderGift(item : IndexItem) {
@@ -157,5 +197,6 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
             dr.setBounds(0, 0, dr.minimumWidth+10, dr.minimumHeight+10)
             tvGroupTitles.setCompoundDrawables(dr, null, null, null)
         }
+
     }
 }

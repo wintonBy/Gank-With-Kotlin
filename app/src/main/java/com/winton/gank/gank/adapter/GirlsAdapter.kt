@@ -4,12 +4,14 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemGirlsListBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.BindingUtils
 import com.winton.gank.gank.utils.StringUtils
+import com.winton.gank.gank.utils.UiTools
 
 /**
  * @author: winton
@@ -20,6 +22,7 @@ class GirlsAdapter constructor(private val mContext: Context) : RecyclerView.Ada
 
     private var onItemClickListener : ((TitleBean) -> Unit)? = null
     private val mData : ArrayList<TitleBean> = ArrayList()
+    private var baseHeight = UiTools.dpToPx(mContext, 150f)
 
     fun update(data:ArrayList<TitleBean>) {
         mData.clear()
@@ -39,29 +42,32 @@ class GirlsAdapter constructor(private val mContext: Context) : RecyclerView.Ada
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         DataBindingUtil.inflate<ItemGirlsListBinding>(LayoutInflater.from(mContext), R.layout.item_girls_list,parent,false).run {
             root.setOnClickListener {
-                onItemClickListener ?. invoke(root.tag as TitleBean)
+                onItemClickListener?. invoke(root.tag as TitleBean)
             }
             return ViewHolder(this)
         }
     }
 
     override fun onBindViewHolder(holder : ViewHolder, position: Int) {
+        (holder.binding as ItemGirlsListBinding).tvTip.visibility = View.GONE
         val layoutParams = holder.binding.root.layoutParams
-        layoutParams.height = getHeight(position)
+        if (position == 0) {
+            layoutParams.height = baseHeight
+            (holder.binding as ItemGirlsListBinding).tvTip.visibility = View.VISIBLE
+        }
+        if (position != 0) {
+            layoutParams.height = (1.5 * baseHeight).toInt()
+        }
         holder.bindData(mData[position])
         holder.binding.root.tag = mData[position]
     }
 
     override fun getItemCount() = mData.size
 
-    private fun getHeight(position: Int) = (position % 3)*100 + 600
-
     class ViewHolder constructor(viewBinding : ItemGirlsListBinding) : BaseRVHolder(viewBinding.root, viewBinding) {
 
         fun bindData(titleBean: TitleBean) = (binding as ItemGirlsListBinding).run {
-                time.text = "发布日期：${StringUtils.getGankReadTime(titleBean.createdAt)} \n作者：${titleBean.who}"
-                BindingUtils.bindArticleImg(img, titleBean.url)
+                BindingUtils.bindGirlsImage(img, titleBean.url)
             }
-
     }
 }

@@ -1,7 +1,5 @@
 package com.winton.gank.gank.utils
 
-import com.winton.gank.gank.http.bean.NewsContent
-
 /**
  * @author: winton
  * @time: 2018/10/26 3:50 PM
@@ -9,8 +7,10 @@ import com.winton.gank.gank.http.bean.NewsContent
  */
 object StringUtils {
 
-    fun getGankReadTime(time:String):String{
-        return time.split("T")[0]
+    fun getGankReadTime(time:String):String {
+        val result = time.replace("T", " ", true)
+        val index = result.lastIndexOf(".");
+        return result.substring(0, index);
     }
 
 }

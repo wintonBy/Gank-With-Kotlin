@@ -125,7 +125,7 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
 
     }
 
-    private fun getTab(pos:Int) = LayoutInflater.from(context!!).inflate(R.layout.layout_tab,null)
+    private fun getTab(pos: Int) = LayoutInflater.from(context!!).inflate(R.layout.layout_tab,null)
 
 
 }
