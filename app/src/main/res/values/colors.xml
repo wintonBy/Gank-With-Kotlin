@@ -7,7 +7,7 @@
     <color name="page_color">#FFFFFF</color>
 
     <color name="divider_line">#d0d0d0</color>
-    <color name="article_img_broder">#ffffff</color>
+    <color name="article_img_border">#fcf594</color>
 
     <color name="tab_selected_text_color">#596efb</color>
 

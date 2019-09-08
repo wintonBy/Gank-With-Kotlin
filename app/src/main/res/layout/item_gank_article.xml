@@ -79,9 +79,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/iv_header"
                 >
                 <ImageView
-                    android:elevation="4dp"
+                    android:padding="2dp"
                     android:src="@mipmap/ic_hot"
-                    android:background="@drawable/article_img_bg"
+                    android:background="@drawable/article_image_bg"
                     android:layout_gravity="center_vertical"
                     android:layout_width="60dp"
                     android:layout_height="60dp"/>

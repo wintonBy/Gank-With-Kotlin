@@ -3,11 +3,10 @@ package com.winton.gank.gank.adapter.mulitype
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.util.Log
 import android.util.SparseIntArray
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +23,7 @@ import com.winton.gank.gank.databinding.ItemImageHeaderGiftBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.BindingUtils
 import com.winton.gank.gank.utils.StringUtils
+import com.winton.gank.gank.utils.UiTools
 import kotlin.random.Random
 
 /**
@@ -45,10 +45,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
     private val bindIdMap = SparseIntArray()
     private val mData = ArrayList<IndexItem>()
 
-    private val mDrawables = Array<Drawable>(2){
-        mContext.resources.getDrawable(R.mipmap.icon_man)
-        mContext.resources.getDrawable(R.mipmap.icon_women)
-    }
+    private val mDrawables = arrayOf( R.mipmap.icon_man, R.mipmap.icon_women).toIntArray()
 
     private val userHeaders = HashMap<String, Int>()
 
@@ -120,7 +117,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
 
 
     class ViewHolder(viewBinding: ViewDataBinding,
-                     private val mDrawables:Array<Drawable>,
+                     private val mDrawables:IntArray,
                      private val userHeaders:HashMap<String, Int>) : BaseRVHolder(viewBinding.root, viewBinding) {
 
         override fun bind(variableId: Int, value: Any) {
@@ -148,7 +145,27 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 if (imagesNum <= 0) {
                     container.visibility = View.GONE
                 } else {
-                    BindingUtils.bindCircleImage(container.getChildAt(0) as ImageView, it[0])
+                    val imageView = container.getChildAt(0) as ImageView
+                    val currentViewCount = container.childCount
+                    if (currentViewCount < imagesNum) {
+                        val padding = UiTools.dpToPx(container.context, 2f)
+                        for (i in 1 .. imagesNum - currentViewCount) {
+                            val params = FrameLayout.LayoutParams(imageView.layoutParams)
+                            params.leftMargin = (currentViewCount - 1 + i) * 40
+                            params.gravity = Gravity.CENTER_VERTICAL
+                            val view = ImageView(container.context)
+                            view.setBackgroundResource(R.drawable.article_image_bg)
+                            view.setPadding(padding, padding, padding, padding)
+                            container.addView(view, params)
+                        }
+                    } else if (currentViewCount > imagesNum) {
+                        val count = currentViewCount - imagesNum
+                        container.removeViews(imagesNum, count)
+                    }
+
+                    for (i in it.indices) {
+                        BindingUtils.bindCircleImage(container.getChildAt(i) as ImageView, it[i])
+                    }
                 }
 
             } ?: kotlin.run { container.visibility = View.GONE }
@@ -162,7 +179,7 @@ class IndexAdapter(private val mContext: Context) : RecyclerView.Adapter<IndexAd
                 userHeaders[bean.who] = headId
             }
             Log.d("id", "${bean.who}:$headId@$head")
-            head.setImageDrawable(mDrawables[headId])
+            head.setImageResource(mDrawables[headId])
         }
 
         fun bindIndexHeaderGift(item : IndexItem) {
