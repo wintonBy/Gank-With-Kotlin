@@ -73,6 +73,10 @@ class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
         }
     }
 
+    fun enableAuto(auto: Boolean) {
+        mViewPager.auto = auto
+    }
+
     /**
      * set padding in dp
      */
@@ -108,6 +112,7 @@ class AutoViewPagerContainer : RelativeLayout, ViewPager.OnPageChangeListener{
 
     override fun onPageScrollStateChanged(state: Int) {
         var needNotify = true
+        Log.d("DEBUG", "state:$state")
         if (mAdapter.needSwapPosition()) {
             if (state == ViewPager.SCROLL_STATE_IDLE) {
                 if (currentPosition == 0) {

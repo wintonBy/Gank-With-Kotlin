@@ -41,6 +41,7 @@ class TodayFragment:BaseFragment<FragListCommonBinding>() {
         srl.setOnRefreshListener { viewModel.start() }
         status.mRetryListener = object : IStatueListener {
             override fun onRetry() {
+                binding.status.showLoading()
                 viewModel.start()
             }
         }
