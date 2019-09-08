@@ -34,7 +34,7 @@ class TodayViewModel : BaseViewModel() {
     }
 
     class TodayData {
-        val data = ArrayList<IndexItem>()
+        val data = ArrayList<IndexItem>(41)
 
         fun reset() {
             data.clear()
@@ -98,11 +98,7 @@ class TodayViewModel : BaseViewModel() {
             else ->
                 for (i in response.results!!.indices) {
                     response.results!![i].views = Random.nextInt(10, 10000)
-                    when(i) {
-                        0 -> todayValue.data.add(IndexItem(IndexAdapter.T_TITLE, response.results!![i]))
-                        response.results!!.size-1 -> todayValue.data.add(IndexItem(IndexAdapter.T_END, response.results!![i]))
-                        else -> todayValue.data.add(IndexItem(IndexAdapter.T_CONTENT, response.results!![i]))
-                    }
+                    todayValue.data.add( IndexItem(IndexAdapter.T_CONTENT, response.results!![i]))
                 }
 
         }
