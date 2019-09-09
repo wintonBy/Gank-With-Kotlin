@@ -23,7 +23,7 @@
             android:src="@mipmap/ic_launcher"
             android:layout_gravity="center_horizontal"
             >
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:textColor="@android:color/white"
                 android:textSize="30dp"
                 android:gravity="center"
@@ -34,7 +34,7 @@
         </android.support.v7.widget.CardView>
 
 
-        <TextView
+        <com.winton.gank.gank.widget.EasyTFTextView
             android:id="@+id/version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+        <com.winton.gank.gank.widget.EasyTFTextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

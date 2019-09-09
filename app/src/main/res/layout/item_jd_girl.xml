@@ -15,7 +15,7 @@
             android:scaleType="centerInside"
             android:layout_width="match_parent"
             android:layout_height="120dp" />
-        <TextView
+        <com.winton.gank.gank.widget.EasyTFTextView
             android:layout_marginLeft="5dp"
             android:layout_marginTop="125dp"
             android:id="@+id/author"
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp" />
 
-        <TextView
+        <com.winton.gank.gank.widget.EasyTFTextView
             android:layout_marginRight="5dp"
             android:layout_marginTop="125dp"
             android:id="@+id/pic_num"

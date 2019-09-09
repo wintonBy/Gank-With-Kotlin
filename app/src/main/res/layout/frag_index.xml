@@ -10,7 +10,7 @@
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
-                <TextView
+                <com.winton.gank.gank.widget.EasyTFTextView
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"

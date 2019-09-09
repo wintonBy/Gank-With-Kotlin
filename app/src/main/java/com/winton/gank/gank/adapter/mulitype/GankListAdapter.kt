@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.BaseRVHolder
 import com.winton.gank.gank.databinding.ItemGankArticleBinding
@@ -77,6 +78,7 @@ class GankListAdapter(private var mContext: Context) : RecyclerView.Adapter<Gank
                 tvPublishTime.text = "发布于：${StringUtils.getGankReadTime(item.publishedAt)}"
                 bindArticleImg(item, flImagesContent)
                 //need last set, avoid
+                tvContent.typeface = App.typeTTF
                 tvContent.text = item.desc
             }
         }

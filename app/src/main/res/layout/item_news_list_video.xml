@@ -26,7 +26,7 @@
                 android:src="@mipmap/ic_play"
                 android:layout_width="60dp"
                 android:layout_height="60dp" />
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:padding="5dp"
                 android:textSize="@dimen/ts_content"
                 android:textColor="@android:color/white"

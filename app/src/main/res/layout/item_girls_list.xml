@@ -14,7 +14,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="matrix"
                 />
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:id="@+id/tv_tip"
                 android:visibility="gone"
                 android:background="#66FFFFFF"

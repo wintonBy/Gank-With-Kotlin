@@ -2,8 +2,10 @@ package com.winton.gank.gank
 
 import android.app.Activity
 import android.app.Application
+import android.graphics.Typeface
 import android.os.Handler
 import android.support.multidex.MultiDex
+import android.support.v4.graphics.TypefaceCompatUtil
 import com.blankj.utilcode.util.Utils
 import com.github.piasy.biv.BigImageViewer
 import com.github.piasy.biv.loader.glide.GlideImageLoader
@@ -39,6 +41,7 @@ class App:Application(),HasActivityInjector {
         val mMainThreadId = android.os.Process.myPid()
         var mUIHandler: Handler by Delegates.notNull()
 
+        var typeTTF: Typeface by Delegates.notNull()
     }
 
     override fun onCreate() {
@@ -46,6 +49,9 @@ class App:Application(),HasActivityInjector {
         MultiDex.install(this)
         INSTANCE = this
         mUIHandler = Handler()
+
+        typeTTF = Typeface.createFromAsset(assets, "fonts/custom.ttf")
+
         AppInjector.init(this)
         Utils.init(this)
         BigImageViewer.initialize(GlideImageLoader.with(this))

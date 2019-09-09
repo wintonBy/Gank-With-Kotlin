@@ -16,7 +16,7 @@
         app:contentPadding="5dp"
         android:layout_width="match_parent"
         android:layout_height="100dp">
-        <TextView
+        <com.winton.gank.gank.widget.EasyTFTextView
             android:id="@+id/tv_title"
             android:text="@{gankBean.desc}"
             android:textColor="@android:color/black"
@@ -29,7 +29,7 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:singleLine="true"
                 android:id="@+id/type"
                 android:textSize="@dimen/ts_tip"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:layout_marginLeft="10dp"
                 android:singleLine="true"
                 android:id="@+id/user"
@@ -53,7 +53,7 @@
                 android:text="@{gankBean.who}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:layout_marginLeft="10dp"
                 android:singleLine="true"
                 android:id="@+id/time"

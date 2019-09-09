@@ -17,7 +17,7 @@
                 android:scaleType="centerInside"
                 android:src="@mipmap/ic_back" />
 
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:id="@+id/tv_title"
                 android:textColor="@android:color/black"
                 android:gravity="center"
@@ -39,7 +39,7 @@
                 android:src="@mipmap/ic_more" />
 
         </RelativeLayout>
-        <TextView
+        <com.winton.gank.gank.widget.EasyTFTextView
             android:textColor="@android:color/black"
             android:textSize="@dimen/ts_content"
             android:gravity="center"
@@ -47,7 +47,7 @@
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </TextView>
+        </com.winton.gank.gank.widget.EasyTFTextView>
     </LinearLayout>
 
 

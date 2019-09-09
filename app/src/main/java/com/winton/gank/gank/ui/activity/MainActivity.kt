@@ -9,11 +9,15 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.transition.Explode
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
 import com.blankj.utilcode.util.ToastUtils
 import com.githang.statusbar.StatusBarCompat
 import com.winton.bottomnavigationview.NavigationView
+import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ActMainBinding
 import com.winton.gank.gank.ui.BaseActivity
@@ -67,7 +71,20 @@ class MainActivity : BaseActivity<ActMainBinding>() {
         mNV = binding.nv
         initFragments()
         initNavigation()
+        //change typeface
+        fixTypeFace(mNV)
+    }
 
+    private fun fixTypeFace(view: View) {
+        if (view is TextView) {
+            view.typeface = App.typeTTF
+            return
+        }
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                fixTypeFace(view.getChildAt(i))
+            }
+        }
     }
 
     /**

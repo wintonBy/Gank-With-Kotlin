@@ -52,12 +52,12 @@
             android:id="@+id/rl_his"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:text="搜索历史"
                 android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:id="@+id/tv_clear"
                 android:layout_alignParentRight="true"
                 android:textColor="@android:color/holo_blue_light"

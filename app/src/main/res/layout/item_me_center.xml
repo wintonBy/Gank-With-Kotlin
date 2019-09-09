@@ -12,7 +12,7 @@
             android:id="@+id/iv_icon"
             android:layout_width="60dp"
             android:layout_height="60dp" />
-        <TextView
+        <com.winton.gank.gank.widget.EasyTFTextView
             android:id="@+id/tv_title"
             android:textColor="@android:color/black"
             android:textSize="@dimen/ts_content"

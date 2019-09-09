@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
-    <TextView
+    <com.winton.gank.gank.widget.EasyTFTextView
         android:textStyle="bold"
         android:id="@+id/tab_title"
         android:textColor="@android:color/black"

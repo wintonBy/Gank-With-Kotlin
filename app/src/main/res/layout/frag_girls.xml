@@ -4,7 +4,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
+        <com.winton.gank.gank.widget.EasyTFTextView
             android:id="@+id/tv_title"
             android:textColor="@android:color/white"
             android:background="@android:color/holo_blue_light"

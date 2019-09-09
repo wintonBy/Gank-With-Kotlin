@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 style="@style/ItemSubTitle"
                 android:id="@+id/tv_publisher"
                 android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="@+id/iv_header"
                 app:layout_constraintVertical_bias="0.38" />
 
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 style="@style/ItemContent"
                 android:id="@+id/tv_content"
                 android:layout_width="0dp"
@@ -55,7 +55,7 @@
                 app:layout_constraintStart_toStartOf="@+id/iv_header"
                 app:layout_constraintTop_toBottomOf="@+id/iv_header" />
 
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:id="@+id/tv_publish_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                     android:layout_height="60dp"/>
             </FrameLayout>
 
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:id="@+id/tv_view_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_publish_time"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:background="@color/tag_bg"
                 android:textSize="@dimen/ts_tip"
                 android:paddingLeft="4dp"
@@ -113,7 +113,7 @@
                 app:layout_constraintStart_toStartOf="@+id/iv_header"
                 app:layout_constraintTop_toTopOf="@+id/tv_view_num" />
 
-            <TextView
+            <com.winton.gank.gank.widget.EasyTFTextView
                 android:id="@+id/tv_type"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
