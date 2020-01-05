@@ -1,12 +1,11 @@
 package com.winton.gank.gank.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.SPUtils
 import com.google.gson.Gson
 import com.winton.gank.gank.http.BaseWeixunSubscriber
 import com.winton.gank.gank.http.ErrorCode
 import com.winton.gank.gank.http.RetrofitHolder
-import com.winton.gank.gank.http.bean.NewsContent
 import com.winton.gank.gank.http.response.NewsResponse
 import com.winton.gank.gank.http.response.WeixunResponse
 import com.winton.gank.gank.repository.Resource
@@ -22,7 +21,7 @@ class NewsViewModel :BaseViewModel(){
 
     private var loadMoreTime = 0L
     private var firstLoadTime = 0L
-    private val mList:MutableLiveData<Resource<WeixunResponse>> = MutableLiveData()
+    private val mList: MutableLiveData<Resource<WeixunResponse>> = MutableLiveData()
     private val mVideoList:MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     private val gson:Gson by lazy { Gson() }
     fun getList() = mVideoList

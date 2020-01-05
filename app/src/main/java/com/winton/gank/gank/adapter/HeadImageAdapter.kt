@@ -1,17 +1,16 @@
 package com.winton.gank.gank.adapter
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.viewpager.widget.PagerAdapter
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemVpImageGiftBinding
 import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.utils.BindingUtils
 import com.winton.gank.gank.widget.AutoViewPager
-import com.winton.gank.gank.widget.AutoViewPagerContainer
 
 class HeadImageAdapter constructor(val context: Context, private val urls: ArrayList<TitleBean>): PagerAdapter(), AutoViewPager.AutoAdapter {
 

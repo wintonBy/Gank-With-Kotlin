@@ -1,7 +1,8 @@
 package com.winton.gank.gank.adapter
 
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+
 
 /**
  * @author: winton
@@ -9,7 +10,7 @@ import android.support.v7.util.DiffUtil
  * @desc: RecyclerView adapter 基类
  */
 
-abstract class BaseRVAdapter<T,V:BaseRVHolder>:ListAdapter<T,V>{
+abstract class BaseRVAdapter<T,V:BaseRVHolder>: ListAdapter<T, V> {
 
     constructor(diffCallback: DiffUtil.ItemCallback<T>) : super(diffCallback)
 

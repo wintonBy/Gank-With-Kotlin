@@ -1,6 +1,6 @@
 package com.winton.gank.gank.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.winton.gank.gank.http.BaseGankSubscriber
 import com.winton.gank.gank.http.ErrorCode
 import com.winton.gank.gank.http.RetrofitHolder
@@ -14,7 +14,7 @@ import com.winton.gank.gank.repository.Resource
  */
 class IndexViewModel :BaseViewModel(){
 
-    private var indexData:MutableLiveData<Resource<TodayResponse>> = MutableLiveData()
+    private var indexData: MutableLiveData<Resource<TodayResponse>> = MutableLiveData()
 
     fun getIndexData():MutableLiveData<Resource<TodayResponse>>{
         return indexData

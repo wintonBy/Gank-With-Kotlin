@@ -1,6 +1,6 @@
 package com.winton.gank.gank.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.winton.gank.gank.adapter.mulitype.IndexAdapter
 import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.http.BaseGankSubscriber

@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.PagerAdapter
 import com.github.piasy.biv.view.BigImageView
 import com.github.piasy.biv.view.GlideImageViewFactory
 import com.winton.gank.gank.R
@@ -36,7 +36,7 @@ class ImageActivity:BaseActivity<ActImgBinding>() {
     /**
      * 适配器
      */
-    class ImageAdapter constructor(private val mContext:Context, private val mData:ArrayList<String>):PagerAdapter() {
+    class ImageAdapter constructor(private val mContext:Context, private val mData:ArrayList<String>): PagerAdapter() {
 
         override fun isViewFromObject(view: View, any: Any) = view == any
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any)

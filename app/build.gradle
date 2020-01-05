@@ -16,7 +16,7 @@ android {
         targetSdkVersion build_version.targetSdkVersion
         versionCode build_version.versionCode
         versionName build_version.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk{
             abiFilters 'armeabi','armeabi-v7a','x86','x86-64'
@@ -56,70 +56,57 @@ android {
 
 }
 
-
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation files('libs/jsoup-1.11.3.jar')
-    implementation deps.kotlin.stdlib
-    testImplementation deps.junit
-    androidTestImplementation deps.atsl.runner
-    androidTestImplementation(deps.espresso.core, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
-    })
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50'
 
-    kapt deps.dagger.android_support_compiler
-    kapt deps.dagger.compiler
+    kapt 'com.google.dagger:dagger-android-processor:2.15'
+    kapt 'com.google.dagger:dagger-compiler:2.15'
+    implementation 'com.google.dagger:dagger:2.15'
+    implementation 'com.google.dagger:dagger-android:2.15'
+    implementation 'com.google.dagger:dagger-android-support:2.15'
 
-    implementation deps.dagger.runtime
-    implementation deps.dagger.android
-    implementation deps.dagger.android_support
-    implementation deps.multidex
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
-    implementation deps.support.appcompatV7
-    implementation deps.support.recyclerviewV7
-    implementation deps.support.cardviewV7
-    implementation deps.support.V4
-    implementation deps.support.design
-    implementation deps.lifecycle.extensions
-
-    implementation deps.constraint
-    implementation deps.BottomNavigationView
-    implementation deps.EasyStatueView
-    implementation deps.ScanLib
-    implementation deps.AppExecutor
-    implementation deps.okHttp
-    implementation deps.Cookie
-    implementation deps.Retrofit
-    implementation deps.converter_gson
-    implementation deps.adapter_rxjava
-    implementation deps.RxJava
-    implementation deps.rxandroid
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.winton:bottomnavigationview:1.0.0'
+    implementation 'com.github.wintonBy:EasyStatueView:1.0'
+    implementation 'com.github.wintonBy:EasyZxing:1.0'
+    implementation 'com.github.wintonBy:AppExecutor:1.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     /*工具类*/
-    implementation deps.utilcode
+    implementation 'com.blankj:utilcode:1.16.1'
 
-    implementation deps.flexbox
+    implementation 'com.google.android:flexbox:1.0.0'
 
-    implementation deps.glide.lib
-    kapt deps.glide.compiler
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
 
-    implementation deps.bigImage.bigImage
-    implementation deps.bigImage.glide
-    implementation deps.bigImage.factory
+    implementation 'com.github.piasy:BigImageViewer:1.5.6'
+    implementation 'com.github.piasy:GlideImageLoader:1.5.6'
+    implementation 'com.github.piasy:GlideImageViewFactory:1.5.6'
 
-    implementation deps.status_bar_compat
+    implementation 'com.githang:status-bar-compat:0.7'
 
-    implementation deps.circleindicator
+    implementation 'com.romandanylyk:pageindicatorview:1.0.2'
 
-    implementation deps.gsy.java
-    implementation deps.gsy.armv7
-    implementation deps.flowlayout
+    implementation 'com.shuyu:gsyVideoPlayer-java:6.0.1'
+    implementation 'com.shuyu:gsyVideoPlayer-armv7a:6.0.1'
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
 
-    implementation deps.room.runtime
-    kapt deps.room.compiler
-    implementation deps.room.rxjava2
-
-
-
+    implementation 'androidx.room:room-runtime:2.2.3'
+    kapt 'androidx.room:room-compiler:2.2.3'
+    implementation 'androidx.room:room-rxjava2:2.2.3'
 }

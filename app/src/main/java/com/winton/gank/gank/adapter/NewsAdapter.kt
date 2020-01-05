@@ -1,11 +1,11 @@
 package com.winton.gank.gank.adapter
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.shuyu.gsyvideoplayer.utils.GSYVideoHelper
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemNewsListVideoBinding
@@ -17,7 +17,7 @@ import com.winton.gank.gank.utils.BindingUtils
  * @time: 2018/11/2 5:44 PM
  * @desc: 新闻适配器
  */
-class NewsAdapter constructor(private val mContext: Context) :RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter constructor(private val mContext: Context) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     companion object {
         const val TAG = "NewsAdapter"

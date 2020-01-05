@@ -1,6 +1,6 @@
 package com.winton.gank.gank.db.dao
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.winton.gank.gank.repository.entity.SearchKey
 import io.reactivex.Flowable
 

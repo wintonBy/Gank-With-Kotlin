@@ -1,16 +1,16 @@
 package com.winton.gank.gank.ui
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
 /**
  * @author: winton
  * @time: 2018/10/9 下午3:38
  * @desc: Activity 基础类
  */
-abstract class BaseActivity<T:ViewDataBinding>:AppCompatActivity() {
+abstract class BaseActivity<T: ViewDataBinding>: AppCompatActivity() {
 
     val TAG = this.javaClass.name
     lateinit var binding:T

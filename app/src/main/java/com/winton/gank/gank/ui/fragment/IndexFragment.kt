@@ -1,18 +1,13 @@
 package com.winton.gank.gank.ui.fragment
 
 import android.animation.ValueAnimator
-import android.arch.lifecycle.ViewModelProviders
-import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.TextView
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ScreenUtils
-import com.blankj.utilcode.util.SizeUtils
-import com.githang.statusbar.StatusBarCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.tabs.TabLayout
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.IndexVPAdapter
 import com.winton.gank.gank.databinding.FragIndexBinding
@@ -21,7 +16,6 @@ import com.winton.gank.gank.ui.activity.MainActivity
 import com.winton.gank.gank.ui.activity.SearchActivity
 import com.winton.gank.gank.viewmodel.IndexViewModel
 import com.zxing.activity.ScanActivity
-import java.time.format.TextStyle
 
 /**
  * @author: winton
@@ -76,7 +70,7 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
     override fun initData() {
         super.initData()
         viewModel = ViewModelProviders.of(this).get(IndexViewModel::class.java)
-        adapter = IndexVPAdapter(fragmentManager,framents)
+        adapter = IndexVPAdapter(fragmentManager!!, framents)
         binding.vp.adapter = adapter
         binding.vp.offscreenPageLimit = framents.size
         binding.tabIndex.setupWithViewPager(binding.vp)
@@ -93,7 +87,7 @@ class IndexFragment: BaseFragment<FragIndexBinding>() {
             getTabAt(3)?.customView = getTab(3).apply { findViewById<TextView>(R.id.tab_title).text="iOS" }
             getTabAt(4)?.customView = getTab(4).apply { findViewById<TextView>(R.id.tab_title).text="App" }
         }
-        binding.tabIndex.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+        binding.tabIndex.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
 

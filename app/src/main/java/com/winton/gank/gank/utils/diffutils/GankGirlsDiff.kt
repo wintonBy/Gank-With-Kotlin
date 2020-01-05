@@ -1,6 +1,6 @@
 package com.winton.gank.gank.utils.diffutils
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.winton.gank.gank.http.bean.TitleBean
 
 /**
@@ -8,7 +8,7 @@ import com.winton.gank.gank.http.bean.TitleBean
  * @time: 2018/10/25 7:46 PM
  * @desc: 描述
  */
-class GankGirlsDiff:DiffUtil.ItemCallback<TitleBean>() {
+class GankGirlsDiff: DiffUtil.ItemCallback<TitleBean>() {
 
 
     override fun areContentsTheSame(oldItem: TitleBean, newItem: TitleBean): Boolean {

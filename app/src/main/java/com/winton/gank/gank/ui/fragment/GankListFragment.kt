@@ -1,25 +1,20 @@
 package com.winton.gank.gank.ui.fragment
 
 import android.annotation.TargetApi
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.widget.Scroller
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
-import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.mulitype.GankListAdapter
-import com.winton.gank.gank.adapter.mulitype.IndexItem
 import com.winton.gank.gank.databinding.FragListCommonBinding
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.WebActivity
 import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.GankListViewModel
-import com.winton.gank.gank.widget.CommItemDecoration
 
 /**
  * @author: winton
@@ -62,7 +57,7 @@ class GankListFragment:BaseFragment<FragListCommonBinding>() {
     @TargetApi(23)
     override fun initListener() {
         super.initListener()
-        binding.rvIndex.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+        binding.rvIndex.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             var lastVisibleItem = 0
             var isEnd = false
             var firstVisibleItem = 0

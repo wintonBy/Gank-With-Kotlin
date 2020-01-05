@@ -1,11 +1,11 @@
 package com.winton.gank.gank.adapter
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemJdGirlBinding
 import com.winton.gank.gank.http.response.Comment

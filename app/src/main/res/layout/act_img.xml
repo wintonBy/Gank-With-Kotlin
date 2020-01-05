@@ -7,12 +7,12 @@
         android:layout_height="match_parent"
         android:background="@android:color/black">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </android.support.v4.view.ViewPager>
+        </androidx.viewpager.widget.ViewPager>
 
         <com.rd.PageIndicatorView
             app:piv_viewPager="@id/vp"

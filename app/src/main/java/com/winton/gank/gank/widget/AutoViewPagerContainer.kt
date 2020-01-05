@@ -2,15 +2,13 @@ package com.winton.gank.gank.widget
 
 import android.content.Context
 import android.os.Build
-import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import com.blankj.utilcode.util.Utils
+import androidx.viewpager.widget.ViewPager
 import com.winton.gank.gank.R
 import com.winton.gank.gank.utils.UiTools
 

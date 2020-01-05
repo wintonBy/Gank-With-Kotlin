@@ -1,9 +1,6 @@
 package com.winton.gank.gank.adapter.mulitype
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.BaseRVHolder

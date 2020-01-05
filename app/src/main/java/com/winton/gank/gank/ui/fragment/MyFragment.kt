@@ -1,11 +1,10 @@
 package com.winton.gank.gank.ui.fragment
 
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SPUtils
-import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.ItemTouchHelperCallBack
 import com.winton.gank.gank.adapter.MeAdapter
@@ -14,7 +13,6 @@ import com.winton.gank.gank.http.bean.BeanType
 import com.winton.gank.gank.http.bean.PersonCenterBean
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.WebActivity
-import com.winton.gank.gank.utils.ACache
 import java.util.*
 
 /**

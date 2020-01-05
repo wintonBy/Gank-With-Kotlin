@@ -1,6 +1,6 @@
 package com.winton.gank.gank.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.winton.gank.gank.App
 import com.winton.gank.gank.db.AppDatabase
 import com.winton.gank.gank.http.BaseGankSubscriber
@@ -29,7 +29,7 @@ class SearchViewModel:BaseViewModel() {
 
     fun getListData(): MutableLiveData<Resource<CategoryResponse>> = listData
 
-    fun getKeyData():MutableLiveData<List<SearchKey>> = keyData
+    fun getKeyData(): MutableLiveData<List<SearchKey>> = keyData
 
 
     override fun stop() {

@@ -2,13 +2,13 @@ package com.winton.gank.gank.widget
 
 import android.content.Context
 import android.os.Handler
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Scroller
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 
-class AutoViewPager :ViewPager {
+class AutoViewPager : ViewPager {
 
     var auto = true
         set(value) {

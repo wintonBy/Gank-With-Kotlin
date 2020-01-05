@@ -1,21 +1,19 @@
 package com.winton.gank.gank.ui.fragment
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.GirlsAdapter
 import com.winton.gank.gank.databinding.FragGirlsBinding
-import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.ImageActivity
 import com.winton.gank.gank.utils.UiTools
 import com.winton.gank.gank.viewmodel.GankListViewModel
-import java.util.*
 
 /**
  * @author: winton
@@ -53,7 +51,7 @@ class GirlsFragment: BaseFragment<FragGirlsBinding>() {
 
     override fun initListener() {
         super.initListener()
-        binding.rv.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+        binding.rv.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             var visibleItems:IntArray = IntArray(spanCount)
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

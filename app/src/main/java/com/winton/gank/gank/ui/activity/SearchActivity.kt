@@ -1,24 +1,23 @@
 package com.winton.gank.gank.ui.activity
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.githang.statusbar.StatusBarCompat
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.SearchAdapter
 import com.winton.gank.gank.databinding.ActSearchBinding
-import com.winton.gank.gank.http.bean.TitleBean
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.repository.entity.SearchKey
 import com.winton.gank.gank.ui.BaseActivity

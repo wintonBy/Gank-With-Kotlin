@@ -1,7 +1,7 @@
 //所有工程都要用的公共配置，由各个子模块直接apply from
 
 def versions = [:]
-versions.gradle                 = '3.2.0'
+versions.gradle                 = '3.5.3'
 versions.kotlin                 = "1.3.31"
 versions.support                = "28.0.0"
 versions.gson                   = "2.6.2"
@@ -10,7 +10,7 @@ versions.multidex               = "1.0.1"
 versions.okHttp                 = "3.11.0"
 versions.nineOldAndroid         = "2.4.0"
 versions.constraint             = "1.1.3"
-versions.BottomNavigationView   = "2.4"
+versions.BottomNavigationView   = "1.0.0"
 versions.AppExecutor            = "1.1"
 versions.EasyStatueView         = "1.0"
 versions.Cookie                 = "v1.0.1"
@@ -37,21 +37,21 @@ versions.room                   = "1.1.1"
 
 
 def build_version = [:]
-build_version.compileSdkVersion   =  28
-build_version.buildToolsVersion   =  "28.0.3"
+build_version.compileSdkVersion   =  29
+build_version.buildToolsVersion   =  "29.0.2"
 build_version.minSdkVersion       =  17
-build_version.targetSdkVersion    =  28
+build_version.targetSdkVersion    =  29
 build_version.versionCode         =   2
 build_version.versionName         =   "2.0.0"
 ext.build_version = build_version
 
 def deps = [:]
 def support = [:]
-support.V4                   = "com.android.support:support-v4:$versions.support"
-support.appcompatV7          = "com.android.support:appcompat-v7:$versions.support"
-support.design               = "com.android.support:design:$versions.support"
-support.cardviewV7           = "com.android.support:cardview-v7:$versions.support"
-support.recyclerviewV7       = "com.android.support:recyclerview-v7:$versions.support"
+support.V4                   = 'androidx.legacy:legacy-support-v4:1.0.0'
+support.appcompatV7          = 'androidx.appcompat:appcompat:1.0.0'
+support.design               = 'com.google.android.material:material:1.0.0'
+support.cardviewV7           = 'androidx.cardview:cardview:1.0.0'
+support.recyclerviewV7       = 'androidx.recyclerview:recyclerview:1.0.0'
 support.annotations          = "com.android.support:support-annotations:$versions.support"
 support.core_utils           = "com.android.support:support-core-utils:$versions.support"
 deps.support                 = support
@@ -61,8 +61,8 @@ deps.gson                   = "com.google.code.gson:gson:$versions.gson"
 deps.multidex               = "com.android.support:$versions.multidex"
 deps.okHttp                 = "com.squareup.okhttp3:okhttp:$versions.okHttp"
 deps.nineOldAndroid         = "com.nineoldandroids:library:$versions.nineOldAndroid "
-deps.constraint             = "com.android.support.constraint:constraint-layout:$versions.constraint"
-deps.BottomNavigationView   = "com.github.wintonBy:BottomNavigationView:$versions.BottomNavigationView"
+deps.constraint             = 'androidx.constraintlayout:constraintlayout:1.1.3'
+deps.BottomNavigationView   = "com.winton:bottomnavigationview:$versions.BottomNavigationView"
 deps.AppExecutor            = "com.github.wintonBy:AppExecutor:$versions.AppExecutor"
 deps.EasyStatueView         = "com.github.wintonBy:EasyStatueView:$versions.EasyStatueView"
 deps.ScanLib                = "com.github.wintonBy:EasyZxing:$versions.ScanLib"
@@ -78,13 +78,13 @@ deps.flexbox                = "com.google.android:flexbox:$versions.flexbox"
 deps.StatusBarCompat        = "com.github.niorgai:StatusBarCompat:$versions.StatusBarCompat"
 deps.status_bar_compat      = "com.githang:status-bar-compat:$versions.status_bar_compat"
 deps.circleindicator        = "com.romandanylyk:pageindicatorview:$versions.circleindicator"
-deps.multidex               = "com.android.support:multidex:$versions.multidex"
+deps.multidex               = 'androidx.multidex:multidex:2.0.0'
 deps.flowlayout             = "com.hyman:flowlayout-lib:$versions.flowlayout"
 
 def room = [:]
-room.runtime = "android.arch.persistence.room:runtime:$versions.room"
-room.compiler = "android.arch.persistence.room:compiler:$versions.room"
-room.rxjava2 = "android.arch.persistence.room:rxjava2:$versions.room"
+room.runtime = 'androidx.room:room-runtime:2.0.0'
+room.compiler = 'androidx.room:room-compiler:2.0.0'
+room.rxjava2 = 'androidx.room:room-rxjava2:2.0.0'
 room.testing = "android.arch.persistence.room:testing:$versions.room"
 deps.room = room
 
@@ -105,13 +105,13 @@ bigImage.factory            = "com.github.piasy:GlideImageViewFactory:$versions.
 deps.bigImage               = bigImage
 
 def atsl = [:]
-atsl.runner                 = "com.android.support.test:runner:$versions.atsl_runner"
+atsl.runner                 = 'androidx.test.ext:junit:1.1.1'
 atsl.rules                  = "com.android.support.test:rules:$versions.atsl_runner"
 deps.atsl                   = atsl
 
 def kotlin = [:]
 kotlin.plugin               = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-kotlin.stdlib               = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.stdlib               = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
 deps.kotlin = kotlin
 
 def gradle                  = [:]
@@ -129,14 +129,14 @@ deps.glide                  = glide
 
 def lifecycle = [:]
 lifecycle.runtime           = "android.arch.lifecycle:runtime:$versions.lifecycle"
-lifecycle.extensions        = "android.arch.lifecycle:extensions:$versions.lifecycle"
+lifecycle.extensions        = 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 lifecycle.java8             = "android.arch.lifecycle:common-java8:$versions.lifecycle"
 lifecycle.compiler          = "android.arch.lifecycle:compiler:$versions.lifecycle"
 deps.lifecycle              = lifecycle
 
 
 def espresso = [:]
-espresso.core               = "com.android.support.test.espresso:espresso-core:$versions.espresso"
+espresso.core               = 'androidx.test.espresso:espresso-core:3.1.0'
 espresso.contrib            = "com.android.support.test.espresso:espresso-contrib:$versions.espresso"
 espresso.intents            = "com.android.support.test.espresso:espresso-intents:$versions.espresso"
 deps.espresso = espresso

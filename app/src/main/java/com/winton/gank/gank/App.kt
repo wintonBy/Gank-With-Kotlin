@@ -4,14 +4,12 @@ import android.app.Activity
 import android.app.Application
 import android.graphics.Typeface
 import android.os.Handler
-import android.support.multidex.MultiDex
-import android.support.v4.graphics.TypefaceCompatUtil
+import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.Utils
 import com.github.piasy.biv.BigImageViewer
 import com.github.piasy.biv.loader.glide.GlideImageLoader
 import com.winton.gank.gank.di.AppInjector
 import com.winton.library.PriorityExecutor
-import com.winton.librarystatue.StatueView
 import com.winton.librarystatue.StatusViewFactory
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector

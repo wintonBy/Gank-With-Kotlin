@@ -2,8 +2,8 @@ package com.winton.gank.gank.widget
 
 import android.content.Context
 import android.graphics.Typeface
-import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
 import com.winton.gank.gank.App
 
 class EasyTFTextView: AppCompatTextView {

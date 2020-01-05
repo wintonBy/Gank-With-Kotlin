@@ -3,9 +3,9 @@ package com.winton.gank.gank.di
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.winton.gank.gank.App
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
@@ -52,7 +52,7 @@ object AppInjector {
         }
         if(activity is FragmentActivity){
             activity.supportFragmentManager.registerFragmentLifecycleCallbacks(
-                    object :FragmentManager.FragmentLifecycleCallbacks(){
+                    object : FragmentManager.FragmentLifecycleCallbacks(){
                         override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
                             if( f is Injectable){
                                 AndroidSupportInjection.inject(f)

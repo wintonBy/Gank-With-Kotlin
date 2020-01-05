@@ -1,6 +1,5 @@
 package com.winton.gank.gank.di
 
-import android.arch.lifecycle.ViewModel
 import dagger.Module
 
 /**

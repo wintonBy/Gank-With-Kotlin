@@ -1,17 +1,14 @@
 package com.winton.gank.gank.ui.fragment
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import com.blankj.utilcode.util.SnackbarUtils
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.winton.gank.gank.R
 import com.winton.gank.gank.adapter.JDGirlsAdapter
 import com.winton.gank.gank.databinding.FragGirlsBinding
 import com.winton.gank.gank.http.api.JDApi
-import com.winton.gank.gank.http.response.Comment
 import com.winton.gank.gank.repository.Resource
 import com.winton.gank.gank.ui.BaseFragment
 import com.winton.gank.gank.ui.activity.ImageActivity
@@ -50,7 +47,7 @@ class JDGirlsFragment:BaseFragment<FragGirlsBinding>() {
             isDoRefresh = true
             viewModel.loadData(JDApi.TYPE_GIRL,pageIndex)
         }
-        binding.rv.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+        binding.rv.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             var lastVisibleItemPos = 0
             var firstVisibleItemPos = 0
 

@@ -1,14 +1,14 @@
 package com.winton.gank.gank.adapter
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.graphics.Color
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.winton.gank.gank.App
 import com.winton.gank.gank.R
 import com.winton.gank.gank.databinding.ItemMeCenterBinding

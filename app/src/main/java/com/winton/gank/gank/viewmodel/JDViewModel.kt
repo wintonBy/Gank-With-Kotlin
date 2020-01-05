@@ -1,6 +1,6 @@
 package com.winton.gank.gank.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.winton.gank.gank.http.BaseJDSubscriber
 import com.winton.gank.gank.http.ErrorCode
 import com.winton.gank.gank.http.RetrofitHolder
@@ -16,7 +16,7 @@ class JDViewModel:BaseViewModel() {
 
     private var data:MutableLiveData<Resource<JDListResponse>> = MutableLiveData()
 
-    fun getData():MutableLiveData<Resource<JDListResponse>> = data
+    fun getData(): MutableLiveData<Resource<JDListResponse>> = data
 
     override fun start() {
         super.start()
