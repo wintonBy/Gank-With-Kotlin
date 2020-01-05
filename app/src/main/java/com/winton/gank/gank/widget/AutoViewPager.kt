@@ -38,7 +38,7 @@ class AutoViewPager : ViewPager {
     }
 
     init {
-        val clazz = Class.forName("android.support.v4.view.ViewPager")
+        val clazz = Class.forName("androidx.viewpager.widget.ViewPager")
         val field = clazz.getDeclaredField("mScroller")
         field.isAccessible = true
         mFixScroller.mDuration = 1200
